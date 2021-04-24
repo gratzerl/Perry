@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RecipesScraper
+namespace Perry.RecipesScraper
 {
     class Program
     {

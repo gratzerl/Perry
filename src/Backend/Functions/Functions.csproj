@@ -1,7 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>
+    <RootNamespace>Perry.Functions</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="C:\Users\Linda\.nuget\packages\microsoft.azure.webjobs.extensions.openapi\0.5.1-preview\contentFiles\any\netstandard2.0\OpenApi\IOpenApiHttpTriggerContext.cs" />

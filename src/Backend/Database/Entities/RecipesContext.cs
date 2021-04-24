@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Database.Entities
+namespace Perry.Database.Entities
 {
     public class RecipesContext : DbContext
     {
