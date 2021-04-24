@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Database.Entities
+namespace Perry.Database.Entities
 {
     public class Recipe
     {

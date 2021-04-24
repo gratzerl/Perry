@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Database.Migrations
+namespace Perry.Database.Migrations
 {
     public partial class AddUrlToRecipe : Migration
     {
