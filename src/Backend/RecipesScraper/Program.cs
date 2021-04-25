@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Perry.RecipesScraper
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var s = new BbcGoodFoodScraper();
+            var recipes = await s.ScrapeRecipesAsync();
+            Console.WriteLine();
         }
     }
 }
