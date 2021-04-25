@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Database.Entities;
+using Perry.Database.Entities;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core
+namespace Perry.Core
 {
     public class IngredientsIdentifier : IIngredientsIdentifier
     {

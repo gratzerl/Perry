@@ -1,4 +1,4 @@
-using Core;
+using Perry.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -9,7 +9,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Functions
+namespace Perry.Functions
 {
     public class IngredientsIdentificationFunction
     {

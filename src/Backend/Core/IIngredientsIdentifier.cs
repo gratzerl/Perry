@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Core
+namespace Perry.Core
 {
     public interface IIngredientsIdentifier
     {

@@ -1,13 +1,13 @@
 ﻿using System;
-using Database.Entities;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
-using Core;
+using Perry.Core;
+using Perry.Database.Entities;
 
-[assembly: FunctionsStartup(typeof(Functions.Startup))]
-namespace Functions
+[assembly: FunctionsStartup(typeof(Perry.Functions.Startup))]
+namespace Perry.Functions
 {
     public class Startup : FunctionsStartup
     {
