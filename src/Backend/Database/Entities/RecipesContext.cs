@@ -26,6 +26,8 @@ namespace Perry.Database.Entities
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Recipe>().ToTable("Recipe");
+            modelBuilder.Entity<Ingredient>().ToTable("Ingredient");
+            modelBuilder.Entity<MethodStep>().ToTable("MethodStep");
         }
     }
 }

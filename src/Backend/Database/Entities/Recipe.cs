@@ -1,14 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Perry.Database.Entities
 {
-    public class Recipe
+    public partial class Recipe
     {
+        public Recipe()
+        {
+            Ingredients = new HashSet<Ingredient>();
+            MethodSteps = new HashSet<MethodStep>();
+        }
+
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
         public string Description { get; set; }
-        public string Method { get; set; }
-        public string Ingredients { get; set; }
+
+        public virtual ICollection<Ingredient> Ingredients { get; set; }
+        public virtual ICollection<MethodStep> MethodSteps { get; set; }
     }
 }
