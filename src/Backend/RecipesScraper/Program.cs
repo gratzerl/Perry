@@ -1,5 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Perry.Database.Entities;
+using Perry.RecipesScraper.Services;
 
 namespace Perry.RecipesScraper
 {
@@ -7,9 +13,30 @@ namespace Perry.RecipesScraper
     {
         static async Task Main(string[] args)
         {
-            var s = new BbcGoodFoodScraper();
-            var recipes = await s.ScrapeRecipesAsync();
-            Console.WriteLine();
+            var host = CreateHostBuilder(args).Build();
+            var scrapingService = host.Services.GetRequiredService<RecipeScrapingService>();
+            
+            await scrapingService.ScrapeRecipesAsync();
+
+            // await host.RunAsync();
         }
+
+        static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureServices((hostBuilderContext, services) =>
+                {
+                    var dbConnection = hostBuilderContext.Configuration.GetConnectionString("ApplicationDbConnection");
+
+                    services.AddDbContext<RecipesContext>(options => options.UseSqlServer(dbConnection));
+
+                    services.AddLogging(_ => _
+                        .AddConsole()
+                        .AddDebug()
+                    );
+
+                    services
+                    .AddTransient<IRecipeScraper, BbcGoodFoodScraper>()
+                    .AddSingleton<RecipeScrapingService>();
+                });
     }
 }
