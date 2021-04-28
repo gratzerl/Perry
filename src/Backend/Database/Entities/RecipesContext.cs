@@ -26,6 +26,22 @@ namespace Perry.Database.Entities
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Recipe>().ToTable("Recipe");
+            modelBuilder.Entity<Ingredient>().ToTable("Ingredient");
+            modelBuilder.Entity<MethodStep>().ToTable("MethodStep");
+            modelBuilder.Entity<Tag>().ToTable("Tag");
+
+            modelBuilder.Entity<RecipeTag>()
+                .HasKey(rt => new { rt.RecipeId, rt.TagId });
+
+            modelBuilder.Entity<RecipeTag>()
+                .HasOne(rt => rt.Recipe)
+                .WithMany(r => r.RecipeTags)
+                .HasForeignKey(rt => rt.RecipeId);
+
+            modelBuilder.Entity<RecipeTag>()
+                .HasOne(rt => rt.Tag)
+                .WithMany(t => t.RecipeTags)
+                .HasForeignKey(rt => rt.TagId);
         }
     }
 }
