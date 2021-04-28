@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Perry.Database.Entities;
-using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
-using Microsoft.EntityFrameworkCore;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction;
 
 namespace Perry.Core
 {
     public class IngredientsIdentifier : IIngredientsIdentifier
     {
-        private readonly RecipesContext recipesContext;
-        private readonly ComputerVisionClient visionClient;
+        private readonly CustomVisionPredictionClient visionClient;
+        private readonly CustomVisionProjectConfig projectConfig;
 
-        public IngredientsIdentifier(RecipesContext recipesContext, ComputerVisionClient visionClient)
+        public IngredientsIdentifier(CustomVisionPredictionClient visionClient, CustomVisionProjectConfig projectConfig)
         {
-            this.recipesContext = recipesContext ?? throw new ArgumentNullException(nameof(recipesContext));
             this.visionClient = visionClient ?? throw new ArgumentNullException(nameof(visionClient));
+            this.projectConfig = projectConfig ?? throw new ArgumentNullException(nameof(projectConfig));
         }
 
-        public IEnumerable<string> IdentifyIngredients()
+        public async Task<IEnumerable<string>> IdentifyIngredientsAsync(Stream fileStream)
         {
             throw new NotImplementedException();
         }
