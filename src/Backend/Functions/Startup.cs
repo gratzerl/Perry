@@ -1,8 +1,9 @@
 ﻿using System;
+using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
 using Perry.Core;
 using Perry.Database.Entities;
 
@@ -18,21 +19,27 @@ namespace Perry.Functions
                 throw new ArgumentNullException(nameof(builder));
             }
 
-            var cogServiceSubKey = Environment.GetEnvironmentVariable("ComputerVisionSubscriptionKey");
-            var cogServicesEndpoint = Environment.GetEnvironmentVariable("ComputerVisionEndpoint");
+            var cogServiceSubKey = Environment.GetEnvironmentVariable("CustomVisionKey");
+            var cogServicesEndpoint = Environment.GetEnvironmentVariable("CustomVisionEndpoint");
             var dbConnectionString = Environment.GetEnvironmentVariable("ConnectionStrings:DbConnectionString");
+
+            var config = builder.GetContext().Configuration;
+            var projectConfig = new CustomVisionProjectConfig
+            {
+                Id = Guid.Parse(config["CustomVisionProjectId"]),
+                Name = config["CustomVisionProjectName"]
+            };
 
             builder.Services
                 .AddDbContext<RecipesContext>(options => options.UseSqlServer(dbConnectionString))
-                .AddSingleton(CreateComputerVisionClient(cogServiceSubKey, cogServicesEndpoint))
+                .AddSingleton(CreateCustomVisionClient(cogServiceSubKey, cogServicesEndpoint))
+                .AddSingleton(projectConfig)
                 .AddTransient<IIngredientsIdentifier, IngredientsIdentifier>();
         }
 
-        private ComputerVisionClient CreateComputerVisionClient(string subscriptionKey, string endpoint)
+        private CustomVisionPredictionClient CreateCustomVisionClient(string subscriptionKey, string endpoint)
         {
-            
-
-            return new ComputerVisionClient(new ApiKeyServiceClientCredentials(subscriptionKey))
+            return new CustomVisionPredictionClient(new ApiKeyServiceClientCredentials(subscriptionKey))
             {
                 Endpoint = endpoint
             };
