@@ -1,43 +1,50 @@
-using Perry.Core;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using System;
-using System.IO;
-using System.Threading.Tasks;
+using Perry.Core.IngredientPrediction;
 
 namespace Perry.Functions
 {
     public class IngredientsIdentificationFunction
     {
-        private readonly IIngredientsIdentifier ingredientsIdentifier;
+        private readonly IIngredientsIdentificationService ingredientsIdentification;
 
-        public IngredientsIdentificationFunction(IIngredientsIdentifier ingredientsIdentifier)
+        public IngredientsIdentificationFunction(IIngredientsIdentificationService ingredientsIdentification)
         {
-            this.ingredientsIdentifier = ingredientsIdentifier ?? throw new ArgumentNullException(nameof(ingredientsIdentifier));
+            this.ingredientsIdentification = ingredientsIdentification ?? throw new ArgumentNullException(nameof(ingredientsIdentification));
         }
 
         [FunctionName("IngredientsIdentificationFunction")]
-        public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+        public async Task<IEnumerable<IEnumerable<IngredientPrediction>>> Run(
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
             ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            log.LogInformation("Received an ingredient identification request.");
+            
+            var imageFiles = req.Form.Files;
+            var result = new List<IEnumerable<IngredientPrediction>>();
 
-            string name = req.Query["name"];
+            log.LogInformation($"Processing {imageFiles.Count()} files.");
+            foreach(var file in imageFiles)
+            {
+                var s = file.OpenReadStream();
+                var predictions = await ingredientsIdentification.IdentifyIngredientsAsync(s);
+                var filtered = predictions
+                    .Where(p => p.Probability >= 0.83)
+                    .GroupBy(p => p.Name)
+                    .Select(grp => grp.First())
+                    .ToList();
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name ??= data?.name;
+                result.Add(filtered);
+            }
 
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
-
-            return new OkObjectResult(responseMessage);
+            log.LogInformation($"Finished identifying objects in {imageFiles.Count()} files.");
+            return result;
         }
     }
 }

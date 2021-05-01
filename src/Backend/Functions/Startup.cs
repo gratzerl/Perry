@@ -2,9 +2,8 @@
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Perry.Core;
+using Perry.Core.IngredientPrediction;
 using Perry.Database.Entities;
 
 [assembly: FunctionsStartup(typeof(Perry.Functions.Startup))]
@@ -19,29 +18,29 @@ namespace Perry.Functions
                 throw new ArgumentNullException(nameof(builder));
             }
 
-            var cogServiceSubKey = Environment.GetEnvironmentVariable("CustomVisionKey");
-            var cogServicesEndpoint = Environment.GetEnvironmentVariable("CustomVisionEndpoint");
+            var predictionKey = Environment.GetEnvironmentVariable("CV_PredictionKey");
+            var predictionEndpoint = Environment.GetEnvironmentVariable("CV_Endpoint");
             var dbConnectionString = Environment.GetEnvironmentVariable("ConnectionStrings:DbConnectionString");
 
             var config = builder.GetContext().Configuration;
             var projectConfig = new CustomVisionProjectConfig
             {
-                Id = Guid.Parse(config["CustomVisionProjectId"]),
-                Name = config["CustomVisionProjectName"]
+                Id = Guid.Parse(config["CV_ProjectId"]),
+                Name = config["CV_PublishedModelName"]
             };
 
             builder.Services
                 .AddDbContext<RecipesContext>(options => options.UseSqlServer(dbConnectionString))
-                .AddSingleton(CreateCustomVisionClient(cogServiceSubKey, cogServicesEndpoint))
+                .AddSingleton(CreatePredictionClient(predictionKey, predictionEndpoint))
                 .AddSingleton(projectConfig)
-                .AddTransient<IIngredientsIdentifier, IngredientsIdentifier>();
+                .AddTransient<IIngredientsIdentificationService, IngredientsIdentificationService>();
         }
 
-        private CustomVisionPredictionClient CreateCustomVisionClient(string subscriptionKey, string endpoint)
+        private CustomVisionPredictionClient CreatePredictionClient(string predictionKey, string predictionEndpoint)
         {
-            return new CustomVisionPredictionClient(new ApiKeyServiceClientCredentials(subscriptionKey))
+            return new CustomVisionPredictionClient(new ApiKeyServiceClientCredentials(predictionKey))
             {
-                Endpoint = endpoint
+                Endpoint = predictionEndpoint
             };
         }
     }
