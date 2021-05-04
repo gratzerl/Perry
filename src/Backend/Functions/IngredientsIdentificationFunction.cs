@@ -20,14 +20,14 @@ namespace Perry.Functions
         }
 
         [FunctionName("IngredientsIdentificationFunction")]
-        public async Task<IEnumerable<IEnumerable<IngredientPrediction>>> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
+        public async Task<IEnumerable<string>> Run(
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "ingredient-identification")] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("Received an ingredient identification request.");
             
             var imageFiles = req.Form.Files;
-            var result = new List<IEnumerable<IngredientPrediction>>();
+            var ingredients = new List<string>();
 
             log.LogInformation($"Processing {imageFiles.Count()} files.");
             foreach(var file in imageFiles)
@@ -37,14 +37,14 @@ namespace Perry.Functions
                 var filtered = predictions
                     .Where(p => p.Probability >= 0.83)
                     .GroupBy(p => p.Name)
-                    .Select(grp => grp.First())
+                    .Select(grp => grp.First().Name)
                     .ToList();
 
-                result.Add(filtered);
+                ingredients.AddRange(filtered);
             }
 
             log.LogInformation($"Finished identifying objects in {imageFiles.Count()} files.");
-            return result;
+            return ingredients;
         }
     }
 }
