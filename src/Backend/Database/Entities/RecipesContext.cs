@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace Perry.Database.Entities
 {
@@ -18,16 +19,13 @@ namespace Perry.Database.Entities
         {
             if (!options.IsConfigured)
             {
-                // TODO replace this either with a value from a config file or remove it all together
-                options.UseSqlServer("Server=DESKTOP-R73IC77;Database=Perry;Trusted_Connection=True;");
+                options.UseSqlServer("Server=DESKTOP-R73IC77; Database=Perry; Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Recipe>().ToTable("Recipe");
-            modelBuilder.Entity<Ingredient>().ToTable("Ingredient");
-            modelBuilder.Entity<MethodStep>().ToTable("MethodStep");
             modelBuilder.Entity<Tag>().ToTable("Tag");
 
             modelBuilder.Entity<RecipeTag>()
