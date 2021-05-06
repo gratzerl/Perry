@@ -13,6 +13,7 @@ namespace Perry.Functions
     public class IngredientsIdentificationFunction
     {
         private readonly IIngredientsIdentificationService ingredientsIdentification;
+        private const double MinRequiredProbability = 0.83;
 
         public IngredientsIdentificationFunction(IIngredientsIdentificationService ingredientsIdentification)
         {
@@ -27,7 +28,7 @@ namespace Perry.Functions
             log.LogInformation("Received an ingredient identification request.");
             
             var imageFiles = req.Form.Files;
-            var ingredients = new List<string>();
+            var ingredients = new HashSet<string>();
 
             log.LogInformation($"Processing {imageFiles.Count()} files.");
             foreach(var file in imageFiles)
@@ -35,12 +36,12 @@ namespace Perry.Functions
                 var s = file.OpenReadStream();
                 var predictions = await ingredientsIdentification.IdentifyIngredientsAsync(s);
                 var filtered = predictions
-                    .Where(p => p.Probability >= 0.83)
+                    .Where(p => p.Probability >= MinRequiredProbability)
                     .GroupBy(p => p.Name)
                     .Select(grp => grp.First().Name)
-                    .ToList();
+                    .ToHashSet();
 
-                ingredients.AddRange(filtered);
+                ingredients.Union(filtered);
             }
 
             log.LogInformation($"Finished identifying objects in {imageFiles.Count()} files.");
