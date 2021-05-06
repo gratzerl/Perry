@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using HtmlAgilityPack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,6 +37,7 @@ namespace Perry.RecipesScraper
 
                     services
                     .AddTransient<IRecipeScraper, BbcGoodFoodScraper>()
+                    .AddTransient<HtmlWeb>()
                     .AddSingleton<RecipeScrapingService>();
                 });
     }
