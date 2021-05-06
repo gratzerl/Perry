@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
-using Perry.Core.IngredientPrediction;
+using Perry.Core.IngredientPrediction.Services.Interfaces;
 
 namespace Perry.Functions
 {
