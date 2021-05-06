@@ -7,8 +7,6 @@ namespace Perry.Database.Entities
     {
         public Recipe()
         {
-            Ingredients = new HashSet<Ingredient>();
-            MethodSteps = new HashSet<MethodStep>();
             RecipeTags = new HashSet<RecipeTag>();
         }
 
@@ -16,9 +14,9 @@ namespace Perry.Database.Entities
         public string Name { get; set; }
         public string Url { get; set; }
         public string Description { get; set; }
+        public string Ingredients { get; set; }
+        public string Method { get; set; }
 
-        public virtual ICollection<Ingredient> Ingredients { get; set; }
-        public virtual ICollection<MethodStep> MethodSteps { get; set; }
         public virtual ICollection<RecipeTag> RecipeTags { get; set; }
     }
 }
