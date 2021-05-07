@@ -1,12 +1,12 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using Microsoft.Extensions.Logging;
+using Perry.RecipesScraper.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
-using HtmlAgilityPack;
-using Microsoft.Extensions.Logging;
-using Perry.Database.Entities;
 
 namespace Perry.RecipesScraper.Services
 {
@@ -54,9 +54,9 @@ namespace Perry.RecipesScraper.Services
             return recipeUrls;
         }
 
-        protected override async Task<IEnumerable<Recipe>> ParseRecipesFromUrlsAsync(IEnumerable<string> recipeUrls)
+        protected override async Task<IEnumerable<ScrapedRecipeModel>> ParseRecipesFromUrlsAsync(IEnumerable<string> recipeUrls)
         {
-            var recipes = new List<Recipe>();
+            var recipes = new List<ScrapedRecipeModel>();
             
             foreach(var url in recipeUrls)
             {
@@ -73,15 +73,7 @@ namespace Perry.RecipesScraper.Services
                         .Descendants()
                         .FirstOrDefault(n => n.HasClass("editor-content"))
                         .FirstChild?.InnerHtml ?? string.Empty;
-
-                    var recipe = new Recipe
-                    {
-                        Id = Guid.NewGuid(),
-                        Url = url,
-                        Name = WebUtility.HtmlDecode(name),
-                        Description = WebUtility.HtmlDecode(description)
-                    };
-
+                                       
                     var ingredients = doc.DocumentNode
                         .Descendants()
                         .FirstOrDefault(n => n.HasClass("recipe__ingredients"))
@@ -92,8 +84,14 @@ namespace Perry.RecipesScraper.Services
                         .FirstOrDefault(n => n.HasClass("recipe__method-steps"))
                         .GetEscapedInnerTextInDescendentsForClass("list-item");
 
-                    recipe.Ingredients = string.Join('\n', ingredients);
-                    recipe.Method = string.Join('\n', methodSteps);
+                    var recipe = new ScrapedRecipeModel
+                    {
+                        Url = url,
+                        Name = WebUtility.HtmlDecode(name),
+                        Description = WebUtility.HtmlDecode(description),
+                        Ingredients = ingredients,
+                        Steps = methodSteps
+                    };
 
                     recipes.Add(recipe);
                 } 

@@ -35,7 +35,17 @@ namespace Perry.RecipesScraper.Services
             var taskResult = await Task.WhenAll(scrapingTasks).ConfigureAwait(false);
             logger.LogInformation("Scrapers finished.");
 
-            var scrapedRecipes = taskResult.SelectMany(r => r).ToList();
+            var scrapedRecipes = taskResult.SelectMany(r => r).Select(r => 
+                new Recipe
+                {
+                    Id = Guid.NewGuid(),
+                    Name = r.Name,
+                    Description = r.Description,
+                    Ingredients = string.Join('\n', r.Ingredients),
+                    Method = string.Join('\n', r.Steps),
+                    Url = r.Url
+                }
+            ).ToList();
 
             int duplicateCount = scrapedRecipes.RemoveAll(r => savedRecipes.Contains(r.Url));
             logger.LogInformation($"{duplicateCount} recipes are already saved in the db. Skipping these...");

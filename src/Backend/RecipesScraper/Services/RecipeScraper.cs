@@ -1,6 +1,6 @@
 ﻿using HtmlAgilityPack;
 using Microsoft.Extensions.Logging;
-using Perry.Database.Entities;
+using Perry.RecipesScraper.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +20,7 @@ namespace Perry.RecipesScraper.Services
             this.web = web ?? throw new ArgumentNullException(nameof(web));
         }
 
-        public async Task<IEnumerable<Recipe>> ScrapeRecipesAsync()
+        public async Task<IEnumerable<ScrapedRecipeModel>> ScrapeRecipesAsync()
         {
             logger.LogInformation($"Start scraping recipes from {sitemapBaseUrl}...");
 
@@ -35,6 +35,6 @@ namespace Perry.RecipesScraper.Services
 
         protected abstract Task<IEnumerable<string>> GetRecipeUrlsFromSitemapAsync();
 
-        protected abstract Task<IEnumerable<Recipe>> ParseRecipesFromUrlsAsync(IEnumerable<string> recipeUrls);
+        protected abstract Task<IEnumerable<ScrapedRecipeModel>> ParseRecipesFromUrlsAsync(IEnumerable<string> recipeUrls);
     }
 }
