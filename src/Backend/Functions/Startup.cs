@@ -3,7 +3,11 @@ using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Perry.Core.IngredientPrediction;
+using Perry.Core.IngredientPrediction.Models;
+using Perry.Core.IngredientPrediction.Services;
+using Perry.Core.IngredientPrediction.Services.Interfaces;
+using Perry.Core.RecipeSuggestions.Services;
+using Perry.Core.RecipeSuggestions.Services.Interfaces;
 using Perry.Database.Entities;
 
 [assembly: FunctionsStartup(typeof(Perry.Functions.Startup))]
@@ -33,7 +37,9 @@ namespace Perry.Functions
                 .AddDbContext<RecipesContext>(options => options.UseSqlServer(dbConnectionString))
                 .AddSingleton(CreatePredictionClient(predictionKey, predictionEndpoint))
                 .AddSingleton(projectConfig)
-                .AddTransient<IIngredientsIdentificationService, IngredientsIdentificationService>();
+                .AddTransient<IIngredientsIdentificationService, IngredientsIdentificationService>()
+                .AddTransient<IRecipeSuggestionService, RecipeSuggestionService>()
+                .AddTransient<IRecipeQueryBuilder, RecipeQueryBuilder>();
         }
 
         private CustomVisionPredictionClient CreatePredictionClient(string predictionKey, string predictionEndpoint)

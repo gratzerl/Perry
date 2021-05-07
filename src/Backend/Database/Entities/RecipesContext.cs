@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Perry.Database.Entities
 {
@@ -14,12 +13,15 @@ namespace Perry.Database.Entities
         }
 
         public DbSet<Recipe> Recipes { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<RecipeTag> RecipeTags { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             if (!options.IsConfigured)
             {
-                options.UseSqlServer("Server=DESKTOP-R73IC77; Database=Perry; Trusted_Connection=True;");
+                options.UseSqlServer("Server=(local);Database=Perry;Trusted_Connection=True;");
             }
         }
 
@@ -27,6 +29,7 @@ namespace Perry.Database.Entities
         {
             modelBuilder.Entity<Recipe>().ToTable("Recipe");
             modelBuilder.Entity<Tag>().ToTable("Tag");
+            modelBuilder.Entity<RecipeTag>().ToTable("RecipeTag");
 
             modelBuilder.Entity<RecipeTag>()
                 .HasKey(rt => new { rt.RecipeId, rt.TagId });
