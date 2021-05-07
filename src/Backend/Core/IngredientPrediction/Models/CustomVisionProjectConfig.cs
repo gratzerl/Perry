@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Perry.Core.IngredientPrediction
+namespace Perry.Core.IngredientPrediction.Models
 {
     public class CustomVisionProjectConfig
     {
