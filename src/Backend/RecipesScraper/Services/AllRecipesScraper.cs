@@ -42,13 +42,6 @@ namespace Perry.RecipesScraper.Services
                     .ToHashSet();
                 
                 recipeUrls.UnionWith(urls);
-
-#if DEBUG
-                if (recipeUrls.Count > 20)
-                {
-                    break;
-                }
-#endif
             }
 
             return recipeUrls;
@@ -72,7 +65,9 @@ namespace Perry.RecipesScraper.Services
                     var description = doc.DocumentNode
                         .Descendants()
                         .FirstOrDefault(n => n.HasClass("recipe-summary"))
-                        .FirstChild?.InnerHtml ?? string.Empty;
+                        .Descendants()
+                        .FirstOrDefault(n => n.HasClass("margin-0-auto"))
+                        .InnerHtml ?? string.Empty;
 
                     var recipe = new Recipe
                     {
@@ -96,7 +91,14 @@ namespace Perry.RecipesScraper.Services
                     recipe.Method = string.Join('\n', methodSteps);
 
                     recipes.Add(recipe);
-                } 
+
+#if DEBUG
+                    if (recipes.Count > 20)
+                    {
+                        break;
+                    }
+#endif
+                }
                 catch (Exception)
                 {
                     logger.LogWarning($"Failed to parse recipe from url: ${url}. Skipping it.");
