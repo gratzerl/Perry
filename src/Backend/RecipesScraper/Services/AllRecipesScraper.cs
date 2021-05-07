@@ -10,34 +10,16 @@ using Perry.Database.Entities;
 
 namespace Perry.RecipesScraper.Services
 {
-    public class AllRecipesScraper : IRecipeScraper
+    public class AllRecipesScraper : RecipeScraper
     {
-        private const string sitemapBaseUrl = "https://www.allrecipes.com/sitemap.xml";
         private const string recipeSitemapBaseUrl = "https://www.allrecipes.com/sitemaps/recipe/";
 
-        private readonly HtmlWeb web;
-        private readonly ILogger<AllRecipesScraper> logger;
-
-        public AllRecipesScraper(ILogger<AllRecipesScraper> logger, HtmlWeb web)
+        public AllRecipesScraper(ILogger<AllRecipesScraper> logger, HtmlWeb web) : base(logger, web)
         {
-            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            this.web = web ?? throw new ArgumentNullException(nameof(web));
+            sitemapBaseUrl = "https://www.allrecipes.com/sitemap.xml";
         }
 
-        public async Task<IEnumerable<Recipe>> ScrapeRecipesAsync()
-        {
-            logger.LogInformation($"Start scraping recipes from {sitemapBaseUrl}...");
-            
-            var recipeUrls = await GetRecipeUrlsFromSitemapAsync();
-            logger.LogInformation($"Found {recipeUrls.Count()} recipe urls");
-
-            var recipes = await ParseRecipesFromUrlsAsync(recipeUrls);
-            logger.LogInformation($"Created {recipes.Count()} recipes");
-
-            return recipes;
-        }
-
-        private async Task<IEnumerable<string>> GetRecipeUrlsFromSitemapAsync()
+        protected override async Task<IEnumerable<string>> GetRecipeUrlsFromSitemapAsync()
         {
             var doc = await web.LoadFromWebAsync(sitemapBaseUrl);
 
@@ -72,7 +54,7 @@ namespace Perry.RecipesScraper.Services
             return recipeUrls;
         }
 
-        private async Task<IEnumerable<Recipe>> ParseRecipesFromUrlsAsync(IEnumerable<string> recipeUrls)
+        protected override async Task<IEnumerable<Recipe>> ParseRecipesFromUrlsAsync(IEnumerable<string> recipeUrls)
         {
             var recipes = new List<Recipe>();
             
