@@ -37,6 +37,7 @@ namespace Perry.RecipesScraper
 
                     services
                     .AddTransient<IRecipeScraper, BbcGoodFoodScraper>()
+                    .AddTransient<IRecipeScraper, AllRecipesScraper>()
                     .AddTransient<HtmlWeb>()
                     .AddSingleton<RecipeScrapingService>();
                 });
