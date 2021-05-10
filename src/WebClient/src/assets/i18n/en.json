@@ -1,1 +1,112 @@
-{}
+{
+  "title": "Perry",
+  "landing-page": {
+    "title": "Perry",
+    "sub-title": "Your personal recipe suggestion assistent",
+    "description": "Perry helps you to discover new recipes using the left-over ingredients. He helps you to reduce food waste while also considering your personal preferences and dietary choices.",
+    "start-button-label": "Let's start",
+    "guide": {
+      "heading": "How does it work?",
+      "step-1": {
+        "heading": "Step 1",
+        "description": "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet."
+      },
+      "step-2": {
+        "heading": "Step 2",
+        "description": "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet."
+      },
+      "step-3": {
+        "heading": "Step 3",
+        "description": "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet."
+      }
+    }
+  },
+  "recipe-finder": {
+    "heading": "Find recipes!"
+  },
+  "primeng": {
+    "startsWith": "Starts with",
+    "contains": "Contains",
+    "notContains": "Not contains",
+    "endsWith": "Ends with",
+    "equals": "Equals",
+    "notEquals": "Not equals",
+    "noFilter": "No Filter",
+    "lt": "Less than",
+    "lte": "Less than or equal to",
+    "gt": "Greater than",
+    "gte": "Great then or equals",
+    "is": "Is",
+    "isNot": "Is not",
+    "before": "Before",
+    "after": "After",
+    "clear": "Clear",
+    "apply": "Apply",
+    "matchAll": "Match All",
+    "matchAny": "Match Any",
+    "addRule": "Add Rule",
+    "removeRule": "Remove Rule",
+    "accept": "Yes",
+    "reject": "No",
+    "choose": "Choose",
+    "upload": "Upload",
+    "cancel": "Cancel",
+    "dayNames": [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "dayNamesShort": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat"
+    ],
+    "dayNamesMin": [
+      "Su",
+      "Mo",
+      "Tu",
+      "We",
+      "Th",
+      "Fr",
+      "Sa"
+    ],
+    "monthNames": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "monthNamesShort": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    "today": "Today",
+    "weekHeader": "Wk"
+  }
+}

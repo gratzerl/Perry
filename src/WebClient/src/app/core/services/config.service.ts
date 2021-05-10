@@ -13,6 +13,7 @@ export class ConfigService {
 
   async init(): Promise<void> {
     this.config = await this.http.get<Config>('./assets/appsettings.json').toPromise();
+    return Promise.resolve();
   }
 
   get Config(): Config {
