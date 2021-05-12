@@ -22,7 +22,10 @@
     }
   },
   "recipe-finder": {
-    "heading": "Finde Rezepte!"
+    "heading": "Finde Rezepte!",
+    "ingredient-identification": {
+      "no-ingredients-found-msg": "Wir konnten leider keine Zutaten finden :("
+    }
   },
   "primeng": {
     "startsWith": "Beginnt mit",

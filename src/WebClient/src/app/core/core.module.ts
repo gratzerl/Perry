@@ -8,6 +8,9 @@ import { SharedModule } from '../shared/shared.module';
 import { ConfigService, GlobalErrorHandler, LanguageService } from './services';
 import { NavShellComponent, HeaderComponent, ContentComponent, LanguageSwitcherComponent } from './components/nav-shell';
 import { LandingPageComponent, InstructionStepComponent, PageBannerComponent, PageInstructionsComponent } from './pages/landing-page';
+import { AppConfig } from './models';
+
+export const APP_CONFIG = new InjectionToken<AppConfig>('AppConfig');
 
 const INIT_DEPS = new InjectionToken<(() => Observable<unknown>)[]>('InitDependencies');
 
@@ -34,7 +37,11 @@ const appInitializer = (
     PageBannerComponent,
     PageInstructionsComponent,
   ],
-  imports: [CommonModule, SharedModule, RouterModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    RouterModule
+  ],
   providers: [
     {
       provide: INIT_DEPS,
@@ -51,6 +58,7 @@ const appInitializer = (
       multi: true,
     },
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    { provide: APP_CONFIG, useFactory: (configService: ConfigService) => configService.Config, deps: [ConfigService] }
   ],
 })
 export class CoreModule { }
