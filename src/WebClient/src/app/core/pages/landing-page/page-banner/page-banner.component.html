@@ -1,0 +1,13 @@
+<div class="banner" *transloco="let t; read: 'landing-page'">
+  <div class="title-container">
+    <h1 class="title">{{ t("title") }}</h1>
+    <h2 class="sub-title">{{ t("sub-title") }}</h2>
+  </div>
+  <div>
+    <p class="description">{{ t("description") }}</p>
+  </div>
+  <p-button
+    [label]="t('start-button-label')"
+    [routerLink]="['suggest']"
+  ></p-button>
+</div>

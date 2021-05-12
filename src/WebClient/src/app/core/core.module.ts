@@ -1,14 +1,13 @@
 import { APP_INITIALIZER, ErrorHandler, InjectionToken, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { SharedModule } from '../shared/shared.module';
 
 import { ConfigService, GlobalErrorHandler, LanguageService } from './services';
-import { NavShellComponent, HeaderComponent, ContentComponent } from './components';
-import { LandingPageComponent, InstructionStepComponent } from './pages';
-import { LanguageSwitcherComponent } from './components/nav-shell/language-switcher/language-switcher.component';
-import { Observable } from 'rxjs';
+import { NavShellComponent, HeaderComponent, ContentComponent, LanguageSwitcherComponent } from './components/nav-shell';
+import { LandingPageComponent, InstructionStepComponent, PageBannerComponent, PageInstructionsComponent } from './pages/landing-page';
 
 const INIT_DEPS = new InjectionToken<(() => Observable<unknown>)[]>('InitDependencies');
 
@@ -32,6 +31,8 @@ const appInitializer = (
     ContentComponent,
     InstructionStepComponent,
     LanguageSwitcherComponent,
+    PageBannerComponent,
+    PageInstructionsComponent,
   ],
   imports: [CommonModule, SharedModule, RouterModule],
   providers: [

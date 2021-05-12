@@ -1,31 +1,5 @@
 <app-header></app-header>
-<app-content *transloco="let t; read: 'landing-page'">
-  <div class="section">
-    <div class="title-container">
-      <h1 class="title">{{ t("title") }}</h1>
-      <h3 class="sub-title">{{ t("sub-title") }}</h3>
-    </div>
-    <div>
-      <p class="description">{{ t("description") }}</p>
-    </div>
-    <p-button
-      [label]="t('start-button-label')"
-      [routerLink]="['suggest']"
-    ></p-button>
-  </div>
-  <div class="section instructions-container">
-    <h4>{{ t("guide.heading") }}</h4>
-    <app-instruction-step
-      [title]="t('guide.step-1.heading')"
-      [description]="t('guide.step-1.description')"
-    ></app-instruction-step>
-    <app-instruction-step
-      [title]="t('guide.step-2.heading')"
-      [description]="t('guide.step-2.description')"
-    ></app-instruction-step>
-    <app-instruction-step
-      [title]="t('guide.step-3.heading')"
-      [description]="t('guide.step-3.description')"
-    ></app-instruction-step>
-  </div>
+<app-content>
+  <app-page-banner></app-page-banner>
+  <app-page-instructions></app-page-instructions>
 </app-content>
