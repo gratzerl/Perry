@@ -19,39 +19,22 @@ namespace Perry.RecipesScraper.Services
             sitemapBaseUrl = "https://www.bbcgoodfood.com/sitemap.xml";
         }
 
-        protected override async Task<IEnumerable<string>> GetRecipeUrlsFromSitemapAsync()
+        protected override IEnumerable<string> GetRecipeLocsFromSitemap(HtmlNode documentNode)
         {
-            var doc = await web.LoadFromWebAsync(sitemapBaseUrl);
-
-            var sitemapLocs = doc.DocumentNode
+            return documentNode
                 .Descendants()
                 .Where(n => n.Name == "loc")
                 .Select(n => HttpUtility.HtmlDecode(n.InnerText))
                 .ToList();
+        }
 
-            var recipeUrls = new HashSet<string>();
-
-            foreach (var loc in sitemapLocs)
-            {
-                doc = await web.LoadFromWebAsync(loc);
-
-                var urls = doc.DocumentNode
+        protected override HashSet<string> GetRecipeUrlsInSitemapUrls(HtmlNode documentNode)
+        {
+            return documentNode
                     .Descendants()
                     .Where(node => node.Name == "loc" && !node.InnerText.Contains("collection") && !node.InnerText.Contains("category") && node.InnerText.StartsWith(recipeBaseUrl))
                     .Select(node => HttpUtility.HtmlDecode(node.InnerText))
                     .ToHashSet();
-                
-                recipeUrls.UnionWith(urls);
-
-#if DEBUG
-                if (recipeUrls.Count > 20)
-                {
-                    break;
-                }
-#endif
-            }
-
-            return recipeUrls;
         }
 
         protected override async Task<IEnumerable<ScrapedRecipeModel>> ParseRecipesFromUrlsAsync(IEnumerable<string> recipeUrls)

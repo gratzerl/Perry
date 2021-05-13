@@ -33,7 +33,29 @@ namespace Perry.RecipesScraper.Services
             return recipes;
         }
 
-        protected abstract Task<IEnumerable<string>> GetRecipeUrlsFromSitemapAsync();
+        protected async Task<IEnumerable<string>> GetRecipeUrlsFromSitemapAsync()
+        {
+            var doc = await web.LoadFromWebAsync(sitemapBaseUrl);
+
+            var sitemapLocs = GetRecipeLocsFromSitemap(doc.DocumentNode);
+
+            var recipeUrls = new HashSet<string>();
+
+            foreach (var loc in sitemapLocs)
+            {
+                doc = await web.LoadFromWebAsync(loc);
+
+                var urls = GetRecipeUrlsInSitemapUrls(doc.DocumentNode);
+
+                recipeUrls.UnionWith(urls);
+            }
+
+            return recipeUrls;
+        }
+
+        protected abstract IEnumerable<string> GetRecipeLocsFromSitemap(HtmlNode documentNode);
+
+        protected abstract HashSet<string> GetRecipeUrlsInSitemapUrls(HtmlNode documentNode);
 
         protected abstract Task<IEnumerable<ScrapedRecipeModel>> ParseRecipesFromUrlsAsync(IEnumerable<string> recipeUrls);
     }
