@@ -1,4 +1,15 @@
-<ng-container *transloco="let t; read: 'recipe-finder'">
-  <h1>{{ t("heading") }}</h1>
-  <app-ingredients-identification></app-ingredients-identification>
+<ng-container *transloco="let t">
+  <h1>{{ t('rf.heading') }}</h1>
+  <div class="recipes-finder">
+    <div class="steps-container">
+      <p-steps [model]="steps" [readonly]="false"></p-steps>
+    </div>
+    <div class="step-content">
+      <router-outlet></router-outlet>
+      <div class="steps-bottom-bar">
+        <p-button [label]="t('component-labels.back')"></p-button>
+        <p-button [label]="t('component-labels.next')"></p-button>
+      </div>
+    </div>
+  </div>
 </ng-container>

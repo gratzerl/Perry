@@ -4,3 +4,29 @@
 @import "styles/variables";
 
 @import "styles/reset";
+
+.steps-container {
+  .p-steps ul {
+    flex-direction: column;
+
+    .p-steps-item:not(:last-of-type) {
+      margin-bottom: $vertical-padding;
+    }
+
+    .p-steps-item::before {
+      display: none;
+    }
+
+    @media screen and (max-width: $max-sm-width) {
+      flex-direction: row;
+
+      .p-steps-item:not(:last-of-type) {
+        margin-bottom: unset;
+      }
+
+      .p-steps-item::before {
+        display: block;
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "heading": "Find recipes!",
+  "steps": {
+    "identification": {
+      "step-label": "Ingredients"
+    },
+    "preferences": {
+      "step-label": "Preferences"
+    }
+  },
+  "ingredient-identification": {
+    "no-ingredients-found-msg": "Sadly, we could not identify any ingredients :(",
+    "uncheck-unwanted-ingredients-msg": "We have found the following ingredients. You can also unselected missidentified ingredients."
+  }
+}

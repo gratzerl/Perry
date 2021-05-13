@@ -9,6 +9,7 @@ import { ConfigService, GlobalErrorHandler, LanguageService } from './services';
 import { NavShellComponent, HeaderComponent, ContentComponent, LanguageSwitcherComponent } from './components/nav-shell';
 import { LandingPageComponent, InstructionStepComponent, PageBannerComponent, PageInstructionsComponent } from './pages/landing-page';
 import { AppConfig } from './models';
+import { TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
 export const APP_CONFIG = new InjectionToken<AppConfig>('AppConfig');
 
@@ -58,7 +59,8 @@ const appInitializer = (
       multi: true,
     },
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
-    { provide: APP_CONFIG, useFactory: (configService: ConfigService) => configService.Config, deps: [ConfigService] }
+    { provide: APP_CONFIG, useFactory: (configService: ConfigService) => configService.Config, deps: [ConfigService] },
+    { provide: TRANSLOCO_SCOPE, useValue: { scope: 'core', alias: 'core' } }
   ],
 })
 export class CoreModule { }

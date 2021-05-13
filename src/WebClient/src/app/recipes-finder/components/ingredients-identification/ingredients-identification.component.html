@@ -1,20 +1,23 @@
-<ng-container *transloco="let t; read: 'recipe-finder.ingredient-identification'">
-  <div *ngIf="!isLoading">
+<div *ngIf="!isLoading">
+  <ng-container *transloco="let t; read: 'component-labels'">
     <p-fileUpload accept="image/*" [customUpload]="true" [multiple]="true"
-      (uploadHandler)="identifyIngredients($event.files)" [showCancelButton]="false">
+      (uploadHandler)="identifyIngredients($event.files)" [showCancelButton]="false" [chooseLabel]="t('choose')"
+      [uploadLabel]="t('upload')">
     </p-fileUpload>
+  </ng-container>
+  <ng-container *transloco="let t; read: 'rf.ingredient-identification'">
     <div *ngIf="identifiedIngredients !== undefined">
       <div *ngIf="identifiedIngredients.length === 0">
         {{ t('no-ingredients-found-msg')}}
       </div>
       <div *ngIf="identifiedIngredients.length > 0">
-        <span *ngFor="let i of identifiedIngredients; last as isLast">
-          {{ i }} {{ isLast ? '' : ', ' }}
-        </span>
+        {{ t('uncheck-unwanted-ingredients-msg') }}
+        <app-ingredient-selection [ingredients]="identifiedIngredients" (selectionChange)="updateSelection($event)">
+        </app-ingredient-selection>
       </div>
     </div>
-  </div>
-  <div *ngIf="isLoading">
-    <app-loading-spinner></app-loading-spinner>
-  </div>
-</ng-container>
+  </ng-container>
+</div>
+<div *ngIf="isLoading">
+  <app-loading-spinner></app-loading-spinner>
+</div>

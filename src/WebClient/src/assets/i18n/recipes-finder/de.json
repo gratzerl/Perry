@@ -1,0 +1,15 @@
+{
+  "heading": "Finde Rezepte!",
+  "steps": {
+    "identification": {
+      "step-label": "Zutaten"
+    },
+    "preferences": {
+      "step-label": "Präferenzen"
+    }
+  },
+  "ingredient-identification": {
+    "no-ingredients-found-msg": "Wir konnten leider keine Zutaten finden :(",
+    "uncheck-unwanted-ingredients-msg": "Diese Zutaten haben wir gefunden. Du kanst falsch identifizierte Zutaten auch wieder abwählen."
+  }
+}

@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 import { PrimeNGConfig } from 'primeng/api';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Injectable({
@@ -15,12 +15,11 @@ export class LanguageService implements OnDestroy {
   constructor(private ngConfig: PrimeNGConfig, private transloco: TranslocoService) { }
 
   init(): Promise<void> {
+    this.updateNgConfig(this.activeLang);
+
     this.transloco.langChanges$
       .pipe(takeUntil(this.onDestroy))
-      .subscribe(() => {
-        const componentTexts = this.transloco.getTranslation('primeng');
-        this.ngConfig.setTranslation(componentTexts);
-      });
+      .subscribe((lang) => this.updateNgConfig(lang));
 
     this.transloco.getAvailableLangs()
       .forEach((obj: string | { id: string; label: string }) => {
@@ -39,6 +38,10 @@ export class LanguageService implements OnDestroy {
     this.onDestroy.complete();
   }
 
+  get langChanges(): Observable<string> {
+    return this.transloco.langChanges$;
+  }
+
   get availableLangs(): string[] {
     return this.languages;
   }
@@ -49,5 +52,10 @@ export class LanguageService implements OnDestroy {
 
   set activeLang(lang: string) {
     this.transloco.setActiveLang(lang);
+  }
+
+  private updateNgConfig(lang: string): void {
+    const componentTexts = this.transloco.getTranslation(lang);
+    this.ngConfig.setTranslation(componentTexts['core.primeng']);
   }
 }

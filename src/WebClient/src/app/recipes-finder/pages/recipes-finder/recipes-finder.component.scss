@@ -1,0 +1,41 @@
+@import "src/styles/variables";
+
+.recipes-finder {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+
+  @media screen and (max-width: $max-sm-width) {
+    flex-direction: column;
+  }
+
+  .steps-container {
+    flex: 1;
+    margin: 0;
+
+    @media screen and (max-width: $max-sm-width) {
+      flex: unset;
+      margin-bottom: $vertical-padding;
+    }
+  }
+
+  .step-content {
+    flex: 3;
+    display: flex;
+
+    @media screen and (max-width: $max-sm-width) {
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .steps-bottom-bar {
+      margin-top: $vertical-padding;
+      display: flex;
+      align-items: center;
+
+      p-button:first-of-type {
+        margin-right: auto;
+      }
+    }
+  }
+}

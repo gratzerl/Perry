@@ -5,6 +5,7 @@
 }
 
 .content-container {
+  height: 100%;
   padding: $vertical-padding $xl-horizontal-padding;
 
   @media (max-width: $max-lg-width) {

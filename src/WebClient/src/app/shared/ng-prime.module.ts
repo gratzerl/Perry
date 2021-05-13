@@ -4,6 +4,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { FileUploadModule } from 'primeng/fileupload';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { StepsModule } from 'primeng/steps';
 
 @NgModule({
   exports: [
@@ -11,7 +12,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     SelectButtonModule,
     FileUploadModule,
     CheckboxModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    StepsModule
   ],
 })
 export class NgPrimeModule { }

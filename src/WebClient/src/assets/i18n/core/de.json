@@ -1,0 +1,108 @@
+{
+  "landing-page": {
+    "title": "Perry",
+    "sub-title": "Dein persönlicher Rezeptsuch-Assistent",
+    "description": "Perry hilft dir, neue Rezepte mit übriggebliebenen Lebensmittel zu finden. Dadurch soll Lebensmittelverschwendung reduziert werden, während er genau auf deine Vorlieben und Ernährungsgewohnheiten achtet.",
+    "start-button-label": "Los legen",
+    "guide": {
+      "heading": "Wie funktioniert's?",
+      "step-1": {
+        "heading": "Schritt 1",
+        "description": "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet."
+      },
+      "step-2": {
+        "heading": "Schritt 2",
+        "description": "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet."
+      },
+      "step-3": {
+        "heading": "Schritt 3",
+        "description": "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet."
+      }
+    }
+  },
+  "primeng": {
+    "startsWith": "Beginnt mit",
+    "contains": "Enthält",
+    "notContains": "Enthält nicht",
+    "endsWith": "Endet mit",
+    "equals": "Ist gleich",
+    "notEquals": "Ist ungleich",
+    "noFilter": "Kein Filter",
+    "lt": "Kleiner",
+    "lte": "Kleinergleich",
+    "gt": "Größer",
+    "gte": "Größergleich",
+    "is": "Ist",
+    "isNot": "Ist nicht",
+    "before": "Vorher",
+    "after": "Nachher",
+    "clear": "Löschen",
+    "apply": "Anwenden",
+    "matchAll": "Alle",
+    "matchAny": "Manche",
+    "addRule": "Regel hinzufügen",
+    "removeRule": "Regel entfernen",
+    "accept": "Ja",
+    "reject": "Nein",
+    "choose": "Wählen",
+    "upload": "Hochladen",
+    "cancel": "Abbrechen",
+    "dayNames": [
+      "Sonntag",
+      "Montag",
+      "Dienstag",
+      "Mittwoch",
+      "Donnerstag",
+      "Freitag",
+      "Samstag"
+    ],
+    "dayNamesShort": [
+      "Son",
+      "Mon",
+      "Die",
+      "Mit",
+      "Don",
+      "Fre",
+      "Sam"
+    ],
+    "dayNamesMin": [
+      "So",
+      "Mo",
+      "Di",
+      "Mi",
+      "Do",
+      "Fr",
+      "Sa"
+    ],
+    "monthNames": [
+      "Jänner",
+      "Feburar",
+      "März",
+      "April",
+      "Mai",
+      "Juni",
+      "July",
+      "August",
+      "September",
+      "Oktober",
+      "November",
+      "Dezember"
+    ],
+    "monthNamesShort": [
+      "Jan",
+      "Feb",
+      "Mär",
+      "Apr",
+      "Mai",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Okt",
+      "Nov",
+      "Dez"
+    ],
+    "today": "Heute",
+    "weekHeader": "Wo"
+  }
+}
