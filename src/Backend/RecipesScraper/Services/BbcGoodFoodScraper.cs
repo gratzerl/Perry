@@ -1,11 +1,7 @@
 ﻿using HtmlAgilityPack;
 using Microsoft.Extensions.Logging;
-using Perry.RecipesScraper.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Perry.RecipesScraper.Services
@@ -37,54 +33,36 @@ namespace Perry.RecipesScraper.Services
                     .ToHashSet();
         }
 
-        protected override async Task<IEnumerable<ScrapedRecipeModel>> ParseRecipesFromUrlsAsync(IEnumerable<string> recipeUrls)
+        protected override string GetRecipeName(HtmlNode documentNode)
         {
-            var recipes = new List<ScrapedRecipeModel>();
-            
-            foreach(var url in recipeUrls)
-            {
-                try
-                {
-                    var doc = await web.LoadFromWebAsync(url);
-
-                    var name = doc.DocumentNode
+            return documentNode
                     .Descendants()
                     .FirstOrDefault(n => n.HasClass("post-header__title"))
                     ?.InnerHtml ?? string.Empty;
+        }
 
-                    var description = doc.DocumentNode
-                        .Descendants()
-                        .FirstOrDefault(n => n.HasClass("editor-content"))
-                        .FirstChild?.InnerHtml ?? string.Empty;
-                                       
-                    var ingredients = doc.DocumentNode
-                        .Descendants()
-                        .FirstOrDefault(n => n.HasClass("recipe__ingredients"))
-                        .GetEscapedInnerTextInDescendentsForClass("list-item");
+        protected override string GetRecipeDescription(HtmlNode documentNode)
+        {
+            return documentNode
+                    .Descendants()
+                    .FirstOrDefault(n => n.HasClass("editor-content"))
+                    .FirstChild?.InnerHtml ?? string.Empty;
+        }
 
-                    var methodSteps = doc.DocumentNode
-                        .Descendants()
-                        .FirstOrDefault(n => n.HasClass("recipe__method-steps"))
-                        .GetEscapedInnerTextInDescendentsForClass("list-item");
+        protected override IEnumerable<string> GetRecipeIngredients(HtmlNode documentNode)
+        {
+            return documentNode
+                    .Descendants()
+                    .FirstOrDefault(n => n.HasClass("recipe__ingredients"))
+                    .GetEscapedInnerTextInDescendentsForClass("list-item");
+        }
 
-                    var recipe = new ScrapedRecipeModel
-                    {
-                        Url = url,
-                        Name = WebUtility.HtmlDecode(name),
-                        Description = WebUtility.HtmlDecode(description),
-                        Ingredients = ingredients,
-                        Steps = methodSteps
-                    };
-
-                    recipes.Add(recipe);
-                } 
-                catch (Exception)
-                {
-                    logger.LogWarning($"Failed to parse recipe from url: ${url}. Skipping it.");
-                }
-            }
-
-            return recipes;
+        protected override IEnumerable<string> GetRecipeSteps(HtmlNode documentNode)
+        {
+            return documentNode
+                    .Descendants()
+                    .FirstOrDefault(n => n.HasClass("recipe__method-steps"))
+                    .GetEscapedInnerTextInDescendentsForClass("list-item");
         }
     }
 }
