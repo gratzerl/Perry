@@ -1,15 +1,32 @@
 {
   "heading": "Finde Rezepte!",
-  "steps": {
-    "identification": {
-      "step-label": "Zutaten"
-    },
-    "preferences": {
-      "step-label": "Präferenzen"
+  "ingredients": {
+    "heading": "Bestimme deine Zutaten",
+    "step-label": "Zutaten",
+    "messages": {
+      "no-ingredients-found": "Wir konnten leider keine Zutaten finden :(",
+      "uncheck-unwanted-ingredients": "Diese Zutaten haben wir gefunden. Du kanst falsch identifizierte Zutaten auch wieder abwählen."
     }
   },
-  "ingredient-identification": {
-    "no-ingredients-found-msg": "Wir konnten leider keine Zutaten finden :(",
-    "uncheck-unwanted-ingredients-msg": "Diese Zutaten haben wir gefunden. Du kanst falsch identifizierte Zutaten auch wieder abwählen."
+  "preferences": {
+    "heading": "Wähle deine Präferenzen",
+    "step-label": "Präferenzen",
+    "categories": {
+      "diet": {
+        "heading": "Ernährung",
+        "options": {
+          "vegetarian": "Vegetarisch",
+          "vegan": "Vegan"
+        }
+      },
+      "difficulty": {
+        "heading": "Schwierigkeit",
+        "options": {
+          "easy": "Einfach",
+          "medium": "Mittel",
+          "hard": "Schwer"
+        }
+      }
+    }
   }
 }

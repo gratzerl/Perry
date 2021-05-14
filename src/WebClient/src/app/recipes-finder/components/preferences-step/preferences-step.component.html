@@ -1,0 +1,8 @@
+<div *transloco="let t; read: 'rf.preferences'">
+  <h2> {{ t('heading') }}</h2>
+  <ng-container *ngFor="let cat of categories | keyvalue">
+    <h3> {{ t('categories.'+ cat.value +'.heading') }}</h3>
+    <app-perference-selection [preferences]="recipePreferences[cat.value]"
+      (selectionChange)="updateSelection(cat.value, $event)"></app-perference-selection>
+  </ng-container>
+</div>

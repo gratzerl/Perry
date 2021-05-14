@@ -22,9 +22,9 @@
   .step-content {
     flex: 3;
     display: flex;
+    flex-direction: column;
 
     @media screen and (max-width: $max-sm-width) {
-      flex-direction: column;
       flex: 1;
     }
 
@@ -32,9 +32,10 @@
       margin-top: $vertical-padding;
       display: flex;
       align-items: center;
+      justify-content: flex-end;
 
       p-button:first-of-type {
-        margin-right: auto;
+        margin-right: 1.5em;
       }
     }
   }

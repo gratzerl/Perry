@@ -15,8 +15,6 @@ export class IngredientSelectionComponent implements OnChanges {
 
   selectedIngredients: string[] = [];
 
-  constructor() { }
-
   ngOnChanges(): void {
     this.selectedIngredients = [...this.ingredients];
   }

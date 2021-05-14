@@ -1,3 +1,4 @@
-export { IngredientsIdentificationComponent } from './ingredients-identification/ingredients-identification.component';
-export { IngredientSelectionComponent } from './ingredient-selection/ingredient-selection.component';
-export { PerferenceSelectionComponent } from './perference-selection/perference-selection.component';
+export { IngredientsStepComponent } from './ingredients-step/ingredients-step.component';
+export { IngredientSelectionComponent } from './ingredients-step/ingredient-selection/ingredient-selection.component';
+export { PerferenceSelectionComponent } from './preferences-step/perference-selection/perference-selection.component';
+export { PreferencesStepComponent } from './preferences-step/preferences-step.component';

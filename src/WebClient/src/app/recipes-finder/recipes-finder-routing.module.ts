@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { IngredientsIdentificationComponent, PerferenceSelectionComponent } from './components';
+import { IngredientsStepComponent, PreferencesStepComponent } from './components';
 import { RecipesFinderComponent } from './pages';
 
 const routes: Routes = [
@@ -15,11 +15,11 @@ const routes: Routes = [
       },
       {
         path: 'identification',
-        component: IngredientsIdentificationComponent
+        component: IngredientsStepComponent
       },
       {
         path: 'preferences',
-        component: PerferenceSelectionComponent
+        component: PreferencesStepComponent
       }
     ]
   }

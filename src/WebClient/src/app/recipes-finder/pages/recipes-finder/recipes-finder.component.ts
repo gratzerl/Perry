@@ -38,11 +38,11 @@ export class RecipesFinderComponent implements OnInit, OnDestroy {
   private createStepItems(): MenuItem[] {
     return [
       {
-        label: this.transloco.translate(`rf.steps.identification.step-label`),
+        label: this.transloco.translate('rf.ingredients.step-label'),
         routerLink: 'identification'
       },
       {
-        label: this.transloco.translate(`rf.steps.preferences.step-label`),
+        label: this.transloco.translate('rf.preferences.step-label'),
         routerLink: 'preferences'
       },
     ];

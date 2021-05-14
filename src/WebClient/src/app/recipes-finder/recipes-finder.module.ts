@@ -4,15 +4,18 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { RecipesFinderRoutingModule } from './recipes-finder-routing.module';
 import { RecipesFinderComponent } from './pages';
-import { IngredientsIdentificationComponent, IngredientSelectionComponent, PerferenceSelectionComponent } from './components';
+import { IngredientSelectionComponent, PerferenceSelectionComponent, IngredientsStepComponent } from './components';
 import { TRANSLOCO_SCOPE } from '@ngneat/transloco';
+import { RecipeStepperDataService } from './services';
+import { PreferencesStepComponent } from './components/preferences-step/preferences-step.component';
 
 @NgModule({
   declarations: [
     RecipesFinderComponent,
-    IngredientsIdentificationComponent,
+    IngredientsStepComponent,
     IngredientSelectionComponent,
-    PerferenceSelectionComponent
+    PerferenceSelectionComponent,
+    PreferencesStepComponent
   ],
   imports: [
     CommonModule,
@@ -20,6 +23,7 @@ import { TRANSLOCO_SCOPE } from '@ngneat/transloco';
     RecipesFinderRoutingModule
   ],
   providers: [
+    RecipeStepperDataService,
     { provide: TRANSLOCO_SCOPE, useValue: { scope: 'recipes-finder', alias: 'rf' } }
   ]
 })

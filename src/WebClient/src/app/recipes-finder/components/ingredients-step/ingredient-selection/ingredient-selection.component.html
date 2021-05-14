@@ -3,6 +3,6 @@
     <p-checkbox [value]="i" [inputId]="i" [(ngModel)]="selectedIngredients"
       (onChange)="selectionChange.emit(selectedIngredients)">
     </p-checkbox>
-    <label class="label" [for]="i">{{ i }}</label>
+    <label class="p-checkbox-label" [for]="i">{{ i }}</label>
   </div>
 </div>
