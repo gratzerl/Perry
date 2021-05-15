@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { PreferenceCategory, RecipePreferences } from '../../constants/recipe-preferences.constants';
+import { PreferenceCategory, recipePreferences } from '../../constants';
 import { RecipeTag } from '../../models';
-import { RecipeStepperDataService } from '../../services';
+import { RecipeStepperService } from '../../services';
 
 @Component({
   selector: 'app-preferences-step',
@@ -10,16 +10,16 @@ import { RecipeStepperDataService } from '../../services';
 })
 export class PreferencesStepComponent {
 
-  recipePreferences = RecipePreferences;
+  recipePreferences = recipePreferences;
   categories = PreferenceCategory;
 
   selectedPreferences: RecipeTag[] = [];
 
-  constructor(private recipeDataService: RecipeStepperDataService) { }
+  constructor(private stepperService: RecipeStepperService) { }
 
   updateSelection(category: PreferenceCategory, selectedPreferences: RecipeTag[]): void {
     this.selectedPreferences = [...selectedPreferences];
-    const { preferences } = this.recipeDataService.recipeStepperData;
+    const { preferences } = this.stepperService.data;
     preferences[category] = selectedPreferences;
   }
 }

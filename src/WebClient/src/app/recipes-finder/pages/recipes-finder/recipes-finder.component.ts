@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TranslocoService } from '@ngneat/transloco';
-import { MenuItem } from 'primeng/api';
 import { Subject } from 'rxjs';
-import { pluck, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
+import { RecipeStepperData } from '../../models';
+import { RecipeStepperService } from '../../services';
 
 @Component({
   selector: 'app-recipes-finder',
@@ -10,23 +10,18 @@ import { pluck, takeUntil } from 'rxjs/operators';
   styleUrls: ['./recipes-finder.component.scss']
 })
 export class RecipesFinderComponent implements OnInit, OnDestroy {
-
   private onDestroy = new Subject<void>();
-  steps: MenuItem[] = [];
 
-  constructor(private transloco: TranslocoService) { }
+  recipeData?: RecipeStepperData;
+
+  constructor(private stepperService: RecipeStepperService) { }
 
   ngOnInit(): void {
-    this.transloco.events$
-      .pipe(takeUntil(this.onDestroy), pluck('payload'))
-      .subscribe(() => {
-        this.steps = this.createStepItems();
-      });
-
-    this.transloco.langChanges$
+    this.stepperService.stepperComplete$
       .pipe(takeUntil(this.onDestroy))
-      .subscribe(() => {
-        this.steps = this.createStepItems();
+      .subscribe(data => {
+        console.log(data);
+        this.recipeData = data;
       });
   }
 
@@ -34,18 +29,4 @@ export class RecipesFinderComponent implements OnInit, OnDestroy {
     this.onDestroy.next();
     this.onDestroy.complete();
   }
-
-  private createStepItems(): MenuItem[] {
-    return [
-      {
-        label: this.transloco.translate('rf.ingredients.step-label'),
-        routerLink: 'identification'
-      },
-      {
-        label: this.transloco.translate('rf.preferences.step-label'),
-        routerLink: 'preferences'
-      },
-    ];
-  }
-
 }

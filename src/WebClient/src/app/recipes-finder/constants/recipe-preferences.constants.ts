@@ -32,7 +32,7 @@ const DifficultyPreferences: RecipeTag[] = [
   }
 ];
 
-export const RecipePreferences: { [key in PreferenceCategory]: RecipeTag[] } = {
+export const recipePreferences: { [key in PreferenceCategory]: RecipeTag[] } = {
   [PreferenceCategory.Diet]: DietPreferences,
   [PreferenceCategory.Difficulty]: DifficultyPreferences
 }

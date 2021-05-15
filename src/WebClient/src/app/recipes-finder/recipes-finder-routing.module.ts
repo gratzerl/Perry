@@ -8,11 +8,11 @@ const routes: Routes = [
     path: '',
     component: RecipesFinderComponent,
     children: [
-      {
-        path: '',
-        redirectTo: 'identification',
-        pathMatch: 'full'
-      },
+      // {
+      //   path: '',
+      //   redirectTo: 'identification',
+      //   pathMatch: 'full'
+      // },
       {
         path: 'identification',
         component: IngredientsStepComponent
