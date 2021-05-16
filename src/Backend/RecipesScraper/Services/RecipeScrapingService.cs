@@ -67,7 +67,7 @@ namespace Perry.RecipesScraper.Services
 
             await recipeContext.Recipes.AddRangeAsync(scrapedRecipes);
             await recipeContext.SaveChangesAsync();
-            logger.LogInformation($"{taskResult.Length} recipes saved.");
+            logger.LogInformation($"{scrapedRecipes.Count} recipes saved.");
         }
     }
 }
