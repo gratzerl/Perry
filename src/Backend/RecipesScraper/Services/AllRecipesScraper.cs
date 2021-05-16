@@ -8,18 +8,21 @@ namespace Perry.RecipesScraper.Services
 {
     public class AllRecipesScraper : RecipeScraper
     {
-        private const string recipeSitemapBaseUrl = "https://www.allrecipes.com/sitemaps/recipe/";
+        private readonly List<string> recipeSitemapBaseUrls = new List<string> {
+            "https://www.allrecipes.com/sitemaps/recipe/",
+            "https://www.eatingwell.com/sitemaps/recipe/"
+        };
 
-        public AllRecipesScraper(ILogger<AllRecipesScraper> logger, HtmlWeb web) : base(logger, web)
+        public AllRecipesScraper(ILogger<AllRecipesScraper> logger, HtmlWeb web) 
+            : base(logger, web, new List<string> { "https://www.allrecipes.com/sitemap.xml", "https://www.eatingwell.com/sitemap.xml" })
         {
-            sitemapBaseUrl = "https://www.allrecipes.com/sitemap.xml";
         }
 
         protected override IEnumerable<string> GetRecipeLocsFromSitemap(HtmlNode documentNode)
         {
             return documentNode
                 .Descendants()
-                .Where(node => node.Name == "loc" && node.InnerText.StartsWith(recipeSitemapBaseUrl))
+                .Where(node => node.Name == "loc" && recipeSitemapBaseUrls.Any(url => node.InnerText.StartsWith(url)))
                 .Select(n => HttpUtility.HtmlDecode(n.InnerText))
                 .ToList();
         }
@@ -66,6 +69,5 @@ namespace Perry.RecipesScraper.Services
                     .FirstOrDefault(n => n.HasClass("instructions-section"))
                     .GetEscapedInnerTextInDescendentsForClass("paragraph");
         }
-
     }
 }

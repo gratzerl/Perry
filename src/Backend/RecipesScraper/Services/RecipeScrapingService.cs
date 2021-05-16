@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Perry.Database.Entities;
+using Perry.RecipesScraper.Models;
 
 namespace Perry.RecipesScraper.Services
 {
@@ -13,6 +14,13 @@ namespace Perry.RecipesScraper.Services
         private readonly RecipesContext recipeContext;
         private readonly ILogger<RecipeScrapingService> logger;
         private readonly IEnumerable<IRecipeScraper> scrapers;
+
+        private readonly List<string> sitemapUrls = new List<string>
+        {
+            "https://www.allrecipes.com/sitemap.xml",
+            "https://www.eatingwell.com/sitemap.xml",
+            "https://www.bbcgoodfood.com/sitemap.xml"
+        };
 
         public RecipeScrapingService(RecipesContext recipeContext, ILogger<RecipeScrapingService> logger, IEnumerable<IRecipeScraper> scrapers)
         {
@@ -31,7 +39,14 @@ namespace Perry.RecipesScraper.Services
             logger.LogInformation($"Retrieved {savedRecipes.Count} urls from the db.");
 
             logger.LogInformation("Starting scrapers...");
-            var scrapingTasks = scrapers.Select(s => s.ScrapeRecipesAsync()).ToList();
+
+            var scrapingTasks = new List<Task<IEnumerable<ScrapedRecipeModel>>>();
+            foreach(var url in sitemapUrls)
+            {
+                var scraper = scrapers.FirstOrDefault(s => s.CanParseUrl(url)) ?? throw new ArgumentException($"No valid scraper found for {url}");
+                scrapingTasks.Add(scraper.ScrapeRecipesAsync(url));
+            }
+
             var taskResult = await Task.WhenAll(scrapingTasks).ConfigureAwait(false);
             logger.LogInformation("Scrapers finished.");
 

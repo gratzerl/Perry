@@ -10,9 +10,9 @@ namespace Perry.RecipesScraper.Services
     {
         private const string recipeBaseUrl = "https://www.bbcgoodfood.com/recipes";
 
-        public BbcGoodFoodScraper(ILogger<BbcGoodFoodScraper> logger, HtmlWeb web) : base(logger, web)
+        public BbcGoodFoodScraper(ILogger<BbcGoodFoodScraper> logger, HtmlWeb web) 
+            : base(logger, web, new List<string> { "https://www.bbcgoodfood.com/sitemap.xml" })
         {
-            sitemapBaseUrl = "https://www.bbcgoodfood.com/sitemap.xml";
         }
 
         protected override IEnumerable<string> GetRecipeLocsFromSitemap(HtmlNode documentNode)
