@@ -48,7 +48,7 @@ namespace Perry.RecipesScraper.Services
 
                     foreach (var pair in questionsAndAnswers)
                     {
-                        howTos.Add(pair.Key, pair.Value);
+                        howTos.TryAdd(pair.Key, pair.Value);
                     }
 
 #if DEBUG
