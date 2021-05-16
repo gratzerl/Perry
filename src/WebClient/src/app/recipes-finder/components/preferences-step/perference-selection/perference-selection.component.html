@@ -1,4 +1,4 @@
-<div class="checkbox-container" *transloco="let t; ">
+<div *transloco="let t; ">
   <div *ngFor="let pref of preferences" class="p-field-checkbox">
     <p-checkbox [value]="pref" [inputId]="pref.labelKey" [(ngModel)]="selectedPreferences"
       (onChange)="selectionChange.emit(selectedPreferences)">

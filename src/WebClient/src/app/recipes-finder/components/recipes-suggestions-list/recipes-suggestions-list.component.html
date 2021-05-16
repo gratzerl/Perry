@@ -1,0 +1,18 @@
+<ng-container *transloco="let t; read: 'rf.suggestions'">
+  <p-button *ngIf="!suggestionResult" [label]="t('suggest-recipes-btn-label')" (onClick)="findRecipes()"></p-button>
+  <ng-container *ngIf="suggestionResult">
+    <span *ngIf="suggestionResult.totalCount === 0">
+      {{ t('messages.recipes-not-found') }}
+    </span>
+    <div *ngIf="suggestionResult.totalCount > 0">
+      <h2>{{ t('messages.recipes-found', { itemCount: suggestionResult.totalCount }) }}</h2>
+      <p-paginator *ngIf="suggestionResult.totalCount > suggestionResult.items.length" [rows]="pageSize"
+        [totalRecords]="suggestionResult.totalCount" (onPageChange)="findRecipes($event.page)">
+      </p-paginator>
+      <p-card class="recipe-card" *ngFor="let recipe of suggestionResult.items" header="{{ recipe.name }}"
+        (click)="openUrl(recipe.url)">
+        {{ recipe.description }}
+      </p-card>
+    </div>
+  </ng-container>
+</ng-container>

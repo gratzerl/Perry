@@ -12,7 +12,8 @@ import {
   PerferenceSelectionComponent,
   IngredientsStepComponent,
   PreferencesStepComponent,
-  RecipeSuggestionStepperComponent
+  RecipeSuggestionStepperComponent,
+  RecipesSuggestionsListComponent
 } from './components';
 
 
@@ -23,7 +24,8 @@ import {
     IngredientSelectionComponent,
     PerferenceSelectionComponent,
     PreferencesStepComponent,
-    RecipeSuggestionStepperComponent
+    RecipeSuggestionStepperComponent,
+    RecipesSuggestionsListComponent
   ],
   imports: [
     CommonModule,

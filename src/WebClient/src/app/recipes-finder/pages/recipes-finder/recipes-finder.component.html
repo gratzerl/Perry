@@ -1,4 +1,5 @@
-<ng-container *transloco="let t">
-  <h1>{{ t('rf.heading') }}</h1>
-  <app-recipe-suggestion-stepper></app-recipe-suggestion-stepper>
+<ng-container *transloco="let t; read: 'rf'">
+  <h1>{{ t('heading') }}</h1>
+  <app-recipe-suggestion-stepper *ngIf="!stepperCompleted"></app-recipe-suggestion-stepper>
+  <app-recipes-suggestions-list *ngIf="stepperCompleted" [recipeData]="recipeData"></app-recipes-suggestions-list>
 </ng-container>

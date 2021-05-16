@@ -28,5 +28,12 @@
         }
       }
     }
+  },
+  "suggestions": {
+    "suggest-recipes-btn-label": "Search!",
+    "messages": {
+      "recipes-found": "We've found {{ itemCount }} recipes",
+      "recipes-not-found": "Sorry, we did not find any recipes matching your preferences"
+    }
   }
 }

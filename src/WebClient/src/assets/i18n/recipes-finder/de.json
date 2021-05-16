@@ -28,5 +28,12 @@
         }
       }
     }
+  },
+  "suggestions": {
+    "suggest-recipes-btn-label": "Suche!",
+    "messages": {
+      "recipes-found": "Wir haben {{ itemCount }} Rezepte gefunden",
+      "recipes-not-found": "Wir haben leider keine passenden Rezepte gefunden"
+    }
   }
 }

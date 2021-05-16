@@ -12,6 +12,9 @@ import { RecipeStepperService } from '../../services';
 export class RecipesFinderComponent implements OnInit, OnDestroy {
   private onDestroy = new Subject<void>();
 
+  stepperCompleted = false;
+  isLoading = false;
+
   recipeData?: RecipeStepperData;
 
   constructor(private stepperService: RecipeStepperService) { }
@@ -20,8 +23,8 @@ export class RecipesFinderComponent implements OnInit, OnDestroy {
     this.stepperService.stepperComplete$
       .pipe(takeUntil(this.onDestroy))
       .subscribe(data => {
-        console.log(data);
         this.recipeData = data;
+        this.stepperCompleted = true;
       });
   }
 

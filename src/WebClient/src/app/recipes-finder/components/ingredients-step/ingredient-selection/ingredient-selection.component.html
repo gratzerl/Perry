@@ -1,4 +1,4 @@
-<div class="checkbox-container">
+<div>
   <div *ngFor="let i of ingredients" class="p-field-checkbox">
     <p-checkbox [value]="i" [inputId]="i" [(ngModel)]="selectedIngredients"
       (onChange)="selectionChange.emit(selectedIngredients)">

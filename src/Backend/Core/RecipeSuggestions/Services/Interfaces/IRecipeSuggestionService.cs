@@ -6,6 +6,6 @@ namespace Perry.Core.RecipeSuggestions.Services.Interfaces
 {
     public interface IRecipeSuggestionService
     {
-        public Task<IEnumerable<RecipeSuggestionModel>> FindSuggestionsAsync(IEnumerable<string> ingredients, IEnumerable<string> tags, int pageNumber, int pageSize);
+        public Task<PagedResponse<RecipeSuggestionModel>> FindSuggestionsAsync(IEnumerable<string> ingredients, IEnumerable<string> tags, int pageNumber, int pageSize);
     }
 }
