@@ -28,10 +28,10 @@ namespace Perry.RecipesScraper.Services
             logger.LogInformation($"Start scraping recipes from {sitemapBaseUrl}...");
 
             var recipeUrls = await GetRecipeUrlsFromSitemapAsync(sitemapBaseUrl);
-            logger.LogInformation($"Found {recipeUrls.Count()} recipe urls");
+            logger.LogInformation($"Found {recipeUrls.Count()} recipe urls (on basis of {sitemapBaseUrl})");
 
             var recipes = await ParseRecipesFromUrlsAsync(recipeUrls);
-            logger.LogInformation($"Created {recipes.Count()} recipes");
+            logger.LogInformation($"Created {recipes.Count()} recipes (on basis of {sitemapBaseUrl})");
 
             return recipes;
         }
