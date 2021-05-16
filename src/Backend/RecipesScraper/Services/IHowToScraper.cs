@@ -5,6 +5,6 @@ namespace Perry.RecipesScraper.Services
 {
     public interface IHowToScraper
     {
-        public Task<Dictionary<string, string>> ScrapeHowToAsync();
+        public Task<Dictionary<string, string>> ScrapeHowTosAsync();
     }
 }
