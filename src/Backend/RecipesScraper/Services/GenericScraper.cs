@@ -1,7 +1,9 @@
 ﻿using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Perry.RecipesScraper.Services
 {
@@ -35,7 +37,14 @@ namespace Perry.RecipesScraper.Services
             return recipeUrls;
         }
 
-        protected abstract IEnumerable<string> GetLocsFromSitemap(HtmlNode documentNode);
+        protected virtual IEnumerable<string> GetLocsFromSitemap(HtmlNode documentNode)
+        {
+            return documentNode
+                    .Descendants()
+                    .Where(n => n.Name == "loc")
+                    .Select(n => HttpUtility.HtmlDecode(n.InnerText))
+                    .ToList();
+        }
 
         protected abstract HashSet<string> GetUrlsInSitemapUrls(HtmlNode documentNode);
     }
