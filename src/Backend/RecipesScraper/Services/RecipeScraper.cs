@@ -50,7 +50,13 @@ namespace Perry.RecipesScraper.Services
 
                 var urls = GetRecipeUrlsInSitemapUrls(doc.DocumentNode);
 
-                recipeUrls.UnionWith(urls);                
+                recipeUrls.UnionWith(urls);
+#if DEBUG
+                if (recipeUrls.Count > 10)
+                {
+                    break;
+                }
+#endif
             }
 
             return recipeUrls;
@@ -83,7 +89,7 @@ namespace Perry.RecipesScraper.Services
                     recipes.Add(recipe);
 
 #if DEBUG
-                    if (recipes.Count > 20)
+                    if (recipes.Count > 10)
                     {
                         break;
                     }
