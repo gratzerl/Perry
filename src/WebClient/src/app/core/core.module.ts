@@ -2,6 +2,7 @@ import { APP_INITIALIZER, ErrorHandler, InjectionToken, NgModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
+import { TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
 import { SharedModule } from '../shared/shared.module';
 
@@ -9,7 +10,6 @@ import { ConfigService, GlobalErrorHandler, LanguageService } from './services';
 import { NavShellComponent, HeaderComponent, ContentComponent, LanguageSwitcherComponent } from './components/nav-shell';
 import { LandingPageComponent, InstructionStepComponent, PageBannerComponent, PageInstructionsComponent } from './pages/landing-page';
 import { AppConfig } from './models';
-import { TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
 export const APP_CONFIG = new InjectionToken<AppConfig>('AppConfig');
 
@@ -25,7 +25,6 @@ const appInitializer = (
       Promise.all(dependentObs);
     });
 };
-
 
 @NgModule({
   declarations: [

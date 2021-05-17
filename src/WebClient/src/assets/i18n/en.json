@@ -5,6 +5,7 @@
     "back": "Back",
     "choose": "Add",
     "upload": "Upload",
-    "complete": "Complete"
+    "complete": "Complete",
+    "is-loading": "Is loading"
   }
 }

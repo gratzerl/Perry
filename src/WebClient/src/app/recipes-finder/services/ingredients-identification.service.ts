@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { Observable } from 'rxjs';
 import { APP_CONFIG } from 'src/app/core/core.module';
 import { AppConfig } from 'src/app/core/models';
@@ -12,9 +13,9 @@ export class IngredientsIdentificationService {
 
   constructor(@Inject(APP_CONFIG) private config: AppConfig, private http: HttpClient) { }
 
-  identifyIngredientsInImages(images: File[]): Observable<string[]> {
+  identifyIngredientsInImages(images: NzUploadFile[]): Observable<string[]> {
     const formData = new FormData();
-    images.forEach(image => formData.append(image.name, image));
+    images.forEach((image: any) => formData.append(image.name, image));
 
     return this.http.post<string[]>(this.route, formData);
   }

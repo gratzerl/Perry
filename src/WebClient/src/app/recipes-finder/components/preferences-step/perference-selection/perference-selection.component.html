@@ -1,8 +1,0 @@
-<div *transloco="let t; ">
-  <div *ngFor="let pref of preferences" class="p-field-checkbox">
-    <p-checkbox [value]="pref" [inputId]="pref.labelKey" [(ngModel)]="selectedPreferences"
-      (onChange)="selectionChange.emit(selectedPreferences)">
-    </p-checkbox>
-    <label class="p-checkbox-label" [for]="pref.labelKey">{{ t(pref.labelKey) }}</label>
-  </div>
-</div>

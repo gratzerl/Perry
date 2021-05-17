@@ -1,16 +1,16 @@
 {
   "heading": "Find recipes!",
   "ingredients": {
-    "heading": "Pick your ingredients",
-    "step-label": "Ingredients",
+    "step-title": "Ingredients",
+    "step-description": "Pick your ingredients",
     "messages": {
       "no-ingredients-found": "Sadly, we could not identify any ingredients :(",
       "uncheck-unwanted-ingredients": "We have found the following ingredients. You can also unselected missidentified ingredients."
     }
   },
   "preferences": {
-    "heading": "Select your preferences",
-    "step-label": "Preferences",
+    "step-title": "Preferences",
+    "step-description": "Select your preferences",
     "categories": {
       "diet": {
         "heading": "Diet",

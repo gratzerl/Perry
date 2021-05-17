@@ -8,8 +8,6 @@ import { RecipesFinderComponent } from './pages';
 import { RecipeStepperService, ROUTED_STEPS } from './services';
 import { recipeFinderSteps } from './constants';
 import {
-  IngredientSelectionComponent,
-  PerferenceSelectionComponent,
   IngredientsStepComponent,
   PreferencesStepComponent,
   RecipeSuggestionStepperComponent,
@@ -21,8 +19,6 @@ import {
   declarations: [
     RecipesFinderComponent,
     IngredientsStepComponent,
-    IngredientSelectionComponent,
-    PerferenceSelectionComponent,
     PreferencesStepComponent,
     RecipeSuggestionStepperComponent,
     RecipesSuggestionsListComponent

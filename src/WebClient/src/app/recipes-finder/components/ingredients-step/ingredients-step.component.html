@@ -1,21 +1,23 @@
 <ng-container *transloco="let t; read: 'rf.ingredients'">
-  <h2> {{ t('heading') }}</h2>
   <div *ngIf="!isLoading">
-    <ng-container *transloco="let t; read: 'component-labels'">
-      <p-fileUpload accept="image/*" [customUpload]="true" [multiple]="true"
-        (uploadHandler)="identifyIngredients($event.files)" [showCancelButton]="false" [chooseLabel]="t('choose')"
-        [uploadLabel]="t('upload')">
-      </p-fileUpload>
-    </ng-container>
+    <div *transloco="let t; read: 'component-labels'">
+      <nz-upload [(nzFileList)]="imageFiles" [nzBeforeUpload]="beforeUpload" nzAccept="image/*" nzListType="picture">
+        <button nz-button><i nz-icon nzType="upload"></i>{{ t('choose') }}</button>
+      </nz-upload>
+      <button nz-button nzType="primary" [nzLoading]="isLoading" (click)="identifyIngredients()"
+        [disabled]="imageFiles.length == 0">
+        {{ isLoading ? t('is-loading') : t('upload') }}
+      </button>
+    </div>
     <ng-container>
-      <div *ngIf="identifiedIngredients !== undefined">
-        <div *ngIf="identifiedIngredients.length === 0">
+      <div *ngIf="ingredients !== undefined">
+        <div *ngIf="ingredients.length === 0">
           {{ t('messages.no-ingredients-found')}}
         </div>
-        <div *ngIf="identifiedIngredients.length > 0">
-          {{ t('messages.uncheck-unwanted-ingredients') }}
-          <app-ingredient-selection [ingredients]="identifiedIngredients" (selectionChange)="updateSelection($event)">
-          </app-ingredient-selection>
+        <div *ngIf="ingredients.length > 0">
+          <div>{{ t('messages.uncheck-unwanted-ingredients') }}</div>
+          <nz-checkbox-group [ngModel]="ingredients" (ngModelChange)="updateIngredients($event)">
+          </nz-checkbox-group>
         </div>
       </div>
     </ng-container>

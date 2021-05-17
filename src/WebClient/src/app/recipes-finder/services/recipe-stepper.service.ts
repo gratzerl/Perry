@@ -1,7 +1,6 @@
-import { ReturnStatement } from '@angular/compiler';
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { PreferenceCategory } from '../constants/recipe-preferences.constants';
+import { PreferenceCategory, recipePreferences } from '../constants/recipe-preferences.constants';
 import { RecipeStepperData } from '../models';
 import { RoutedStep, RoutedStepStatus } from '../models/routed-step.model';
 
@@ -10,20 +9,16 @@ export const ROUTED_STEPS = new InjectionToken<RoutedStep[]>('RoutedSteps');
 @Injectable()
 export class RecipeStepperService {
 
-  private stepperData: RecipeStepperData = {
-    ingredients: [],
-    preferences: {
-      [PreferenceCategory.Difficulty]: [],
-      [PreferenceCategory.Diet]: []
-    }
-  };
+  private stepperData: RecipeStepperData;
 
   private currentStepIdx = 0;
   private stepperComplete = new Subject<RecipeStepperData>();
   private currentStepChange = new BehaviorSubject<RoutedStep>(this.currentStep);
   private currentStepStatusChange = new BehaviorSubject<RoutedStepStatus>(this.currentStep.status);
 
-  constructor(@Inject(ROUTED_STEPS) private routedSteps: RoutedStep[]) { }
+  constructor(@Inject(ROUTED_STEPS) private routedSteps: RoutedStep[]) {
+    this.stepperData = this.createEmptyStepperData();
+  }
 
   nextStep(): void {
     if (this.currentStepIdx < this.routedSteps.length) {
@@ -48,13 +43,7 @@ export class RecipeStepperService {
   reset(): void {
     this.currentStepIdx = 0;
     this.currentStepChange.next(this.currentStep);
-    this.stepperData = {
-      ingredients: [],
-      preferences: {
-        [PreferenceCategory.Difficulty]: [],
-        [PreferenceCategory.Diet]: []
-      }
-    };
+    this.stepperData = this.createEmptyStepperData();
   }
 
   get steps(): RoutedStep[] {
@@ -96,5 +85,15 @@ export class RecipeStepperService {
   set currentStepStatus(status: RoutedStepStatus) {
     this.currentStep.status = status;
     this.currentStepStatusChange.next(this.currentStep.status);
+  }
+
+  private createEmptyStepperData(): RecipeStepperData {
+    return {
+      ingredients: [],
+      preferences: {
+        [PreferenceCategory.Difficulty]: [],
+        [PreferenceCategory.Diet]: []
+      }
+    };
   }
 }

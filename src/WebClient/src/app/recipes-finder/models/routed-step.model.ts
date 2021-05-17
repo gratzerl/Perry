@@ -1,5 +1,6 @@
 export interface RoutedStep {
-  labelKey: string,
+  titleKey: string,
+  descriptionKey: string,
   route: string,
   isRequired: boolean,
   status: RoutedStepStatus

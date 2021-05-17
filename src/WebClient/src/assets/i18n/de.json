@@ -5,6 +5,7 @@
     "back": "Zurück",
     "choose": "Hinzufügen",
     "upload": "Hochladen",
-    "complete": "Abschließen"
+    "complete": "Abschließen",
+    "is-loading": "Lädt"
   }
 }

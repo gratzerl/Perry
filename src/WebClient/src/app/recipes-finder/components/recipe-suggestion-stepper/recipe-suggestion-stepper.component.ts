@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslocoService } from '@ngneat/transloco';
-import { MenuItem } from 'primeng/api';
 import { Subject } from 'rxjs';
-import { takeUntil, pluck } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { RoutedStep, RoutedStepStatus } from '../../models';
 import { RecipeStepperService } from '../../services';
+import { BreakpointQuery } from 'src/app/core/constants/general.constants';
 
 @Component({
   selector: 'app-recipe-suggestion-stepper',
@@ -15,24 +15,17 @@ import { RecipeStepperService } from '../../services';
 export class RecipeSuggestionStepperComponent implements OnInit, OnDestroy {
   private onDestroy = new Subject<void>();
 
-  steps: MenuItem[] = [];
+  isSmallScreen = false;
   stepStatus = RoutedStepStatus;
   currentStep?: RoutedStep;
 
-  constructor(public stepperService: RecipeStepperService, private transloco: TranslocoService, private router: Router, private route: ActivatedRoute) { }
+  constructor(public stepperService: RecipeStepperService, private router: Router, private route: ActivatedRoute,
+    private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit(): void {
-    this.transloco.events$
-      .pipe(takeUntil(this.onDestroy), pluck('payload'))
-      .subscribe(() => {
-        this.steps = this.createStepItems();
-      });
-
-    this.transloco.langChanges$
+    this.breakpointObserver.observe(BreakpointQuery.Sm)
       .pipe(takeUntil(this.onDestroy))
-      .subscribe(() => {
-        this.steps = this.createStepItems();
-      });
+      .subscribe(state => this.isSmallScreen = state.matches);
 
     this.stepperService.currentStep$
       .pipe(takeUntil(this.onDestroy))
@@ -48,12 +41,5 @@ export class RecipeSuggestionStepperComponent implements OnInit, OnDestroy {
 
   completeStepper(): void {
     this.stepperService.complete();
-  }
-
-  private createStepItems(): MenuItem[] {
-    return this.stepperService.steps.map<MenuItem>(step => ({
-      label: this.transloco.translate(step.labelKey),
-      routerLink: step.route
-    }));
   }
 }

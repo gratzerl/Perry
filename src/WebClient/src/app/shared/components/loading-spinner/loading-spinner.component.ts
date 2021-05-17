@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-loading-spinner',
@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class LoadingSpinnerComponent {
 
-  constructor() { }
+  @Input()
+  size: 'large' | 'small' | 'default' = 'default';
 
 }

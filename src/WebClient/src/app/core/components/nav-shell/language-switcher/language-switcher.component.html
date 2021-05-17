@@ -1,4 +1,3 @@
-<p-selectButton
-  [options]="availableLangs"
-  [(ngModel)]="languageService.activeLang"
-></p-selectButton>
+<nz-radio-group [(ngModel)]="languageService.activeLang">
+  <label *ngFor="let lang of availableLangs" nz-radio-button [nzValue]="lang">{{ lang }}</label>
+</nz-radio-group>

@@ -7,9 +7,6 @@
 .header {
   display: flex;
   align-items: center;
-  top: 0px;
-  height: $header-height;
-  min-height: $header-height;
   padding: 0px $xl-horizontal-padding;
 
   @media (max-width: $max-lg-width) {

@@ -1,16 +1,16 @@
 {
   "heading": "Finde Rezepte!",
   "ingredients": {
-    "heading": "Bestimme deine Zutaten",
-    "step-label": "Zutaten",
+    "step-title": "Zutaten",
+    "step-description": "Bestimme deine Zutaten",
     "messages": {
       "no-ingredients-found": "Wir konnten leider keine Zutaten finden :(",
       "uncheck-unwanted-ingredients": "Diese Zutaten haben wir gefunden. Du kanst falsch identifizierte Zutaten auch wieder abwählen."
     }
   },
   "preferences": {
-    "heading": "Wähle deine Präferenzen",
-    "step-label": "Präferenzen",
+    "step-title": "Präferenzen",
+    "step-description": "Wähle deine Präferenzen",
     "categories": {
       "diet": {
         "heading": "Ernährung",

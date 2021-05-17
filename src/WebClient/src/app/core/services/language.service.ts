@@ -1,25 +1,29 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Inject, Injectable, LOCALE_ID, OnDestroy } from '@angular/core';
+
 import { TranslocoService } from '@ngneat/transloco';
-import { PrimeNGConfig } from 'primeng/api';
+import { NzI18nService } from 'ng-zorro-antd/i18n';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { getLocaleForLang } from 'src/app/shared/transloco-root.module';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class LanguageService implements OnDestroy {
   private onDestroy = new Subject<void>();
-
   private languages: string[] = [];
 
-  constructor(private ngConfig: PrimeNGConfig, private transloco: TranslocoService) { }
+  constructor(@Inject(LOCALE_ID) private locale: string, private ngZorroI18n: NzI18nService, private transloco: TranslocoService) { }
 
   init(): Promise<void> {
-    this.updateNgConfig(this.activeLang);
+    this.setComponentLocale(this.locale);
 
     this.transloco.langChanges$
       .pipe(takeUntil(this.onDestroy))
-      .subscribe((lang) => this.updateNgConfig(lang));
+      .subscribe((lang) => {
+        this.setComponentLocale(lang);
+      });
 
     this.transloco.getAvailableLangs()
       .forEach((obj: string | { id: string; label: string }) => {
@@ -54,8 +58,8 @@ export class LanguageService implements OnDestroy {
     this.transloco.setActiveLang(lang);
   }
 
-  private updateNgConfig(lang: string): void {
-    const componentTexts = this.transloco.getTranslation(lang);
-    this.ngConfig.setTranslation(componentTexts['core.primeng']);
+  private setComponentLocale(lang: string): void {
+    const loc = getLocaleForLang(lang);
+    this.ngZorroI18n.setLocale(loc);
   }
 }

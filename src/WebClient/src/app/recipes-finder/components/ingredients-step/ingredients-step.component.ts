@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { finalize } from 'rxjs/operators';
-import { RoutedStepStatus } from '../../models';
+
+import { RoutedStepStatus, SelectionItem } from '../../models';
 import { IngredientsIdentificationService, RecipeStepperService } from '../../services';
 
 @Component({
@@ -8,35 +10,41 @@ import { IngredientsIdentificationService, RecipeStepperService } from '../../se
   templateUrl: './ingredients-step.component.html',
   styleUrls: ['./ingredients-step.component.scss']
 })
-export class IngredientsStepComponent implements OnInit {
+export class IngredientsStepComponent {
 
   isLoading = false;
-  identifiedIngredients?: string[] = undefined;
-  selectedIngredients: string[] = [];
 
-  constructor(private ingredientIdentificationService: IngredientsIdentificationService, private stepperService: RecipeStepperService) { }
+  ingredients?: SelectionItem<string>[] = undefined;
+  imageFiles: NzUploadFile[] = [];
 
-  ngOnInit(): void {
-    this.selectedIngredients = [... this.stepperService.data.ingredients];
+  constructor(private ingredientIdentificationService: IngredientsIdentificationService, private stepperService: RecipeStepperService) {
+    if (this.stepperService.data.ingredients.length > 0) {
+      this.ingredients = [...this.stepperService.data.ingredients];
+    }
   }
 
-  identifyIngredients(images: File[]): void {
+  beforeUpload = (file: NzUploadFile): boolean => {
+    this.imageFiles = this.imageFiles.concat(file);
+    return false;
+  };
+
+  identifyIngredients(): void {
     this.stepperService.currentStepStatus = RoutedStepStatus.Loading
     this.isLoading = true;
 
-    this.ingredientIdentificationService.identifyIngredientsInImages(images)
+    this.ingredientIdentificationService.identifyIngredientsInImages(this.imageFiles)
       .pipe(finalize(() => {
         this.isLoading = false;
       }))
       .subscribe(ingredients => {
-        this.identifiedIngredients = ingredients;
-        this.updateSelection(ingredients);
+        const items = ingredients.map(i => ({ label: i, value: i, checked: true }));
+        this.updateIngredients(items);
       });
   }
 
-  updateSelection(selectedIngredients: string[]): void {
-    this.selectedIngredients = [...selectedIngredients];
-    this.stepperService.currentStepStatus = this.selectedIngredients.length > 0 ? RoutedStepStatus.Valid : RoutedStepStatus.Invalid;
-    this.stepperService.data.ingredients = [...this.selectedIngredients];
+  updateIngredients(selectedIngredients: SelectionItem<string>[]): void {
+    this.ingredients = [...selectedIngredients];
+    this.stepperService.currentStepStatus = this.ingredients.length > 0 ? RoutedStepStatus.Valid : RoutedStepStatus.Invalid;
+    this.stepperService.data.ingredients = [...this.ingredients];
   }
 }

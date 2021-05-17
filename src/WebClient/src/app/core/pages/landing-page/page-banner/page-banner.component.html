@@ -6,5 +6,7 @@
   <div>
     <p class="description">{{ t("description") }}</p>
   </div>
-  <p-button [label]="t('start-button-label')" [routerLink]="['suggest']"></p-button>
+  <button nz-button nzType="primary" [routerLink]="['suggest']">
+    {{ t('start-button-label') }}
+  </button>
 </div>

@@ -1,8 +1,8 @@
 import { RecipeTag } from "../models";
 
 export enum PreferenceCategory {
-  Diet = 'diet',
-  Difficulty = 'difficulty'
+  Diet = 'Diet',
+  Difficulty = 'Difficulty'
 }
 
 const labelBasePath = 'rf.preferences.categories';

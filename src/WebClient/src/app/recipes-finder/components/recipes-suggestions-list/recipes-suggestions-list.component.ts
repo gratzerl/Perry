@@ -14,7 +14,7 @@ export class RecipesSuggestionsListComponent {
 
   suggestionResult?: PagedResponse<RecipeSuggestion>;
   isLoading = false;
-  pageSize = 1;
+  pageSize = 10;
 
   constructor(private recipeFinderService: RecipeFinderService) { }
 
@@ -22,7 +22,8 @@ export class RecipesSuggestionsListComponent {
     window.open(url, "_blank");
   }
 
-  findRecipes(pageIndex: number = 0): void {
+  findRecipes(pageNumber: number = 1): void {
+    console.log(this.recipeData);
     if (this.recipeData === undefined) {
       return;
     }
@@ -31,11 +32,15 @@ export class RecipesSuggestionsListComponent {
 
     const tags = Object.entries(this.recipeData.preferences)
       .map(([_, value]) => value)
-      .reduce((acc, value) => acc.concat(value), []);
+      .reduce((acc, value) => acc.concat(value), [])
+      .filter(item => item.checked)
+      .map(item => item.value);
 
-    const pageNumber = pageIndex + 1;
+    const ingredients = this.recipeData.ingredients
+      .filter(item => item.checked)
+      .map(item => item.value);
 
-    this.recipeFinderService.findSuggestions(this.recipeData.ingredients, tags, pageNumber, this.pageSize)
+    this.recipeFinderService.findSuggestions(ingredients, tags, pageNumber, this.pageSize)
       .pipe(finalize(() => this.isLoading = false))
       .subscribe(result => {
         this.suggestionResult = result;

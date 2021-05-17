@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PreferenceCategory, recipePreferences } from '../../constants';
-import { RecipeTag } from '../../models';
+import { RecipeTag, SelectionItem } from '../../models';
 import { RecipeStepperService } from '../../services';
 
 @Component({
@@ -8,18 +8,35 @@ import { RecipeStepperService } from '../../services';
   templateUrl: './preferences-step.component.html',
   styleUrls: ['./preferences-step.component.scss']
 })
-export class PreferencesStepComponent {
-
-  recipePreferences = recipePreferences;
+export class PreferencesStepComponent implements OnInit {
   categories = PreferenceCategory;
 
-  selectedPreferences: RecipeTag[] = [];
+  preferences: { [key in PreferenceCategory]: SelectionItem<RecipeTag>[] } = {
+    [PreferenceCategory.Difficulty]: [],
+    [PreferenceCategory.Diet]: []
+  }
 
-  constructor(private stepperService: RecipeStepperService) { }
+  constructor(public stepperService: RecipeStepperService) { }
 
-  updateSelection(category: PreferenceCategory, selectedPreferences: RecipeTag[]): void {
-    this.selectedPreferences = [...selectedPreferences];
+  ngOnInit(): void {
     const { preferences } = this.stepperService.data;
-    preferences[category] = selectedPreferences;
+    Object.entries(recipePreferences)
+      .map(([keyStr, tags]) => {
+        const key = keyStr as keyof typeof PreferenceCategory;
+        this.preferences[key] = tags.map<SelectionItem<RecipeTag>>(tag => {
+          const p = preferences[key].find(selItem => selItem.value.labelKey === tag.labelKey);
+          return ({ value: tag, checked: p !== undefined ? p.checked : false });
+        });
+      });
+  }
+
+  updateSelection(category: PreferenceCategory, preference: SelectionItem<RecipeTag>, isSelected: boolean): void {
+    const pref = this.preferences[category].find(p => p === preference);
+    if (!pref) {
+      return;
+    }
+
+    pref.checked = isSelected;
+    this.stepperService.data.preferences[category] = [...this.preferences[category]];
   }
 }
