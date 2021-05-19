@@ -8,13 +8,18 @@ namespace Perry.RecipesScraper.Services
 {
     public class AllRecipesScraper : RecipeScraper
     {
-        private readonly List<string> recipeSitemapBaseUrls = new List<string> {
+        private readonly IList<string> recipeSitemapBaseUrls = new List<string> {
             "https://www.allrecipes.com/sitemaps/recipe/",
             "https://www.eatingwell.com/sitemaps/recipe/"
         };
 
+        private static readonly IList<string> validSidemapUrls = new List<string> {
+            "https://www.allrecipes.com/sitemap.xml", 
+            "https://www.eatingwell.com/sitemap.xml" 
+        };
+
         public AllRecipesScraper(ILogger<AllRecipesScraper> logger, HtmlWeb web) 
-            : base(logger, web, new List<string> { "https://www.allrecipes.com/sitemap.xml", "https://www.eatingwell.com/sitemap.xml" })
+            : base(logger, web, validSidemapUrls)
         {
         }
 

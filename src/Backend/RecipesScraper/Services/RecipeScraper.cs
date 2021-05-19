@@ -14,9 +14,9 @@ namespace Perry.RecipesScraper.Services
         protected readonly HtmlWeb web;
         protected readonly ILogger<RecipeScraper> logger;
 
-        protected readonly List<string> validSitemapUrls;
+        protected readonly IList<string> validSitemapUrls;
 
-        public RecipeScraper(ILogger<RecipeScraper> logger, HtmlWeb web, List<string> validSitemapUrls)
+        public RecipeScraper(ILogger<RecipeScraper> logger, HtmlWeb web, IList<string> validSitemapUrls)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.web = web ?? throw new ArgumentNullException(nameof(web));
