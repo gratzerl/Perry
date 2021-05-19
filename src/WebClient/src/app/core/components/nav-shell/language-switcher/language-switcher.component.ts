@@ -8,9 +8,6 @@ import { LanguageService } from 'src/app/core/services';
 })
 export class LanguageSwitcherComponent {
 
-  availableLangs: string[];
+  constructor(public languageService: LanguageService) { }
 
-  constructor(public languageService: LanguageService) {
-    this.availableLangs = languageService.availableLangs;
-  }
 }

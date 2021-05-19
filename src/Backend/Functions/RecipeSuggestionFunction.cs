@@ -25,28 +25,40 @@ namespace Perry.Functions
         }
 
         [FunctionName("RecipeSuggestionFunction")]
-        public async Task<PagedResponse<RecipeSuggestionModel>> Run(
+        public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "suggestions")] HttpRequest req,
             ILogger log)
         {
             log.LogTrace("Processing suggestion request...");
 
-            // azure functions fails to deserialize request model properly
+            // azure functions fails to deserialize request model from the querystring properly
             // other workaround: https://stackoverflow.com/questions/64388505/azure-function-c-sharp-pass-liststring-as-an-argument-over-http-trigger-get
 
             var ingredients = req.Query
                 .Where(entry => entry.Key.ToLower().Contains("ingredient"))
                 .Select(entry => entry.Value.ToString())
+                .Where(entry => !string.IsNullOrWhiteSpace(entry))
                 .ToList();
+
+            if (!ingredients.Any())
+            {
+                return new BadRequestObjectResult("Ingredients must not be empty");
+            }
 
             var tags = req.Query
                 .Where(entry => entry.Key.ToLower().Contains("tag"))
                 .Select(entry => entry.Value.ToString())
+                .Where(entry => !string.IsNullOrWhiteSpace(entry))
                 .ToList();
 
             if (!int.TryParse(req.Query["pageNumber"], out int pageNumber))
             {
                 pageNumber = 1;
+            }
+
+            if (pageNumber <= 0)
+            {
+                return new BadRequestObjectResult("The page number must be greater than 0");
             }
             
             if (!int.TryParse(req.Query["pageSize"], out int pageSize))
@@ -54,11 +66,16 @@ namespace Perry.Functions
                 pageSize = SuggestionsPageSize;
             }
 
+            if (pageSize <= 0)
+            {
+                return new BadRequestObjectResult("The page size must be greater than 0");
+            }
+
             var response = await recipeSuggestionService.FindSuggestionsAsync(ingredients, tags, pageNumber, pageSize);
 
             log.LogTrace($"Found {response.TotalCount} recipes in total. Page: {response.CurrentPageNumber}/{response.TotalPages}");
 
-            return response;
+            return new OkObjectResult(response);
         }
     }
 }

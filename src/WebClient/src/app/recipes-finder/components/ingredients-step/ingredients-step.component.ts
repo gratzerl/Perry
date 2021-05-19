@@ -29,7 +29,7 @@ export class IngredientsStepComponent {
   };
 
   identifyIngredients(): void {
-    this.stepperService.currentStepStatus = RoutedStepStatus.Loading
+    this.stepperService.currentStepStatus = RoutedStepStatus.Loading;
     this.isLoading = true;
 
     this.ingredientIdentificationService.identifyIngredientsInImages(this.imageFiles)

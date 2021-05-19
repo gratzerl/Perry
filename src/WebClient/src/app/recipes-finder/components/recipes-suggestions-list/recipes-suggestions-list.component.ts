@@ -14,7 +14,7 @@ export class RecipesSuggestionsListComponent {
 
   suggestionResult?: PagedResponse<RecipeSuggestion>;
   isLoading = false;
-  pageSize = 10;
+  pageSize = 2;
 
   constructor(private recipeFinderService: RecipeFinderService) { }
 

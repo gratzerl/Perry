@@ -1,6 +1,6 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { PreferenceCategory, recipePreferences } from '../constants/recipe-preferences.constants';
+import { PreferenceCategory } from '../constants/recipe-preferences.constants';
 import { RecipeStepperData } from '../models';
 import { RoutedStep, RoutedStepStatus } from '../models/routed-step.model';
 
@@ -11,7 +11,7 @@ export class RecipeStepperService {
 
   private stepperData: RecipeStepperData;
 
-  private currentStepIdx = 0;
+  private currentStepIndex = 0;
   private stepperComplete = new Subject<RecipeStepperData>();
   private currentStepChange = new BehaviorSubject<RoutedStep>(this.currentStep);
   private currentStepStatusChange = new BehaviorSubject<RoutedStepStatus>(this.currentStep.status);
@@ -21,16 +21,16 @@ export class RecipeStepperService {
   }
 
   nextStep(): void {
-    if (this.currentStepIdx < this.routedSteps.length) {
-      this.currentStepIdx++;
+    if (this.currentStepIndex < this.routedSteps.length) {
+      this.currentStepIndex++;
       this.currentStepChange.next(this.currentStep);
       this.currentStepStatusChange.next(this.currentStep.status);
     }
   }
 
   previousStep(): void {
-    if (this.currentStepIdx > 0) {
-      this.currentStepIdx--;
+    if (this.currentStepIndex > 0) {
+      this.currentStepIndex--;
       this.currentStepChange.next(this.currentStep);
       this.currentStepStatusChange.next(this.currentStep.status);
     }
@@ -41,7 +41,7 @@ export class RecipeStepperService {
   }
 
   reset(): void {
-    this.currentStepIdx = 0;
+    this.currentStepIndex = 0;
     this.currentStepChange.next(this.currentStep);
     this.stepperData = this.createEmptyStepperData();
   }
@@ -51,11 +51,11 @@ export class RecipeStepperService {
   }
 
   get isFirstStep(): boolean {
-    return this.currentStepIdx == 0;
+    return this.currentStepIndex == 0;
   }
 
   get isLastStep(): boolean {
-    return this.currentStepIdx == this.routedSteps.length - 1;
+    return this.currentStepIndex == this.routedSteps.length - 1;
   }
 
   get stepperComplete$(): Observable<RecipeStepperData> {
@@ -71,7 +71,7 @@ export class RecipeStepperService {
   }
 
   get currentStep(): RoutedStep {
-    return this.routedSteps[this.currentStepIdx]
+    return this.routedSteps[this.currentStepIndex]
   }
 
   get data(): RecipeStepperData {
