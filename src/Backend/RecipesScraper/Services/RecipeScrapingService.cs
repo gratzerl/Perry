@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Perry.Database.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Perry.RecipesScraper.Services
 {
-    public class RecipeScrapingService
+    public class RecipeScrapingService : BackgroundService
     {
         private readonly RecipesContext recipeContext;
         private readonly ILogger<RecipeScrapingService> logger;
@@ -21,7 +23,7 @@ namespace Perry.RecipesScraper.Services
             this.scrapers = scrapers ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task ScrapeRecipesAsync()
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             logger.LogInformation("Loading all already saved recipe urls...");
             var savedRecipes = recipeContext.Recipes
@@ -52,7 +54,9 @@ namespace Perry.RecipesScraper.Services
 
             await recipeContext.Recipes.AddRangeAsync(scrapedRecipes);
             await recipeContext.SaveChangesAsync();
-            logger.LogInformation($"{taskResult.Length} recipes saved.");
+            logger.LogInformation($"{scrapedRecipes.Count} recipes saved.");
+
+            this.Dispose();
         }
     }
 }

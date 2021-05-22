@@ -12,16 +12,9 @@ namespace Perry.RecipesScraper
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
-            var scrapingService = host.Services.GetRequiredService<RecipeScrapingService>();            
-            await scrapingService.ScrapeRecipesAsync();
-
-            //var scrapingService = host.Services.GetRequiredService<HowToScrapingService>();   
-            //await scrapingService.ScrapeHowTosAsync();
-
-            // await host.RunAsync();
+            CreateHostBuilder(args).Build().Run();
         }
 
         static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -42,8 +35,8 @@ namespace Perry.RecipesScraper
                     .AddTransient<IRecipeScraper, AllRecipesScraper>()
                     .AddTransient<IHowToScraper, HowToScraper>()
                     .AddTransient<HtmlWeb>()
-                    .AddSingleton<RecipeScrapingService>()
-                    .AddSingleton<HowToScrapingService>();
+                    .AddHostedService<RecipeScrapingService>()
+                    .AddHostedService<HowToScrapingService>();
                 });
     }
 }
