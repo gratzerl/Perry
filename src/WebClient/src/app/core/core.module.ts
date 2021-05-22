@@ -1,27 +1,41 @@
-import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, InjectionToken, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../shared/shared.module';
-import { ConfigService, GlobalErrorHandler } from './services';
-import { NavShellComponent } from './components';
 import { RouterModule } from '@angular/router';
+import { Observable } from 'rxjs';
+import { TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
-const appInitializer =
-  (
-    configService: ConfigService,
-    deps: (() => Promise<unknown>)[]
-  ) => () => {
-    configService
-      .init()
-      .then(() => {
-        if (deps && deps.length > 0) {
-          Promise.all(deps.map(d => d()));
-        }
-      });
-  };
+import { SharedModule } from '../shared/shared.module';
+
+import { ConfigService, GlobalErrorHandler, LanguageService } from './services';
+import { NavShellComponent, HeaderComponent, ContentComponent, LanguageSwitcherComponent } from './components/nav-shell';
+import { LandingPageComponent, InstructionStepComponent, PageBannerComponent, PageInstructionsComponent } from './pages/landing-page';
+import { AppConfig } from './models';
+
+export const APP_CONFIG = new InjectionToken<AppConfig>('AppConfig');
+
+const INIT_DEPS = new InjectionToken<(() => Observable<unknown>)[]>('InitDependencies');
+
+const appInitializer = (
+  configService: ConfigService,
+  deps: (() => Observable<unknown>)[]
+) => () => {
+  return configService.init()
+    .then(() => {
+      const dependentObs = deps.map(dep => dep());
+      Promise.all(dependentObs);
+    });
+};
 
 @NgModule({
   declarations: [
-    NavShellComponent
+    NavShellComponent,
+    LandingPageComponent,
+    HeaderComponent,
+    ContentComponent,
+    InstructionStepComponent,
+    LanguageSwitcherComponent,
+    PageBannerComponent,
+    PageInstructionsComponent,
   ],
   imports: [
     CommonModule,
@@ -30,12 +44,22 @@ const appInitializer =
   ],
   providers: [
     {
+      provide: INIT_DEPS,
+      useFactory: (langService: LanguageService) =>
+        [
+          () => langService.init()
+        ],
+      deps: [LanguageService]
+    },
+    {
       provide: APP_INITIALIZER,
       useFactory: appInitializer,
-      deps: [ConfigService],
-      multi: true
+      deps: [ConfigService, INIT_DEPS],
+      multi: true,
     },
-    { provide: ErrorHandler, useClass: GlobalErrorHandler }
-  ]
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    { provide: APP_CONFIG, useFactory: (configService: ConfigService) => configService.Config, deps: [ConfigService] },
+    { provide: TRANSLOCO_SCOPE, useValue: { scope: 'core', alias: 'core' } }
+  ],
 })
 export class CoreModule { }

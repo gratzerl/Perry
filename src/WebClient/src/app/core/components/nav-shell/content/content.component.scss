@@ -1,0 +1,22 @@
+@import "src/styles/variables";
+
+:host {
+  display: block;
+}
+
+.content-container {
+  height: 100%;
+  padding: $vertical-padding $xl-horizontal-padding;
+
+  @media (max-width: $max-lg-width) {
+    padding: $vertical-padding $lg-horizontal-padding;
+  }
+
+  @media (max-width: $max-md-width) {
+    padding: $vertical-padding $md-horizontal-padding;
+  }
+
+  @media (max-width: $max-xs-width) {
+    padding: $xs-vertical-padding $xs-horizontal-padding;
+  }
+}

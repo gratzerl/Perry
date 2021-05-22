@@ -1,0 +1,3 @@
+<nz-radio-group [(ngModel)]="languageService.activeLang">
+  <label *ngFor="let lang of languageService.availableLangs" nz-radio-button [nzValue]="lang">{{ lang }}</label>
+</nz-radio-group>

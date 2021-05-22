@@ -1,1 +1,11 @@
-{}
+{
+  "title": "Perry",
+  "component-labels": {
+    "next": "Next",
+    "back": "Back",
+    "choose": "Add",
+    "upload": "Upload",
+    "complete": "Complete",
+    "is-loading": "Is loading"
+  }
+}

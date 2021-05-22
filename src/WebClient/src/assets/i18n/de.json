@@ -1,1 +1,11 @@
-{}
+{
+  "title": "Perry",
+  "component-labels": {
+    "next": "Weiter",
+    "back": "Zurück",
+    "choose": "Hinzufügen",
+    "upload": "Hochladen",
+    "complete": "Abschließen",
+    "is-loading": "Lädt"
+  }
+}

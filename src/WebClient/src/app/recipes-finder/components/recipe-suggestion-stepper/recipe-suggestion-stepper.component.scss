@@ -1,0 +1,46 @@
+@import "src/styles/variables";
+
+.stepper {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+
+  @media screen and (max-width: $max-sm-width) {
+    flex-direction: column;
+  }
+
+  .steps-container {
+    flex: 1;
+    margin: 0;
+
+    @media screen and (max-width: $max-sm-width) {
+      flex: unset;
+      margin-bottom: $vertical-padding;
+    }
+  }
+
+  .step-content-container {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (max-width: $max-sm-width) {
+      flex: 1;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .steps-bottom-bar {
+      margin-top: $vertical-padding;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      p-button:first-of-type {
+        margin-right: 1.5em;
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+<ng-container *transloco="let t; read: 'rf.suggestions'">
+  <button *ngIf="!suggestionResult" nz-button nzType="primary" (click)="findRecipes()">{{
+    t('suggest-recipes-btn-label') }}</button>
+  <ng-container *ngIf="suggestionResult">
+    <span *ngIf="suggestionResult.totalCount === 0">
+      {{ t('messages.recipes-not-found') }}
+    </span>
+    <div *ngIf="suggestionResult.totalCount > 0">
+      <h2>{{ t('messages.recipes-found', { itemCount: suggestionResult.totalCount }) }}</h2>
+      <nz-pagination *ngIf="suggestionResult.totalCount > suggestionResult.items.length" [nzPageSize]="pageSize"
+        [nzTotal]="suggestionResult.totalCount" (nzPageIndexChange)="findRecipes($event)">
+      </nz-pagination>
+      <nz-card class="recipe-card" *ngFor="let recipe of suggestionResult.items" [nzTitle]="recipe.name"
+        (click)="openUrl(recipe.url)">
+        {{ recipe.description }}
+      </nz-card>
+    </div>
+  </ng-container>
+</ng-container>

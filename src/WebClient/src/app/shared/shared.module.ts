@@ -1,17 +1,28 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgPrimeModule } from './ng-prime.module';
+import { FormsModule } from '@angular/forms';
 
+import { TranslocoRootModule } from './transloco-root.module';
+import { NgZorroModule } from './ng-zorro.module';
+
+import { LoadingSpinnerComponent } from './components';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    LoadingSpinnerComponent
+  ],
   imports: [
     CommonModule,
-    NgPrimeModule,
+    TranslocoRootModule,
+    FormsModule,
+    NgZorroModule
   ],
   exports: [
-    NgPrimeModule
+    TranslocoRootModule,
+    FormsModule,
+    LoadingSpinnerComponent,
+    NgZorroModule
   ]
 })
 export class SharedModule { }

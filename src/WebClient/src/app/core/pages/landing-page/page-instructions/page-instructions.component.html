@@ -1,0 +1,8 @@
+<div *transloco="let t; read: 'core.landing-page.guide'">
+  <h3>{{ t("heading") }}</h3>
+  <div class="step-container">
+    <app-instruction-step [title]="t('step-1.heading')" [description]="t('step-1.description')"></app-instruction-step>
+    <app-instruction-step [title]="t('step-2.heading')" [description]="t('step-2.description')"></app-instruction-step>
+    <app-instruction-step [title]="t('step-3.heading')" [description]="t('step-3.description')"></app-instruction-step>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+{
+  "landing-page": {
+    "title": "Perry",
+    "sub-title": "Your personal recipe suggestion assistent",
+    "description": "Perry helps you to discover new recipes using the left-over ingredients. He helps you to reduce food waste while also considering your personal preferences and dietary choices.",
+    "start-button-label": "Let's start",
+    "guide": {
+      "heading": "How does it work?",
+      "step-1": {
+        "heading": "Step 1",
+        "description": "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet."
+      },
+      "step-2": {
+        "heading": "Step 2",
+        "description": "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet."
+      },
+      "step-3": {
+        "heading": "Step 3",
+        "description": "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet."
+      }
+    }
+  }
+}

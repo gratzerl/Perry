@@ -1,0 +1,39 @@
+{
+  "heading": "Find recipes!",
+  "ingredients": {
+    "step-title": "Ingredients",
+    "step-description": "Pick your ingredients",
+    "messages": {
+      "no-ingredients-found": "Sadly, we could not identify any ingredients :(",
+      "uncheck-unwanted-ingredients": "We have found the following ingredients. You can also unselected missidentified ingredients."
+    }
+  },
+  "preferences": {
+    "step-title": "Preferences",
+    "step-description": "Select your preferences",
+    "categories": {
+      "diet": {
+        "heading": "Diet",
+        "options": {
+          "vegetarian": "Vegetarian",
+          "vegan": "Vegan"
+        }
+      },
+      "difficulty": {
+        "heading": "Difficulty",
+        "options": {
+          "easy": "Easy",
+          "medium": "Medium",
+          "hard": "Difficult"
+        }
+      }
+    }
+  },
+  "suggestions": {
+    "suggest-recipes-btn-label": "Search!",
+    "messages": {
+      "recipes-found": "We've found {{ itemCount }} recipes",
+      "recipes-not-found": "Sorry, we did not find any recipes matching your preferences"
+    }
+  }
+}

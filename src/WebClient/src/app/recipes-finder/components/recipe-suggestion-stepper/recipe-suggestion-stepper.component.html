@@ -1,0 +1,28 @@
+<div class="stepper" *transloco="let t">
+  <div class="steps-container">
+    <nz-steps [nzDirection]="isSmallScreen ? 'horizontal' : 'vertical'">
+      <nz-step *ngFor="let step of stepperService.steps" [nzTitle]="t(step.titleKey)"
+        [nzDescription]="t(step.descriptionKey)">
+      </nz-step>
+    </nz-steps>
+  </div>
+  <div class="step-content-container">
+    <div class="step-content">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="steps-bottom-bar">
+      <button nz-button *ngIf="!stepperService.isFirstStep" (click)="stepperService.previousStep()"
+        [disabled]="(stepperService.currentStepStatus$ | async) === stepStatus.Loading">
+        {{ t('component-labels.back') }}
+      </button>
+      <button nz-button *ngIf="!stepperService.isLastStep" (click)="stepperService.nextStep()" [disabled]="(stepperService.currentStepStatus$ | async) === stepStatus.Loading ||
+        (stepperService.currentStep.isRequired && (stepperService.currentStepStatus$ | async) !== stepStatus.Valid)">
+        {{ t('component-labels.next') }}
+      </button>
+      <button nz-button *ngIf="stepperService.isLastStep" (click)="completeStepper()" [disabled]="(stepperService.currentStepStatus$ | async) === stepStatus.Loading ||
+        (stepperService.currentStep.isRequired && (stepperService.currentStepStatus$ | async) !== stepStatus.Valid)">
+        {{ t('component-labels.complete') }}
+      </button>
+    </div>
+  </div>
+</div>

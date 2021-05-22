@@ -30,18 +30,17 @@ namespace Perry.Functions
             var imageFiles = req.Form.Files;
             var ingredients = new HashSet<string>();
 
-            log.LogInformation($"Processing {imageFiles.Count()} files.");
+            log.LogInformation($"Processing {imageFiles?.Count()} files.");
             foreach(var file in imageFiles)
             {
                 var s = file.OpenReadStream();
                 var predictions = await ingredientsIdentification.IdentifyIngredientsAsync(s);
                 var filtered = predictions
                     .Where(p => p.Probability >= MinRequiredProbability)
-                    .GroupBy(p => p.Name)
-                    .Select(grp => grp.First().Name)
+                    .Select(p => p.Name)
                     .ToHashSet();
 
-                ingredients.Union(filtered);
+                ingredients.UnionWith(filtered);
             }
 
             log.LogInformation($"Finished identifying objects in {imageFiles.Count()} files.");

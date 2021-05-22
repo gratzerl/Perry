@@ -1,0 +1,11 @@
+@import "src/styles/variables";
+
+.recipe-card {
+  display: block;
+  width: 25em;
+  cursor: pointer;
+
+  &:not(:last-of-type) {
+    margin-bottom: $vertical-padding;
+  }
+}
