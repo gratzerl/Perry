@@ -1,12 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using ClosedXML.Excel;
+using Microsoft.Extensions.Logging;
 using Perry.Database.Entities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using ClosedXML.Extensions;
-using ClosedXML.Excel;
-using System.IO;
 
 namespace Perry.RecipesScraper.Services
 {
@@ -40,7 +39,7 @@ namespace Perry.RecipesScraper.Services
                 sheet.Cell(1, 1).InsertTable(questionsAndAnswers);
                 sheet.Columns().AdjustToContents();
 
-                MemoryStream workbookStream = new MemoryStream();
+                var workbookStream = new MemoryStream();
                 workbook.SaveAs(workbookStream);
 
                 var filePath = @"C:\temp";
