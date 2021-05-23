@@ -16,16 +16,19 @@ namespace Perry.RecipesScraper.Services
     {
         private readonly RecipesContext recipeContext;
         private readonly ILogger<RecipeScrapingService> logger;
+        private readonly IHostApplicationLifetime _hostApplicationLifetime;
+        
         private readonly IEnumerable<IRecipeScraper> scrapers;
-
         private readonly List<string> sitemapUrls;
 
-        public RecipeScrapingService(IConfiguration configuration, RecipesContext recipeContext, ILogger<RecipeScrapingService> logger, IEnumerable<IRecipeScraper> scrapers)
+        public RecipeScrapingService(IConfiguration configuration, RecipesContext recipeContext, ILogger<RecipeScrapingService> logger, IEnumerable<IRecipeScraper> scrapers,
+            IHostApplicationLifetime hostApplicationLifetime)
         {
             sitemapUrls = configuration.GetSection("Urls:SitemapUrls").GetChildren().Select(url => url.Value).ToList();
             this.recipeContext = recipeContext ?? throw new ArgumentNullException(nameof(recipeContext));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.scrapers = scrapers ?? throw new ArgumentNullException(nameof(logger));
+            this._hostApplicationLifetime = hostApplicationLifetime;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -68,7 +71,8 @@ namespace Perry.RecipesScraper.Services
             await recipeContext.SaveChangesAsync();
             logger.LogInformation($"{scrapedRecipes.Count} recipes saved.");
 
-            this.Dispose();
+            _hostApplicationLifetime.StopApplication();
+            Dispose();
         }
     }
 }
