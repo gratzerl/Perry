@@ -19,7 +19,7 @@ namespace Perry.RecipesScraper.Services
         {
         }
 
-        protected override IEnumerable<string> GetRecipeLocsFromSitemap(HtmlNode documentNode)
+        protected override IEnumerable<string> GetLocsFromSitemap(HtmlNode documentNode)
         {
             return documentNode
                 .Descendants()
@@ -28,7 +28,7 @@ namespace Perry.RecipesScraper.Services
                 .ToList();
         }
 
-        protected override HashSet<string> GetRecipeUrlsInSitemapUrls(HtmlNode documentNode)
+        protected override HashSet<string> GetUrlsInSitemapUrls(HtmlNode documentNode)
         {
             return documentNode
                     .Descendants()

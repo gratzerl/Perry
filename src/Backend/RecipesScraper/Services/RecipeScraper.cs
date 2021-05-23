@@ -10,57 +10,30 @@ using System.Threading.Tasks;
 
 namespace Perry.RecipesScraper.Services
 {
-    public abstract class RecipeScraper : IRecipeScraper
+    public abstract class RecipeScraper : GenericScraper, IRecipeScraper
     {
-        protected readonly HtmlWeb web;
+       
         protected readonly ILogger<RecipeScraper> logger;
 
         protected readonly IList<string> validSitemapUrls;
 
-        public RecipeScraper(IConfiguration configuration, ILogger<RecipeScraper> logger, HtmlWeb web, string validSitemapUrlPath)
+        public RecipeScraper(IConfiguration configuration, ILogger<RecipeScraper> logger, HtmlWeb web, string validSitemapUrlPath) : base(web)
         {
             this.validSitemapUrls = configuration.GetSection(validSitemapUrlPath).GetChildren().Select(url => url.Value).ToList();
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            this.web = web ?? throw new ArgumentNullException(nameof(web));
         }
 
         public async Task<IEnumerable<ScrapedRecipeModel>> ScrapeRecipesAsync(string sitemapBaseUrl)
         {
             logger.LogInformation($"Start scraping recipes from {sitemapBaseUrl}...");
 
-            var recipeUrls = await GetRecipeUrlsFromSitemapAsync(sitemapBaseUrl);
+            var recipeUrls = await GetUrlsFromSitemapAsync(sitemapBaseUrl);
             logger.LogInformation($"Found {recipeUrls.Count()} recipe urls (on basis of {sitemapBaseUrl})");
 
             var recipes = await ParseRecipesFromUrlsAsync(recipeUrls);
             logger.LogInformation($"Created {recipes.Count()} recipes (on basis of {sitemapBaseUrl})");
 
             return recipes;
-        }
-
-        protected async Task<IEnumerable<string>> GetRecipeUrlsFromSitemapAsync(string sitemapBaseUrl)
-        {
-            var doc = await web.LoadFromWebAsync(sitemapBaseUrl);
-
-            var sitemapLocs = GetRecipeLocsFromSitemap(doc.DocumentNode);
-
-            var recipeUrls = new HashSet<string>();
-
-            foreach (var loc in sitemapLocs)
-            {
-                doc = await web.LoadFromWebAsync(loc);
-
-                var urls = GetRecipeUrlsInSitemapUrls(doc.DocumentNode);
-
-                recipeUrls.UnionWith(urls);
-#if DEBUG
-                if (recipeUrls.Count > 10)
-                {
-                    break;
-                }
-#endif
-            }
-
-            return recipeUrls;
         }
 
         protected async Task<IEnumerable<ScrapedRecipeModel>> ParseRecipesFromUrlsAsync(IEnumerable<string> recipeUrls)
@@ -109,10 +82,6 @@ namespace Perry.RecipesScraper.Services
         {
             return validSitemapUrls.Contains(url);
         }
-
-        protected abstract IEnumerable<string> GetRecipeLocsFromSitemap(HtmlNode documentNode);
-
-        protected abstract HashSet<string> GetRecipeUrlsInSitemapUrls(HtmlNode documentNode);
 
         protected abstract string GetRecipeName(HtmlNode documentNode);
 
