@@ -15,16 +15,7 @@ namespace Perry.RecipesScraper.Services
             sitemapBaseUrl = "https://www.bbcgoodfood.com/sitemap.xml";
         }
 
-        protected override IEnumerable<string> GetRecipeLocsFromSitemap(HtmlNode documentNode)
-        {
-            return documentNode
-                .Descendants()
-                .Where(n => n.Name == "loc")
-                .Select(n => HttpUtility.HtmlDecode(n.InnerText))
-                .ToList();
-        }
-
-        protected override HashSet<string> GetRecipeUrlsInSitemapUrls(HtmlNode documentNode)
+        protected override HashSet<string> GetUrlsInSitemapUrls(HtmlNode documentNode)
         {
             return documentNode
                     .Descendants()

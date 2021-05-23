@@ -12,14 +12,9 @@ namespace Perry.RecipesScraper
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
-            var scrapingService = host.Services.GetRequiredService<RecipeScrapingService>();
-            
-            await scrapingService.ScrapeRecipesAsync();
-
-            // await host.RunAsync();
+            CreateHostBuilder(args).Build().Run();
         }
 
         static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -29,7 +24,7 @@ namespace Perry.RecipesScraper
                     var dbConnection = hostBuilderContext.Configuration.GetConnectionString("ApplicationDbConnection");
 
                     services.AddDbContext<RecipesContext>(options => options.UseSqlServer(dbConnection));
-
+                    
                     services.AddLogging(_ => _
                         .AddConsole()
                         .AddDebug()
@@ -38,8 +33,10 @@ namespace Perry.RecipesScraper
                     services
                     .AddTransient<IRecipeScraper, BbcGoodFoodScraper>()
                     .AddTransient<IRecipeScraper, AllRecipesScraper>()
+                    .AddTransient<IHowToScraper, HowToScraper>()
                     .AddTransient<HtmlWeb>()
-                    .AddSingleton<RecipeScrapingService>();
+                    .AddHostedService<RecipeScrapingService>()
+                    .AddHostedService<HowToScrapingService>();
                 });
     }
 }
