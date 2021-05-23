@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Perry.Database.Entities;
 using Perry.RecipesScraper.Models;
@@ -15,15 +16,11 @@ namespace Perry.RecipesScraper.Services
         private readonly ILogger<RecipeScrapingService> logger;
         private readonly IEnumerable<IRecipeScraper> scrapers;
 
-        private readonly List<string> sitemapUrls = new List<string>
-        {
-            "https://www.allrecipes.com/sitemap.xml",
-            "https://www.eatingwell.com/sitemap.xml",
-            "https://www.bbcgoodfood.com/sitemap.xml"
-        };
+        private readonly List<string> sitemapUrls;
 
-        public RecipeScrapingService(RecipesContext recipeContext, ILogger<RecipeScrapingService> logger, IEnumerable<IRecipeScraper> scrapers)
+        public RecipeScrapingService(IConfiguration configuration, RecipesContext recipeContext, ILogger<RecipeScrapingService> logger, IEnumerable<IRecipeScraper> scrapers)
         {
+            sitemapUrls = configuration.GetSection("Urls:SitemapUrls").GetChildren().Select(url => url.Value).ToList();
             this.recipeContext = recipeContext ?? throw new ArgumentNullException(nameof(recipeContext));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.scrapers = scrapers ?? throw new ArgumentNullException(nameof(logger));

@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +14,8 @@ namespace Perry.RecipesScraper.Services
             "https://www.eatingwell.com/sitemaps/recipe/"
         };
 
-        private static readonly IList<string> validSidemapUrls = new List<string> {
-            "https://www.allrecipes.com/sitemap.xml", 
-            "https://www.eatingwell.com/sitemap.xml" 
-        };
-
-        public AllRecipesScraper(ILogger<AllRecipesScraper> logger, HtmlWeb web) 
-            : base(logger, web, validSidemapUrls)
+        public AllRecipesScraper(IConfiguration configuration, ILogger<AllRecipesScraper> logger, HtmlWeb web) 
+            : base(configuration, logger, web, "Urls:AllRecipesUrls")
         {
         }
 

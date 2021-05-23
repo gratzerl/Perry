@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Perry.Database.Entities;
 using Perry.RecipesScraper.Services;
+using System.Threading.Tasks;
 
 namespace Perry.RecipesScraper
 {
