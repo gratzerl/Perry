@@ -15,9 +15,8 @@ namespace Perry.RecipesScraper.Services
         };
 
         public AllRecipesScraper(AllRecipesConfiguration configuration, ILogger<AllRecipesScraper> logger, HtmlWeb web) 
-            : base(logger, web)
+            : base(logger, web, configuration)
         {
-            validSitemapUrls = configuration.ValidSiteMapUrls.ToList();
         }
 
         protected override IEnumerable<string> GetLocsFromSitemap(HtmlNode documentNode)

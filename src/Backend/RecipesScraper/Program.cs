@@ -36,6 +36,8 @@ namespace Perry.RecipesScraper
                     services.AddSingleton<BbcConfiguration>(new BbcConfiguration { ValidSiteMapUrls = bbcUrls });
                     var allRecipesUrls = configuration.GetSection("Urls:AllRecipesUrls").GetChildren().Select(url => url.Value);
                     services.AddSingleton<AllRecipesConfiguration>(new AllRecipesConfiguration { ValidSiteMapUrls = allRecipesUrls });
+                    var allSitemapUrls = configuration.GetSection("Urls:SitemapUrls").GetChildren().Select(url => url.Value);
+                    services.AddSingleton<AllConfiguration>(new AllConfiguration { ValidSiteMapUrls = allSitemapUrls });
 
                     services
                     .AddTransient<IRecipeScraper, BbcGoodFoodScraper>()

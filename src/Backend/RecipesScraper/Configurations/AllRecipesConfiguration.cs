@@ -2,7 +2,7 @@
 
 namespace Perry.RecipesScraper.Configurations
 {
-    public class AllRecipesConfiguration
+    public class AllRecipesConfiguration : IScraperConfiguration
     {
         public IEnumerable<string> ValidSiteMapUrls { get; set; }
     }

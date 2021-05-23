@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Perry.Database.Entities;
+using Perry.RecipesScraper.Configurations;
 using Perry.RecipesScraper.Models;
 using System;
 using System.Collections.Generic;
@@ -19,12 +19,12 @@ namespace Perry.RecipesScraper.Services
         private readonly IHostApplicationLifetime _hostApplicationLifetime;
         
         private readonly IEnumerable<IRecipeScraper> scrapers;
-        private readonly List<string> sitemapUrls;
+        private readonly IList<string> sitemapUrls;
 
-        public RecipeScrapingService(IConfiguration configuration, RecipesContext recipeContext, ILogger<RecipeScrapingService> logger, IEnumerable<IRecipeScraper> scrapers,
+        public RecipeScrapingService(AllConfiguration configuration, RecipesContext recipeContext, ILogger<RecipeScrapingService> logger, IEnumerable<IRecipeScraper> scrapers,
             IHostApplicationLifetime hostApplicationLifetime)
         {
-            sitemapUrls = configuration.GetSection("Urls:SitemapUrls").GetChildren().Select(url => url.Value).ToList();
+            sitemapUrls = configuration.ValidSiteMapUrls.ToList();
             this.recipeContext = recipeContext ?? throw new ArgumentNullException(nameof(recipeContext));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.scrapers = scrapers ?? throw new ArgumentNullException(nameof(logger));
