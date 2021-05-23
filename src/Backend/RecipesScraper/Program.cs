@@ -5,7 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Perry.Database.Entities;
+using Perry.RecipesScraper.Configurations;
 using Perry.RecipesScraper.Services;
+using System.Linq;
 
 namespace Perry.RecipesScraper
 {
@@ -20,7 +22,8 @@ namespace Perry.RecipesScraper
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostBuilderContext, services) =>
                 {
-                    var dbConnection = hostBuilderContext.Configuration.GetConnectionString("ApplicationDbConnection");
+                    var configuration = hostBuilderContext.Configuration;
+                    var dbConnection = configuration.GetConnectionString("ApplicationDbConnection");
 
                     services.AddDbContext<RecipesContext>(options => options.UseSqlServer(dbConnection));
                     
@@ -28,6 +31,11 @@ namespace Perry.RecipesScraper
                         .AddConsole()
                         .AddDebug()
                     );
+
+                    var bbcUrls = configuration.GetSection("Urls:BbcGoodFoodUrls").GetChildren().Select(url => url.Value);
+                    services.AddSingleton<BbcConfiguration>(new BbcConfiguration { ValidSiteMapUrls = bbcUrls });
+                    var allRecipesUrls = configuration.GetSection("Urls:AllRecipesUrls").GetChildren().Select(url => url.Value);
+                    services.AddSingleton<AllRecipesConfiguration>(new AllRecipesConfiguration { ValidSiteMapUrls = allRecipesUrls });
 
                     services
                     .AddTransient<IRecipeScraper, BbcGoodFoodScraper>()

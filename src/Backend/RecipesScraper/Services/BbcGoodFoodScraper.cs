@@ -1,6 +1,6 @@
 ﻿using HtmlAgilityPack;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Perry.RecipesScraper.Configurations;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,9 +11,10 @@ namespace Perry.RecipesScraper.Services
     {
         private const string recipeBaseUrl = "https://www.bbcgoodfood.com/recipes";
 
-        public BbcGoodFoodScraper(IConfiguration configuration, ILogger<BbcGoodFoodScraper> logger, HtmlWeb web) 
-            : base(configuration, logger, web, "Urls:BbcGoodFoodUrls")
+        public BbcGoodFoodScraper(BbcConfiguration configuration, ILogger<BbcGoodFoodScraper> logger, HtmlWeb web) 
+            : base(logger, web)
         {
+            validSitemapUrls = configuration.ValidSiteMapUrls.ToList();
         }
 
         protected override HashSet<string> GetUrlsInSitemapUrls(HtmlNode documentNode)

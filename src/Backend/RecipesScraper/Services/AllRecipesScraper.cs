@@ -1,6 +1,6 @@
 ﻿using HtmlAgilityPack;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Perry.RecipesScraper.Configurations;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,9 +14,10 @@ namespace Perry.RecipesScraper.Services
             "https://www.eatingwell.com/sitemaps/recipe/"
         };
 
-        public AllRecipesScraper(IConfiguration configuration, ILogger<AllRecipesScraper> logger, HtmlWeb web) 
-            : base(configuration, logger, web, "Urls:AllRecipesUrls")
+        public AllRecipesScraper(AllRecipesConfiguration configuration, ILogger<AllRecipesScraper> logger, HtmlWeb web) 
+            : base(logger, web)
         {
+            validSitemapUrls = configuration.ValidSiteMapUrls.ToList();
         }
 
         protected override IEnumerable<string> GetLocsFromSitemap(HtmlNode documentNode)
