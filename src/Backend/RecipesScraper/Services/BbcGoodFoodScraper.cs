@@ -1,6 +1,5 @@
 ﻿using HtmlAgilityPack;
 using Microsoft.Extensions.Logging;
-using Perry.RecipesScraper.Configurations;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,10 +8,16 @@ namespace Perry.RecipesScraper.Services
 {
     public class BbcGoodFoodScraper : RecipeScraper
     {
-        private const string recipeBaseUrl = "https://www.bbcgoodfood.com/recipes";
+        private static readonly string bbcBaseUrl = "https://www.bbcgoodfood.com";
 
-        public BbcGoodFoodScraper(BbcConfiguration configuration, ILogger<BbcGoodFoodScraper> logger, HtmlWeb web) 
-            : base(logger, web, configuration)
+        private static readonly IEnumerable<string> siteMapUrls = new List<string> {
+            $"{bbcBaseUrl}/sitemap.xml"
+        };
+
+        private readonly string recipeBaseUrl = $"{bbcBaseUrl}/recipes";
+
+        public BbcGoodFoodScraper(ILogger<BbcGoodFoodScraper> logger, HtmlWeb web) 
+            : base(logger, web, siteMapUrls)
         {
         }
 
@@ -20,7 +25,11 @@ namespace Perry.RecipesScraper.Services
         {
             return documentNode
                     .Descendants()
-                    .Where(node => node.Name == "loc" && !node.InnerText.Contains("collection") && !node.InnerText.Contains("category") && node.InnerText.StartsWith(recipeBaseUrl))
+                    .Where(node => node.Name == "loc" && 
+                        !node.InnerText.Contains("collection") && 
+                        !node.InnerText.Contains("category") &&
+                        node.InnerText.StartsWith(recipeBaseUrl)
+                    )
                     .Select(node => HttpUtility.HtmlDecode(node.InnerText))
                     .ToHashSet();
         }

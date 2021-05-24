@@ -1,12 +1,11 @@
-﻿using HtmlAgilityPack;
-using Microsoft.Extensions.Logging;
-using Perry.RecipesScraper.Configurations;
-using Perry.RecipesScraper.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using HtmlAgilityPack;
+using Microsoft.Extensions.Logging;
+using Perry.RecipesScraper.Models;
 
 namespace Perry.RecipesScraper.Services
 {
@@ -15,12 +14,12 @@ namespace Perry.RecipesScraper.Services
        
         protected readonly ILogger<RecipeScraper> logger;
 
-        protected readonly IList<string> validSitemapUrls;
+        private readonly IEnumerable<string> validSitemapUrls;
 
-        public RecipeScraper(ILogger<RecipeScraper> logger, HtmlWeb web, IScraperConfiguration configuration) : base(web)
+        public RecipeScraper(ILogger<RecipeScraper> logger, HtmlWeb web, IEnumerable<string> validSitemapUrls) : base(web)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            validSitemapUrls = configuration.ValidSiteMapUrls.ToList();
+            this.validSitemapUrls = validSitemapUrls ?? throw new ArgumentNullException(nameof(validSitemapUrls));
         }
 
         public async Task<IEnumerable<ScrapedRecipeModel>> ScrapeRecipesAsync(string sitemapBaseUrl)

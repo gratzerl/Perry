@@ -1,21 +1,25 @@
-﻿using HtmlAgilityPack;
-using Microsoft.Extensions.Logging;
-using Perry.RecipesScraper.Configurations;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using HtmlAgilityPack;
+using Microsoft.Extensions.Logging;
 
 namespace Perry.RecipesScraper.Services
 {
     public class AllRecipesScraper : RecipeScraper
     {
-        private readonly IList<string> recipeSitemapBaseUrls = new List<string> {
+        private static readonly IEnumerable<string> siteMapUrls = new List<string> {
+            "https://www.allrecipes.com/sitemap.xml",
+            "https://www.eatingwell.com/sitemap.xml"
+        };
+
+        private readonly IEnumerable<string> recipeBaseUrls = new List<string> {
             "https://www.allrecipes.com/sitemaps/recipe/",
             "https://www.eatingwell.com/sitemaps/recipe/"
         };
 
-        public AllRecipesScraper(AllRecipesConfiguration configuration, ILogger<AllRecipesScraper> logger, HtmlWeb web) 
-            : base(logger, web, configuration)
+        public AllRecipesScraper(ILogger<AllRecipesScraper> logger, HtmlWeb web) 
+            : base(logger, web, siteMapUrls)
         {
         }
 
@@ -23,7 +27,7 @@ namespace Perry.RecipesScraper.Services
         {
             return documentNode
                 .Descendants()
-                .Where(node => node.Name == "loc" && recipeSitemapBaseUrls.Any(url => node.InnerText.StartsWith(url)))
+                .Where(node => node.Name == "loc" && recipeBaseUrls.Any(url => node.InnerText.StartsWith(url)))
                 .Select(n => HttpUtility.HtmlDecode(n.InnerText))
                 .ToList();
         }

@@ -1,10 +1,10 @@
-﻿using HtmlAgilityPack;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using HtmlAgilityPack;
+using Microsoft.Extensions.Logging;
 
 namespace Perry.RecipesScraper.Services
 {
