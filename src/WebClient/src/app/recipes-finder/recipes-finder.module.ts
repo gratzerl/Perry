@@ -7,11 +7,13 @@ import { RecipesFinderRoutingModule } from './recipes-finder-routing.module';
 import { RecipesFinderComponent } from './pages';
 import { RecipeStepperService, ROUTED_STEPS } from './services';
 import { recipeFinderSteps } from './constants';
+
 import {
   IngredientsStepComponent,
   PreferencesStepComponent,
-  RecipeSuggestionStepperComponent,
-  RecipesSuggestionsListComponent
+  RecipesSuggestionsListComponent,
+  SuggestionsStepComponent,
+  RecipeInputDataSummaryComponent
 } from './components';
 
 
@@ -20,8 +22,9 @@ import {
     RecipesFinderComponent,
     IngredientsStepComponent,
     PreferencesStepComponent,
-    RecipeSuggestionStepperComponent,
-    RecipesSuggestionsListComponent
+    RecipesSuggestionsListComponent,
+    SuggestionsStepComponent,
+    RecipeInputDataSummaryComponent
   ],
   imports: [
     CommonModule,

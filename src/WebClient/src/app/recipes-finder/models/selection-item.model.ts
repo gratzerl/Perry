@@ -1,5 +1,5 @@
 export interface SelectionItem<T> {
   label?: string,
-  value: T,
+  item: T,
   checked: boolean
 }

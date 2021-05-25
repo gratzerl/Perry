@@ -16,6 +16,7 @@ export class RecipeStepperService {
   private currentStepChange = new BehaviorSubject<RoutedStep>(this.currentStep);
   private currentStepStatusChange = new BehaviorSubject<RoutedStepStatus>(this.currentStep.status);
 
+
   constructor(@Inject(ROUTED_STEPS) private routedSteps: RoutedStep[]) {
     this.stepperData = this.createEmptyStepperData();
   }
@@ -89,6 +90,7 @@ export class RecipeStepperService {
 
   private createEmptyStepperData(): RecipeStepperData {
     return {
+      images: [],
       ingredients: [],
       preferences: {
         [PreferenceCategory.Difficulty]: [],

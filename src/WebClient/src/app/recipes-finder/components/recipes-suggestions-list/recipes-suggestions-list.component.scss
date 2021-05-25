@@ -6,6 +6,6 @@
   cursor: pointer;
 
   &:not(:last-of-type) {
-    margin-bottom: $vertical-padding;
+    margin-bottom: $md-vertical-padding;
   }
 }

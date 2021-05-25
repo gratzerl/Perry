@@ -1,3 +1,38 @@
+@import "src/styles/variables";
+
 :host {
   display: block;
+}
+
+.identification-section {
+  min-height: 336px;
+
+  .upload-area-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    .heading {
+      margin-right: auto;
+    }
+  }
+
+  .result-container {
+    margin-top: $lg-vertical-padding;
+
+    .message {
+      display: block;
+      font-size: 16px;
+      line-height: 24px;
+    }
+  }
+
+  .ingredient-selection {
+    width: 100%;
+    margin-top: $sm-vertical-padding;
+  }
+}
+
+.category-container:not(:last-of-type) {
+  margin-bottom: $md-vertical-padding;
 }

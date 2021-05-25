@@ -20,12 +20,13 @@ export class PreferencesStepComponent implements OnInit {
 
   ngOnInit(): void {
     const { preferences } = this.stepperService.data;
+
     Object.entries(recipePreferences)
       .map(([keyStr, tags]) => {
         const key = keyStr as keyof typeof PreferenceCategory;
         this.preferences[key] = tags.map<SelectionItem<RecipeTag>>(tag => {
-          const p = preferences[key].find(selItem => selItem.value.labelKey === tag.labelKey);
-          return ({ value: tag, checked: p !== undefined ? p.checked : false });
+          const p = preferences[key].find(selItem => selItem.item.labelKey === tag.labelKey);
+          return ({ item: tag, checked: p !== undefined ? p.checked : false });
         });
       });
   }

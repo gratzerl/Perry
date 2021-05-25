@@ -1,6 +1,7 @@
 <ng-container *transloco="let t; read: 'rf.suggestions'">
-  <button *ngIf="!suggestionResult" nz-button nzType="primary" (click)="findRecipes()">{{
-    t('suggest-recipes-btn-label') }}</button>
+  <button *ngIf="!suggestionResult" nz-button nzType="primary" (click)="findRecipes()">
+    {{ t('suggest-recipes-btn-label') }}
+  </button>
   <ng-container *ngIf="suggestionResult">
     <span *ngIf="suggestionResult.totalCount === 0">
       {{ t('messages.recipes-not-found') }}

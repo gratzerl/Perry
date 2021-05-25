@@ -1,11 +1,11 @@
-<div *transloco="let t;">
-  <ng-container *ngFor="let cat of categories | keyvalue">
+<ng-container *transloco="let t;">
+  <div *ngFor="let cat of categories | keyvalue">
     <h3> {{ t('rf.preferences.categories.'+ (cat.value | lowercase) +'.heading') }}</h3>
     <div>
       <label nz-checkbox *ngFor="let data of preferences[cat.value]" [ngModel]="data.checked"
         (ngModelChange)="updateSelection(cat.value, data, $event)">
-        {{ t(data.value.labelKey) }}
+        {{ t(data.item.labelKey) }}
       </label>
     </div>
-  </ng-container>
-</div>
+  </div>
+</ng-container>

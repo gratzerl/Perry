@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { IngredientsStepComponent, PreferencesStepComponent } from './components';
+import { IngredientsStepComponent, PreferencesStepComponent, SuggestionsStepComponent } from './components';
 import { RecipesFinderComponent } from './pages';
 
 const routes: Routes = [
@@ -15,6 +15,10 @@ const routes: Routes = [
       {
         path: 'preferences',
         component: PreferencesStepComponent
+      },
+      {
+        path: 'suggestions',
+        component: SuggestionsStepComponent
       }
     ]
   }

@@ -10,7 +10,7 @@ import { RecipeFinderService } from '../../services';
 })
 export class RecipesSuggestionsListComponent {
   @Input()
-  recipeData?: RecipeStepperData;
+  recipeData!: RecipeStepperData;
 
   suggestionResult?: PagedResponse<RecipeSuggestion>;
   isLoading = false;
@@ -23,7 +23,6 @@ export class RecipesSuggestionsListComponent {
   }
 
   findRecipes(pageNumber: number = 1): void {
-    console.log(this.recipeData);
     if (this.recipeData === undefined) {
       return;
     }
@@ -34,11 +33,11 @@ export class RecipesSuggestionsListComponent {
       .map(([_, value]) => value)
       .reduce((acc, value) => acc.concat(value), [])
       .filter(item => item.checked)
-      .map(item => item.value);
+      .map(item => item.item);
 
     const ingredients = this.recipeData.ingredients
       .filter(item => item.checked)
-      .map(item => item.value);
+      .map(item => item.item);
 
     this.recipeFinderService.findSuggestions(ingredients, tags, pageNumber, this.pageSize)
       .pipe(finalize(() => this.isLoading = false))

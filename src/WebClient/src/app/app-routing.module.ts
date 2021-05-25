@@ -9,7 +9,7 @@ const routes: Routes = [
     component: LandingPageComponent
   },
   {
-    path: 'suggest',
+    path: 'find',
     component: NavShellComponent,
     children: [
       {

@@ -3,9 +3,38 @@
   "ingredients": {
     "step-title": "Ingredients",
     "step-description": "Pick your ingredients",
+    "identification-heading": "Ingredients identification",
+    "other-ingredients-heading": "Select more ingredients",
+    "categories": {
+      "meat": {
+        "heading": "Meat",
+        "options": {
+          "beef": "Beef",
+          "pork": "Pork",
+          "chicken": "Chicken",
+          "turkey": "Turkey",
+          "lamb": "Lamb"
+        }
+      },
+      "grainspasta": {
+        "heading": "Beans, Pasta and Grains",
+        "options": {
+          "oats": "Oats",
+          "farro": "Farro",
+          "bulgur": "Bulgur",
+          "rice": "Rice",
+          "quinoa": "Quinoa",
+          "couscous": "Couscous",
+          "lentils": "Lentils",
+          "beans": "Beans",
+          "pasta": "Pasta",
+          "gnocchi": "Gnocchi"
+        }
+      }
+    },
     "messages": {
       "no-ingredients-found": "Sadly, we could not identify any ingredients :(",
-      "uncheck-unwanted-ingredients": "We have found the following ingredients. You can also unselected missidentified ingredients."
+      "uncheck-unwanted-ingredients": "We have found the following ingredients. You also unselected missidentified ingredients."
     }
   },
   "preferences": {
@@ -30,6 +59,8 @@
     }
   },
   "suggestions": {
+    "step-title": "Suggestions",
+    "step-description": "Search for recipes",
     "suggest-recipes-btn-label": "Search!",
     "messages": {
       "recipes-found": "We've found {{ itemCount }} recipes",

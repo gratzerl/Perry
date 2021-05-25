@@ -15,5 +15,12 @@ export const recipeFinderSteps: RoutedStep[] = [
     route: 'preferences',
     isRequired: false,
     status: RoutedStepStatus.None
+  },
+  {
+    titleKey: 'rf.suggestions.step-title',
+    descriptionKey: 'rf.suggestions.step-description',
+    route: 'suggestions',
+    isRequired: false,
+    status: RoutedStepStatus.None
   }
 ];

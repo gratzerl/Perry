@@ -1,7 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { RecipeStepperData } from '../../models';
+import { BreakpointQuery } from 'src/app/core/constants/general.constants';
+import { RoutedStepStatus, RoutedStep } from '../../models';
 import { RecipeStepperService } from '../../services';
 
 @Component({
@@ -12,24 +15,42 @@ import { RecipeStepperService } from '../../services';
 export class RecipesFinderComponent implements OnInit, OnDestroy {
   private onDestroy = new Subject<void>();
 
-  stepperCompleted = false;
-  isLoading = false;
+  isSmallScreen = false;
+  stepStatus = RoutedStepStatus;
+  currentStep?: RoutedStep;
+  currentStepIndex = 0;
 
-  recipeData?: RecipeStepperData;
-
-  constructor(private stepperService: RecipeStepperService) { }
+  constructor(public stepperService: RecipeStepperService, private router: Router, private route: ActivatedRoute,
+    private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit(): void {
-    this.stepperService.stepperComplete$
+    this.breakpointObserver.observe(BreakpointQuery.Sm)
       .pipe(takeUntil(this.onDestroy))
-      .subscribe(data => {
-        this.recipeData = data;
-        this.stepperCompleted = true;
+      .subscribe(state => this.isSmallScreen = state.matches);
+
+    this.stepperService.currentStep$
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(step => {
+        this.router.navigate([step.route], { relativeTo: this.route });
       });
   }
 
   ngOnDestroy(): void {
     this.onDestroy.next();
     this.onDestroy.complete();
+  }
+
+  complete(): void {
+    this.stepperService.complete();
+  }
+
+  previous(): void {
+    this.currentStepIndex--;
+    this.stepperService.previousStep();
+  }
+
+  next(): void {
+    this.currentStepIndex++;
+    this.stepperService.nextStep();
   }
 }

@@ -3,6 +3,35 @@
   "ingredients": {
     "step-title": "Zutaten",
     "step-description": "Bestimme deine Zutaten",
+    "identification-heading": "Zutatenerkennung",
+    "other-ingredients-heading": "Weitere Zutaten auswählen",
+    "categories": {
+      "meat": {
+        "heading": "Fleisch",
+        "options": {
+          "beef": "Rind",
+          "pork": "Schwein",
+          "chicken": "Huhn",
+          "turkey": "Pute",
+          "lamb": "Lamm"
+        }
+      },
+      "grainspasta": {
+        "heading": "Bohnen, Pasta und Körner",
+        "options": {
+          "oats": "Haferflocken",
+          "farro": "Dinkel",
+          "bulgur": "Bulgur",
+          "rice": "Reis",
+          "quinoa": "Quinoa",
+          "couscous": "Couscous",
+          "lentils": "Linsen",
+          "beans": "Bohnen",
+          "pasta": "Pasta",
+          "gnocchi": "Gnocchi"
+        }
+      }
+    },
     "messages": {
       "no-ingredients-found": "Wir konnten leider keine Zutaten finden :(",
       "uncheck-unwanted-ingredients": "Diese Zutaten haben wir gefunden. Du kanst falsch identifizierte Zutaten auch wieder abwählen."
@@ -30,6 +59,8 @@
     }
   },
   "suggestions": {
+    "step-title": "Vorschläge",
+    "step-description": "Suche nach Rezepten",
     "suggest-recipes-btn-label": "Suche!",
     "messages": {
       "recipes-found": "Wir haben {{ itemCount }} Rezepte gefunden",

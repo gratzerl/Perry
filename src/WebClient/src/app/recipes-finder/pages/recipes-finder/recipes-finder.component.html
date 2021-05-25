@@ -1,5 +1,29 @@
-<ng-container *transloco="let t; read: 'rf'">
-  <h1>{{ t('heading') }}</h1>
-  <app-recipe-suggestion-stepper *ngIf="!stepperCompleted"></app-recipe-suggestion-stepper>
-  <app-recipes-suggestions-list *ngIf="stepperCompleted" [recipeData]="recipeData"></app-recipes-suggestions-list>
+<ng-container *transloco="let t;">
+  <h1 nz-typography>{{ t('rf.heading') }}</h1>
+  <div class="stepper">
+    <div class="steps-container">
+      <nz-steps [nzDirection]="isSmallScreen ? 'horizontal' : 'vertical'" [nzCurrent]="currentStepIndex">
+        <nz-step *ngFor="let step of stepperService.steps" [nzTitle]="t(step.titleKey)"
+          [nzDescription]="t(step.descriptionKey)">
+        </nz-step>
+      </nz-steps>
+    </div>
+    <div class="step-content-container">
+      <div class="stepper-button-bar">
+        <button nz-button *ngIf="!stepperService.isFirstStep" (click)="previous()"
+          [disabled]="(stepperService.currentStepStatus$ | async) === stepStatus.Loading">
+          <i nz-icon nzType="left"></i>
+          {{ t('component-labels.back') }}
+        </button>
+        <button nz-button nzType="primary" *ngIf="!stepperService.isLastStep" (click)="next()" [disabled]="(stepperService.currentStepStatus$ | async) === stepStatus.Loading ||
+          (stepperService.currentStep.isRequired && (stepperService.currentStepStatus$ | async) !== stepStatus.Valid)">
+          {{ t('component-labels.next') }}
+          <i nz-icon nzType="right"></i>
+        </button>
+      </div>
+      <div class="step-content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
 </ng-container>
