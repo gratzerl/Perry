@@ -1,11 +1,11 @@
-﻿using HtmlAgilityPack;
-using Microsoft.Extensions.Logging;
-using Perry.RecipesScraper.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using HtmlAgilityPack;
+using Microsoft.Extensions.Logging;
+using Perry.RecipesScraper.Models;
 
 namespace Perry.RecipesScraper.Services
 {
@@ -14,20 +14,23 @@ namespace Perry.RecipesScraper.Services
        
         protected readonly ILogger<RecipeScraper> logger;
 
-        public RecipeScraper(ILogger<RecipeScraper> logger, HtmlWeb web) : base(web)
+        private readonly IEnumerable<string> validSitemapUrls;
+
+        public RecipeScraper(ILogger<RecipeScraper> logger, HtmlWeb web, IEnumerable<string> validSitemapUrls) : base(web)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.validSitemapUrls = validSitemapUrls ?? throw new ArgumentNullException(nameof(validSitemapUrls));
         }
 
-        public async Task<IEnumerable<ScrapedRecipeModel>> ScrapeRecipesAsync()
+        public async Task<IEnumerable<ScrapedRecipeModel>> ScrapeRecipesAsync(string sitemapBaseUrl)
         {
             logger.LogInformation($"Start scraping recipes from {sitemapBaseUrl}...");
 
-            var recipeUrls = await GetUrlsFromSitemapAsync();
-            logger.LogInformation($"Found {recipeUrls.Count()} recipe urls");
+            var recipeUrls = await GetUrlsFromSitemapAsync(sitemapBaseUrl);
+            logger.LogInformation($"Found {recipeUrls.Count()} recipe urls (on basis of {sitemapBaseUrl})");
 
             var recipes = await ParseRecipesFromUrlsAsync(recipeUrls);
-            logger.LogInformation($"Created {recipes.Count()} recipes");
+            logger.LogInformation($"Created {recipes.Count()} recipes (on basis of {sitemapBaseUrl})");
 
             return recipes;
         }
@@ -59,7 +62,7 @@ namespace Perry.RecipesScraper.Services
                     recipes.Add(recipe);
 
 #if DEBUG
-                    if (recipes.Count > 20)
+                    if (recipes.Count > 10)
                     {
                         break;
                     }
@@ -74,6 +77,11 @@ namespace Perry.RecipesScraper.Services
             return recipes;
         }
 
+        public bool CanParseUrl(string url)
+        {
+            return validSitemapUrls.Contains(url);
+        }
+
         protected abstract string GetRecipeName(HtmlNode documentNode);
 
         protected abstract string GetRecipeDescription(HtmlNode documentNode);
@@ -81,6 +89,5 @@ namespace Perry.RecipesScraper.Services
         protected abstract IEnumerable<string> GetRecipeIngredients(HtmlNode documentNode);
 
         protected abstract IEnumerable<string> GetRecipeSteps(HtmlNode documentNode);
-
     }
 }

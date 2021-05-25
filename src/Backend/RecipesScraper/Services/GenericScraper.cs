@@ -1,15 +1,14 @@
-﻿using HtmlAgilityPack;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using HtmlAgilityPack;
 
 namespace Perry.RecipesScraper.Services
 {
     public abstract class GenericScraper
     {
-        protected string sitemapBaseUrl;
         protected readonly HtmlWeb web;
 
         public GenericScraper(HtmlWeb web)
@@ -17,13 +16,13 @@ namespace Perry.RecipesScraper.Services
             this.web = web ?? throw new ArgumentNullException(nameof(web));
         }
 
-        protected async Task<IEnumerable<string>> GetUrlsFromSitemapAsync()
+        protected async Task<IEnumerable<string>> GetUrlsFromSitemapAsync(string sitemapBaseUrl)
         {
             var doc = await web.LoadFromWebAsync(sitemapBaseUrl);
 
             var sitemapLocs = GetLocsFromSitemap(doc.DocumentNode);
 
-            var recipeUrls = new HashSet<string>();
+            var collectedUrls = new HashSet<string>();
 
             foreach (var loc in sitemapLocs)
             {
@@ -31,10 +30,16 @@ namespace Perry.RecipesScraper.Services
 
                 var urls = GetUrlsInSitemapUrls(doc.DocumentNode);
 
-                recipeUrls.UnionWith(urls);
+                collectedUrls.UnionWith(urls);
+#if DEBUG
+                if (collectedUrls.Count > 10)
+                {
+                    break;
+                }
+#endif
             }
 
-            return recipeUrls;
+            return collectedUrls;
         }
 
         protected virtual IEnumerable<string> GetLocsFromSitemap(HtmlNode documentNode)

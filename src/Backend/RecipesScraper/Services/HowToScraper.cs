@@ -1,11 +1,10 @@
-﻿using HtmlAgilityPack;
-using Microsoft.Extensions.Logging;
-using Perry.RecipesScraper.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using HtmlAgilityPack;
+using Microsoft.Extensions.Logging;
 
 namespace Perry.RecipesScraper.Services
 {
@@ -13,18 +12,17 @@ namespace Perry.RecipesScraper.Services
     {       
         protected readonly ILogger<HowToScraper> logger;
         private const string glossaryBaseUrl = "https://www.bbcgoodfood.com/glossary";
-
+        private const string sitemapBaseUrl = "https://www.bbcgoodfood.com/wp-sitemap.xml";
         public HowToScraper(ILogger<HowToScraper> logger, HtmlWeb web) : base(web)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            sitemapBaseUrl = "https://www.bbcgoodfood.com/wp-sitemap.xml";
         }
 
         public async Task<Dictionary<string, string>> ScrapeHowTosAsync()
         {
             logger.LogInformation($"Start scraping how-tos from {sitemapBaseUrl}...");
 
-            var urls = await GetUrlsFromSitemapAsync();
+            var urls = await GetUrlsFromSitemapAsync(sitemapBaseUrl);
             logger.LogInformation($"Found {urls.Count()} how-to urls");
 
             var howTos = await ParseHowTosFromUrlsAsync(urls);

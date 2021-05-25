@@ -1,25 +1,33 @@
-﻿using HtmlAgilityPack;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using HtmlAgilityPack;
+using Microsoft.Extensions.Logging;
 
 namespace Perry.RecipesScraper.Services
 {
     public class AllRecipesScraper : RecipeScraper
     {
-        private const string recipeSitemapBaseUrl = "https://www.allrecipes.com/sitemaps/recipe/";
+        private static readonly IEnumerable<string> siteMapUrls = new List<string> {
+            "https://www.allrecipes.com/sitemap.xml",
+            "https://www.eatingwell.com/sitemap.xml"
+        };
 
-        public AllRecipesScraper(ILogger<AllRecipesScraper> logger, HtmlWeb web) : base(logger, web)
+        private readonly IEnumerable<string> recipeBaseUrls = new List<string> {
+            "https://www.allrecipes.com/sitemaps/recipe/",
+            "https://www.eatingwell.com/sitemaps/recipe/"
+        };
+
+        public AllRecipesScraper(ILogger<AllRecipesScraper> logger, HtmlWeb web) 
+            : base(logger, web, siteMapUrls)
         {
-            sitemapBaseUrl = "https://www.allrecipes.com/sitemap.xml";
         }
 
         protected override IEnumerable<string> GetLocsFromSitemap(HtmlNode documentNode)
         {
             return documentNode
                 .Descendants()
-                .Where(node => node.Name == "loc" && node.InnerText.StartsWith(recipeSitemapBaseUrl))
+                .Where(node => node.Name == "loc" && recipeBaseUrls.Any(url => node.InnerText.StartsWith(url)))
                 .Select(n => HttpUtility.HtmlDecode(n.InnerText))
                 .ToList();
         }
@@ -66,6 +74,5 @@ namespace Perry.RecipesScraper.Services
                     .FirstOrDefault(n => n.HasClass("instructions-section"))
                     .GetEscapedInnerTextInDescendentsForClass("paragraph");
         }
-
     }
 }

@@ -1,7 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Perry.Database.Entities;
+using Perry.RecipesScraper.Configurations;
+using Perry.RecipesScraper.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +17,19 @@ namespace Perry.RecipesScraper.Services
     {
         private readonly RecipesContext recipeContext;
         private readonly ILogger<RecipeScrapingService> logger;
+        private readonly IHostApplicationLifetime hostApplicationLifetime;
+        
         private readonly IEnumerable<IRecipeScraper> scrapers;
+        private readonly ScrapingOptions options;
 
-        public RecipeScrapingService(RecipesContext recipeContext, ILogger<RecipeScrapingService> logger, IEnumerable<IRecipeScraper> scrapers)
+        public RecipeScrapingService(IOptionsMonitor<ScrapingOptions> monitor, RecipesContext recipeContext, ILogger<RecipeScrapingService> logger, IEnumerable<IRecipeScraper> scrapers,
+            IHostApplicationLifetime hostApplicationLifetime)
         {
             this.recipeContext = recipeContext ?? throw new ArgumentNullException(nameof(recipeContext));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.scrapers = scrapers ?? throw new ArgumentNullException(nameof(logger));
+            this.hostApplicationLifetime = hostApplicationLifetime;
+            options = monitor?.CurrentValue ?? throw new ArgumentNullException(nameof(monitor));
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -33,21 +42,29 @@ namespace Perry.RecipesScraper.Services
             logger.LogInformation($"Retrieved {savedRecipes.Count} urls from the db.");
 
             logger.LogInformation("Starting scrapers...");
-            var scrapingTasks = scrapers.Select(s => s.ScrapeRecipesAsync()).ToList();
+
+            var scrapingTasks = new List<Task<IEnumerable<ScrapedRecipeModel>>>();
+            foreach(var url in options.UrlsToBeScraped)
+            {
+                var scraper = scrapers.FirstOrDefault(s => s.CanParseUrl(url)) ?? throw new ArgumentException($"No valid scraper found for {url}");
+                scrapingTasks.Add(scraper.ScrapeRecipesAsync(url));
+            }
+
             var taskResult = await Task.WhenAll(scrapingTasks).ConfigureAwait(false);
             logger.LogInformation("Scrapers finished.");
 
-            var scrapedRecipes = taskResult.SelectMany(r => r).Select(r => 
-                new Recipe
-                {
-                    Id = Guid.NewGuid(),
-                    Name = r.Name,
-                    Description = r.Description,
-                    Ingredients = string.Join('\n', r.Ingredients),
-                    Method = string.Join('\n', r.Steps),
-                    Url = r.Url
-                }
-            ).ToList();
+            var scrapedRecipes = taskResult.SelectMany(r => r)
+                .Select(r => 
+                    new Recipe
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = r.Name,
+                        Description = r.Description,
+                        Ingredients = string.Join('\n', r.Ingredients),
+                        Method = string.Join('\n', r.Steps),
+                        Url = r.Url
+                    })
+                .ToList();
 
             int duplicateCount = scrapedRecipes.RemoveAll(r => savedRecipes.Contains(r.Url));
             logger.LogInformation($"{duplicateCount} recipes are already saved in the db. Skipping these...");
@@ -56,7 +73,8 @@ namespace Perry.RecipesScraper.Services
             await recipeContext.SaveChangesAsync();
             logger.LogInformation($"{scrapedRecipes.Count} recipes saved.");
 
-            this.Dispose();
+            hostApplicationLifetime.StopApplication();
+            Dispose();
         }
     }
 }

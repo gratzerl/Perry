@@ -30,7 +30,7 @@ namespace Perry.RecipesScraper.Services
 
             CreateAndSaveExcelFile(scrapedHowTos.First());
             logger.LogInformation($"{scrapedHowTos.First().Count} howTos saved.");
-            
+
             this.Dispose();
         }
 
