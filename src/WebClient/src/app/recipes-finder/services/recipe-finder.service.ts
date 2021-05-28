@@ -6,7 +6,6 @@ import { AppConfig } from 'src/app/core/models';
 import { APP_CONFIG } from 'src/app/core/core.module';
 import { PagedResponse, RecipeSuggestion, RecipeTag } from '../models';
 import { queryStringBuilder } from '../helpers/query-string-builder';
-import { RecipeSuggestionRequest } from '../models/recipe-suggestion-request.model';
 
 @Injectable({
   providedIn: 'root'

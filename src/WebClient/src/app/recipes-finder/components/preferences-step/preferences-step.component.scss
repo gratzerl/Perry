@@ -1,3 +1,9 @@
+@import "src/styles/variables";
+
 :host {
   display: block;
+}
+
+.category-container:not(:last-of-type) {
+  margin-bottom: $md-vertical-padding;
 }

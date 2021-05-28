@@ -1,21 +1,23 @@
 <ng-container *transloco="let t; read: 'rf.ingredients'">
   <div class="identification-section">
-    <nz-upload class="ingredient-image-upload" nzAccept="image/*" nzListType="picture" [(nzFileList)]="imageFiles"
-      [nzBeforeUpload]="beforeUpload" [nzMultiple]="true" [nzSize]="maxImageSizeKb">
-      <div class="upload-area-header">
-        <h2 class="heading" nz-typography>{{ t('identification-heading') }}</h2>
-        <ng-container *transloco="let t; read: 'component-labels'">
-          <button nz-button [nzLoading]="isLoading" (click)="$event.stopPropagation(); identifyIngredients()"
-            [disabled]="imageFiles.length == 0 || isLoading">
-            <i nz-icon nzType="upload"></i>
-          </button>
-          <button nz-button nzType="primary" [disabled]="isLoading">
-            <i nz-icon nzType="plus"></i>
-          </button>
-        </ng-container>
-      </div>
-    </nz-upload>
-    <nz-empty *ngIf="imageFiles.length == 0"></nz-empty>
+    <nz-card>
+      <nz-upload class="ingredient-image-upload" nzAccept="image/*" nzListType="picture" [(nzFileList)]="imageFiles"
+        [nzBeforeUpload]="beforeUpload" [nzMultiple]="true" [nzSize]="maxImageSizeKb">
+        <div class="upload-area-header">
+          <h2 class="heading" nz-typography>{{ t('identification-heading') }}</h2>
+          <ng-container *transloco="let t; read: 'component-labels'">
+            <button nz-button [nzLoading]="isLoading" (click)="$event.stopPropagation(); identifyIngredients()"
+              [disabled]="imageFiles.length == 0 || isLoading">
+              <i nz-icon nzType="upload"></i>
+            </button>
+            <button nz-button nzType="primary" [disabled]="isLoading">
+              <i nz-icon nzType="plus"></i>
+            </button>
+          </ng-container>
+        </div>
+      </nz-upload>
+      <nz-empty *ngIf="imageFiles.length == 0"></nz-empty>
+    </nz-card>
     <div class="result-container" *ngIf="identifiedIngredients !== undefined">
       <span class="message" nz-typography *ngIf="identifiedIngredients.length === 0">
         {{ t('messages.no-ingredients-found')}}
@@ -36,14 +38,9 @@
     <h2 nz-typography>{{ t('other-ingredients-heading') }}</h2>
     <ng-container *transloco="let t;">
       <div class="category-container" *ngFor="let cat of ingredientCategories | keyvalue">
-        <h4 nz-typography> {{ t('rf.ingredients.categories.' + (cat.value | lowercase) + '.heading') }}</h4>
-        <div nz-row>
-          <div *ngFor="let data of ingredientOptions[cat.value]" nz-col nzLg="6" nzSm="8" nzXs="10">
-            <label nz-checkbox [ngModel]="data.checked" (ngModelChange)="updateSelection(cat.value, data, $event)">
-              {{ t(data.item.labelKey) }}
-            </label>
-          </div>
-        </div>
+        <app-option-selection-card [heading]="t('rf.ingredients.categories.' + (cat.value | lowercase) + '.heading')"
+          [options]="ingredientOptions[cat.value]" (optionChange)="updateSelection(cat.value, $event)">
+        </app-option-selection-card>
       </div>
     </ng-container>
   </div>

@@ -9,7 +9,7 @@ import { RecipeStepperService } from '../../services';
   styleUrls: ['./preferences-step.component.scss']
 })
 export class PreferencesStepComponent implements OnInit {
-  categories = PreferenceCategory;
+  preferenceCategories = PreferenceCategory;
 
   preferences: { [key in PreferenceCategory]: SelectionItem<RecipeTag>[] } = {
     [PreferenceCategory.Difficulty]: [],
@@ -31,13 +31,13 @@ export class PreferencesStepComponent implements OnInit {
       });
   }
 
-  updateSelection(category: PreferenceCategory, preference: SelectionItem<RecipeTag>, isSelected: boolean): void {
+  updateSelection(category: PreferenceCategory, preference: SelectionItem<RecipeTag>): void {
     const pref = this.preferences[category].find(p => p === preference);
     if (!pref) {
       return;
     }
 
-    pref.checked = isSelected;
+    pref.checked = preference.checked;
     this.stepperService.data.preferences[category] = [...this.preferences[category]];
   }
 }

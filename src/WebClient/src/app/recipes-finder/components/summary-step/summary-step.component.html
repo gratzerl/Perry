@@ -1,0 +1,39 @@
+<div *transloco="let t; read: 'rf.summary'">
+  <h2 nz-typography>{{ t('step-title') }}</h2>
+  <nz-card [nzTitle]="t('selected-ingredients-heading')" [nzExtra]="editIngredients">
+    <span *ngFor="let i of stepperService.data.ingredients; let isLast = last" nz-typography>
+      {{ i.item }}{{ isLast ? '' : ','}}
+    </span>
+
+    <ng-template #editIngredients>
+      <button nz-button nzType="text" (click)="stepperService.goToStepRoute('ingredients')">
+        <i nz-icon nzType="edit"></i>
+      </button>
+    </ng-template>
+  </nz-card>
+
+  <nz-card [nzTitle]="t('selected-preferences-heading')" [nzExtra]="editPreferences">
+    <ng-container *ngIf="!hasSelectedPreferences; else preferencesList">
+      {{ t('messages.empty-preferences') }}
+    </ng-container>
+
+    <ng-template #preferencesList>
+      <ng-container *transloco="let t;">
+        <ng-container *ngFor="let p of preferenceCategory | keyvalue">
+          <div class="preference-summary" *ngIf="stepperService.data.preferences[p.value].length > 0">
+            <h3> {{ t('rf.preferences.categories.'+ (p.value | lowercase) +'.heading') }}</h3>
+            <span *ngFor="let i of stepperService.data.preferences[p.value]; let isLast = last" nz-typography>
+              {{ t(i.item.labelKey) }}{{ isLast ? '' : ','}}
+            </span>
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-template>
+
+    <ng-template #editPreferences>
+      <button nz-button nzType="text" (click)="stepperService.goToStepRoute('preferences')">
+        <i nz-icon nzType="edit"></i>
+      </button>
+    </ng-template>
+  </nz-card>
+</div>

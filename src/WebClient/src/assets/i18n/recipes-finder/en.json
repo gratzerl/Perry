@@ -58,10 +58,17 @@
       }
     }
   },
+  "summary": {
+    "step-title": "Summary",
+    "step-description": "Review your input",
+    "selected-ingredients-heading": "Selected ingredients",
+    "selected-preferences-heading": "Selected preferences",
+    "messages": {
+      "empty-preferences": "You don't have selected any other preferences."
+    }
+  },
   "suggestions": {
-    "step-title": "Suggestions",
-    "step-description": "Search for recipes",
-    "suggest-recipes-btn-label": "Search!",
+    "heading": "Suggestions",
     "messages": {
       "recipes-found": "We've found {{ itemCount }} recipes",
       "recipes-not-found": "Sorry, we did not find any recipes matching your preferences"

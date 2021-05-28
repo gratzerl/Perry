@@ -2,23 +2,28 @@
   <h1 nz-typography>{{ t('rf.heading') }}</h1>
   <div class="stepper">
     <div class="steps-container">
-      <nz-steps [nzDirection]="isSmallScreen ? 'horizontal' : 'vertical'" [nzCurrent]="currentStepIndex">
+      <nz-steps [nzDirection]="isSmallScreen ? 'horizontal' : 'vertical'" [nzCurrent]="currentStepIndex"
+        (nzIndexChange)="changeStep($event)" [nzStatus]="currentStepStatus">
         <nz-step *ngFor="let step of stepperService.steps" [nzTitle]="t(step.titleKey)"
           [nzDescription]="t(step.descriptionKey)">
         </nz-step>
       </nz-steps>
     </div>
     <div class="step-content-container">
-      <div class="stepper-button-bar">
+      <div class="stepper-button-bar" *ngIf="(stepperService.currentStep$ | async) as currentStep">
         <button nz-button *ngIf="!stepperService.isFirstStep" (click)="previous()"
-          [disabled]="(stepperService.currentStepStatus$ | async) === stepStatus.Loading">
+          [disabled]="currentStep.status === routedStepStatus.Loading">
           <i nz-icon nzType="left"></i>
           {{ t('component-labels.back') }}
         </button>
-        <button nz-button nzType="primary" *ngIf="!stepperService.isLastStep" (click)="next()" [disabled]="(stepperService.currentStepStatus$ | async) === stepStatus.Loading ||
-          (stepperService.currentStep.isRequired && (stepperService.currentStepStatus$ | async) !== stepStatus.Valid)">
+        <button nz-button nzType="primary" *ngIf="!stepperService.isLastStep" (click)="next()" [disabled]="currentStep.status === routedStepStatus.Loading ||
+          (stepperService.currentStep.isRequired && currentStep.status !== routedStepStatus.Valid)">
           {{ t('component-labels.next') }}
           <i nz-icon nzType="right"></i>
+        </button>
+        <button nz-button nzType="primary" *ngIf="stepperService.isLastStep" [routerLink]="['/find/suggestions']">
+          {{ t('component-labels.search')}}
+          <i nz-icon nzType="check"></i>
         </button>
       </div>
       <div class="step-content">

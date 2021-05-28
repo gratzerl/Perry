@@ -58,10 +58,17 @@
       }
     }
   },
+  "summary": {
+    "step-title": "Zusammenfassung",
+    "step-description": "Überprüfe deine Eingaben",
+    "selected-ingredients-heading": "Ausgewählte Zutaten",
+    "selected-preferences-heading": "Präferenzen",
+    "messages": {
+      "empty-preferences": "Du hast keine Präferenzen ausgewählt."
+    }
+  },
   "suggestions": {
-    "step-title": "Vorschläge",
-    "step-description": "Suche nach Rezepten",
-    "suggest-recipes-btn-label": "Suche!",
+    "heading": "Vorschläge",
     "messages": {
       "recipes-found": "Wir haben {{ itemCount }} Rezepte gefunden",
       "recipes-not-found": "Wir haben leider keine passenden Rezepte gefunden"

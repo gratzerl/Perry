@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { finalize } from 'rxjs/operators';
 import { ingredientCategoryOptions, IngredientCategory } from '../../constants';
-
 import { RecipeTag, RoutedStepStatus, SelectionItem } from '../../models';
 import { IngredientsIdentificationService, RecipeStepperService } from '../../services';
 
@@ -87,16 +86,16 @@ export class IngredientsStepComponent implements OnInit {
     this.stepperService.data.ingredients = [...this.ingredients];
   }
 
-  updateSelection(category: IngredientCategory, option: SelectionItem<RecipeTag>, isSelected: boolean): void {
+  updateSelection(category: IngredientCategory, option: SelectionItem<RecipeTag>): void {
     const pref = this.ingredientOptions[category].find(o => o === option);
     if (!pref) {
       return;
     }
 
-    pref.checked = isSelected;
+    pref.checked = option.checked;
 
     const { values } = option.item;
-    const updated = values.map(ingredient => ({ label: ingredient, item: ingredient, checked: isSelected }))
+    const updated = values.map(ingredient => ({ label: ingredient, item: ingredient, checked: option.checked }))
     this.insertOrUpdateIngredients(updated);
   }
 }

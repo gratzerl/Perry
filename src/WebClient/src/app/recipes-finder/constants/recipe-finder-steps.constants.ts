@@ -5,7 +5,7 @@ export const recipeFinderSteps: RoutedStep[] = [
   {
     titleKey: 'rf.ingredients.step-title',
     descriptionKey: 'rf.ingredients.step-description',
-    route: 'identification',
+    route: 'ingredients',
     isRequired: true,
     status: RoutedStepStatus.None
   },
@@ -17,9 +17,9 @@ export const recipeFinderSteps: RoutedStep[] = [
     status: RoutedStepStatus.None
   },
   {
-    titleKey: 'rf.suggestions.step-title',
-    descriptionKey: 'rf.suggestions.step-description',
-    route: 'suggestions',
+    titleKey: 'rf.summary.step-title',
+    descriptionKey: 'rf.summary.step-description',
+    route: 'summary',
     isRequired: false,
     status: RoutedStepStatus.None
   }

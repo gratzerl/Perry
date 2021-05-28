@@ -1,6 +1,6 @@
 @import "src/styles/variables";
 
-nz-card:not(:last-of-type) {
+nz-card {
   text-transform: capitalize;
 
   &:not(:last-of-type) {

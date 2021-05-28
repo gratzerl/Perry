@@ -1,3 +1,34 @@
-<div>
+<div *transloco="let t; read: 'rf.summary'">
+  <h2 nz-typography>{{ t('heading') }}</h2>
+  <nz-card [nzTitle]="t('selected-ingredients-heading')" [nzExtra]="editIngredients">
+    <span *ngFor="let i of recipeData.ingredients; let isLast = last" nz-typography>
+      {{ i.item }}{{ isLast ? '' : ','}}
+    </span>
 
+    <ng-template #editIngredients>
+      <button nz-button nzType="text" [routerLink]="['/find/ingredients']">
+        <i nz-icon nzType="edit"></i>
+      </button>
+    </ng-template>
+  </nz-card>
+
+  <nz-card *ngIf="hasSelectedPreferences" [nzTitle]="t('selected-preferences-heading')"
+    [nzTitle]="t('selected-preferences-heading')">
+    <ng-container *transloco="let t;">
+      <ng-container *ngFor="let p of preferenceCategory | keyvalue">
+        <div class="preference-summary" *ngIf="recipeData.preferences[p.value].length > 0">
+          <h3> {{ t('rf.preferences.categories.'+ (p.value | lowercase) +'.heading') }}</h3>
+          <span *ngFor="let i of recipeData.preferences[p.value]; let isLast = last" nz-typography>
+            {{ t(i.item.labelKey) }}{{ isLast ? '' : ','}}
+          </span>
+        </div>
+      </ng-container>
+
+      <ng-template #editPreferences>
+        <button nz-button nzType="text" [routerLink]="['/find/preferences']">
+          <i nz-icon nzType="edit"></i>
+        </button>
+      </ng-template>
+    </ng-container>
+  </nz-card>
 </div>
