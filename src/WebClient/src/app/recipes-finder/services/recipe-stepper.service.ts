@@ -107,13 +107,11 @@ export class RecipeStepperService {
   }
 
   private createEmptyStepperData(): RecipeStepperData {
-    return {
-      images: [],
-      ingredients: [],
-      preferences: {
-        [PreferenceCategory.Difficulty]: [],
-        [PreferenceCategory.Diet]: []
-      }
+    const preferences = {
+      [PreferenceCategory.Difficulty]: [],
+      [PreferenceCategory.Diet]: []
     };
+
+    return new RecipeStepperData([], [], preferences);
   }
 }

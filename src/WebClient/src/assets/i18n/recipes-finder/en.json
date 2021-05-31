@@ -3,7 +3,7 @@
   "ingredients": {
     "step-title": "Ingredients",
     "step-description": "Pick your ingredients",
-    "identification-heading": "Ingredients identification",
+    "identification-upload-heading": "Ingredients identification",
     "other-ingredients-heading": "Select more ingredients",
     "categories": {
       "meat": {
@@ -71,7 +71,10 @@
     "heading": "Suggestions",
     "messages": {
       "recipes-found": "We've found {{ itemCount }} recipes",
-      "recipes-not-found": "Sorry, we did not find any recipes matching your preferences"
-    }
+      "recipes-not-found": "Sorry, we did not find any recipes matching your preferences",
+      "select-preferences-first": "You have to choose your preferences before we can find suggestions."
+    },
+    "manage-preferences-button-label": "Configure data",
+    "new-search-button-label": "Restart search"
   }
 }

@@ -12,10 +12,10 @@ import {
   IngredientsStepComponent,
   PreferencesStepComponent,
   RecipesSuggestionsListComponent,
-  RecipeInputDataSummaryComponent,
   SummaryStepComponent,
   OptionSelectionCardComponent
 } from './components';
+import { SelectedItemsPipe } from './pipes/selected-items.pipe';
 
 
 @NgModule({
@@ -24,10 +24,10 @@ import {
     IngredientsStepComponent,
     PreferencesStepComponent,
     RecipesSuggestionsListComponent,
-    RecipeInputDataSummaryComponent,
     SummaryStepComponent,
     SuggestionsComponent,
-    OptionSelectionCardComponent
+    OptionSelectionCardComponent,
+    SelectedItemsPipe
   ],
   imports: [
     CommonModule,

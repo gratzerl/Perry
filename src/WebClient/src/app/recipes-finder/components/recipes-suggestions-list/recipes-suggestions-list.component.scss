@@ -1,11 +1,27 @@
 @import "src/styles/variables";
 
-.recipe-card {
-  display: block;
-  width: 25em;
-  cursor: pointer;
+.message-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: $md-vertical-padding;
 
-  &:not(:last-of-type) {
-    margin-bottom: $md-vertical-padding;
+  .message {
+    margin-right: auto;
+  }
+}
+
+.recipes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(336px, max-content));
+  column-gap: $md-vertical-padding;
+  row-gap: $md-horizontal-padding;
+  margin-top: $md-vertical-padding;
+
+  .recipe-card {
+    display: block;
+    width: 336px;
+    min-width: 336px;
+    height: 208px;
+    min-height: 208px;
   }
 }

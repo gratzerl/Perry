@@ -3,7 +3,7 @@
   "ingredients": {
     "step-title": "Zutaten",
     "step-description": "Bestimme deine Zutaten",
-    "identification-heading": "Zutatenerkennung",
+    "identification-upload-heading": "Zutatenerkennung",
     "other-ingredients-heading": "Weitere Zutaten auswählen",
     "categories": {
       "meat": {
@@ -71,7 +71,10 @@
     "heading": "Vorschläge",
     "messages": {
       "recipes-found": "Wir haben {{ itemCount }} Rezepte gefunden",
-      "recipes-not-found": "Wir haben leider keine passenden Rezepte gefunden"
-    }
+      "recipes-not-found": "Wir haben leider keine passenden Rezepte gefunden",
+      "select-preferences-first": "Du musst zuerst deine Zutaten angeben, bevor wir dir Vorschläge machen können."
+    },
+    "manage-preferences-button-label": "Suche anpassen",
+    "new-search-button-label": "Neue Suche"
   }
 }

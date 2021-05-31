@@ -1,4 +1,30 @@
 <ng-container *transloco="let t; read: 'rf.suggestions'">
   <h1 nz-typography>{{ t('heading') }}</h1>
+  <ng-container *ngIf="(stepperService.data$ | async)?.hasData(); else empty">
+    <app-recipes-suggestions-list [recipeData]="stepperService.data" [actionButtons]="actionButtons">
+    </app-recipes-suggestions-list>
+  </ng-container>
 
+  <ng-template #empty>
+    <nz-empty [nzNotFoundContent]="emptyContent" [nzNotFoundFooter]="footerContent">
+    </nz-empty>
+    <ng-template #emptyContent>
+      <span class="info-message" nz-typography>
+        {{ t('messages.select-preferences-first')}}
+      </span>
+    </ng-template>
+    <ng-template #footerContent>
+      <button nz-button nzType="primary" [routerLink]="['/find']">{{ t('manage-preferences-button-label') }}</button>
+    </ng-template>
+  </ng-template>
+
+  <ng-template #actionButtons>
+    <div>
+      <button nz-button nzType="text" (click)="restartStepper(true)" [routerLink]="['/find']">
+        {{ t('new-search-button-label') }}
+      </button>
+      <button nz-button nzType="primary" (click)="restartStepper()" [routerLink]="['/find']">
+        {{ t('manage-preferences-button-label') }}</button>
+    </div>
+  </ng-template>
 </ng-container>

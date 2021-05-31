@@ -22,9 +22,7 @@ export class SummaryStepComponent implements OnInit, OnDestroy {
     this.stepperService.data$
       .pipe(takeUntil(this.onDestroy))
       .subscribe(data => {
-        const { preferences } = data;
-
-        this.hasSelectedPreferences = Object.values(preferences).some(items => items.length > 0);
+        this.hasSelectedPreferences = data.hasSelectedPreferences();
       });
   }
 

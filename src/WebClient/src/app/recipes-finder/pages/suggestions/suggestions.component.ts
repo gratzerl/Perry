@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { RecipeStepperService } from '../../services';
 
 @Component({
   selector: 'app-suggestions',
   templateUrl: './suggestions.component.html',
   styleUrls: ['./suggestions.component.scss']
 })
-export class SuggestionsComponent implements OnInit {
+export class SuggestionsComponent {
 
-  constructor() { }
+  constructor(public stepperService: RecipeStepperService) { }
 
-  ngOnInit(): void {
+  restartStepper(reset: boolean = false): void {
+    if (reset) {
+      this.stepperService.reset();
+    }
+
+    this.stepperService.goToStepIndex(0);
   }
 
 }

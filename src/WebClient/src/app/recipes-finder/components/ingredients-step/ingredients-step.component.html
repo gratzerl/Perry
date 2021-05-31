@@ -1,10 +1,11 @@
 <ng-container *transloco="let t; read: 'rf.ingredients'">
+  <h2 nz-typography>{{ t('step-title') }}</h2>
   <div class="identification-section">
     <nz-card>
       <nz-upload class="ingredient-image-upload" nzAccept="image/*" nzListType="picture" [(nzFileList)]="imageFiles"
         [nzBeforeUpload]="beforeUpload" [nzMultiple]="true" [nzSize]="maxImageSizeKb">
         <div class="upload-area-header">
-          <h2 class="heading" nz-typography>{{ t('identification-heading') }}</h2>
+          <h3 class="heading" nz-typography>{{ t('identification-upload-heading') }}</h3>
           <ng-container *transloco="let t; read: 'component-labels'">
             <button nz-button [nzLoading]="isLoading" (click)="$event.stopPropagation(); identifyIngredients()"
               [disabled]="imageFiles.length == 0 || isLoading">
