@@ -1,11 +1,11 @@
 <ng-container *transloco="let t; read: 'rf.ingredients'">
-  <h2 nz-typography>{{ t('step-title') }}</h2>
+  <h2 nz-typography>{{ t('identification-upload-heading') }}</h2>
   <div class="identification-section">
     <nz-card>
       <nz-upload class="ingredient-image-upload" nzAccept="image/*" nzListType="picture" [(nzFileList)]="imageFiles"
         [nzBeforeUpload]="beforeUpload" [nzMultiple]="true" [nzSize]="maxImageSizeKb">
         <div class="upload-area-header">
-          <h3 class="heading" nz-typography>{{ t('identification-upload-heading') }}</h3>
+          <h3 class="heading" nz-typography></h3>
           <ng-container *transloco="let t; read: 'component-labels'">
             <button nz-button [nzLoading]="isLoading" (click)="$event.stopPropagation(); identifyIngredients()"
               [disabled]="imageFiles.length == 0 || isLoading">
@@ -18,22 +18,23 @@
         </div>
       </nz-upload>
       <nz-empty *ngIf="imageFiles.length == 0"></nz-empty>
-    </nz-card>
-    <div class="result-container" *ngIf="identifiedIngredients !== undefined">
-      <span class="message" nz-typography *ngIf="identifiedIngredients.length === 0">
-        {{ t('messages.no-ingredients-found')}}
-      </span>
-      <div *ngIf="identifiedIngredients.length > 0">
-        <span class="message" nz-typography>{{ t('messages.uncheck-unwanted-ingredients') }}</span>
-        <nz-checkbox-wrapper class="ingredient-selection" (nzOnChange)="insertOrUpdateIngredients($event)">
-          <div nz-row>
-            <div *ngFor="let ingredient of identifiedIngredients" nz-col nzLg="6" nzSm="8" nzXs="10">
-              <label nz-checkbox [nzValue]="ingredient" [ngModel]="ingredient">{{ ingredient.item }}</label>
+      <div class="result-container" *ngIf="identifiedIngredients !== undefined">
+        <span class="message" nz-typography *ngIf="identifiedIngredients.length === 0">
+          {{ t('messages.no-ingredients-found')}}
+        </span>
+        <div *ngIf="identifiedIngredients.length > 0">
+          <span class="message" nz-typography>{{ t('messages.uncheck-unwanted-ingredients') }}</span>
+          <nz-checkbox-wrapper class="ingredient-selection"
+            (nzOnChange)="insertOrUpdateIngredients(identifiedIngredients, $event)">
+            <div nz-row>
+              <div *ngFor="let ingredient of identifiedIngredients" nz-col nzLg="6" nzSm="8" nzXs="10">
+                <label nz-checkbox [nzValue]="ingredient" [ngModel]="ingredient">{{ ingredient.item }}</label>
+              </div>
             </div>
-          </div>
-        </nz-checkbox-wrapper>
+          </nz-checkbox-wrapper>
+        </div>
       </div>
-    </div>
+    </nz-card>
   </div>
   <div>
     <h2 nz-typography>{{ t('other-ingredients-heading') }}</h2>

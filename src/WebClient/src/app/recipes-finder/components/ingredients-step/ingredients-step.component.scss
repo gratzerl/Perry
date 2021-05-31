@@ -36,3 +36,7 @@
 .category-container:not(:last-of-type) {
   margin-bottom: $md-vertical-padding;
 }
+
+nz-empty {
+  margin-top: $md-vertical-padding;
+}

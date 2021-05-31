@@ -1,4 +1,7 @@
 <ng-container *transloco="let t; read: 'rf.suggestions'">
+  <div *ngIf="!suggestionResult">
+    <ng-container *ngTemplateOutlet="loading"></ng-container>
+  </div>
   <ng-container *ngIf="suggestionResult">
     <div class="message-bar" *ngIf="suggestionResult.totalCount === 0">
       <span class="message">
@@ -13,17 +16,18 @@
         </span>
         <ng-container [ngTemplateOutlet]="actionButtons"></ng-container>
       </div>
-
       <nz-pagination *ngIf="suggestionResult.totalCount > suggestionResult.items.length" [nzPageSize]="pageSize"
-        [nzTotal]="suggestionResult.totalCount" (nzPageIndexChange)="findRecipes($event)">
+        [nzDisabled]="isLoading" [nzTotal]="suggestionResult.totalCount" (nzPageIndexChange)="findRecipes($event)">
       </nz-pagination>
-
+      <div *ngIf="isLoading">
+        <ng-container *ngTemplateOutlet="loading"></ng-container>
+      </div>
       <div class="recipes-container">
-        <nz-card class="recipe-card" *ngFor="let recipe of suggestionResult.items" [nzTitle]="recipe.name"
-          [nzExtra]="openRecipe">
+        <nz-card #card class="recipe-card no-select" *ngFor="let recipe of suggestionResult.items"
+          [nzTitle]="recipe.name" [nzExtra]="openRecipe">
           <p nz-typography nzEllipsis [nzContent]="recipe.description" [nzEllipsisRows]="4"></p>
           <ng-template #openRecipe>
-            <button nz-button nzType="text" nzSize="small" (click)="openUrl(recipe.url)">
+            <button nz-button nzType="text" (click)="openUrl(recipe.url)">
               <i nz-icon nzType="select"></i>
             </button>
           </ng-template>
@@ -31,4 +35,10 @@
       </div>
     </div>
   </ng-container>
+  <ng-template #loading>
+    <div class="loading-container">
+      <app-loading-spinner size="large"></app-loading-spinner>
+      <span nz-typography>{{ t('messages.searching-recipes') }}</span>
+    </div>
+  </ng-template>
 </ng-container>

@@ -3,9 +3,10 @@
   <div class="stepper">
     <div class="steps-container">
       <nz-steps [nzDirection]="isSmallScreen ? 'horizontal' : 'vertical'" [nzCurrent]="currentStepIndex"
-        (nzIndexChange)="changeStep($event)" [nzStatus]="currentStepStatus">
+        (nzIndexChange)="changeStep($event)" [nzStatus]="currentStepStatus"
+        [nzSize]="isSmallScreen || isExtraSmallScreen ? 'small' : 'default'">
         <nz-step *ngFor="let step of stepperService.steps" [nzTitle]="t(step.titleKey)"
-          [nzDescription]="t(step.descriptionKey)">
+          [nzDescription]="isExtraSmallScreen ? '' : t(step.descriptionKey)">
         </nz-step>
       </nz-steps>
     </div>

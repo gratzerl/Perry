@@ -16,6 +16,7 @@ export class RecipesFinderComponent implements OnInit, OnDestroy {
   private onDestroy = new Subject<void>();
 
   isSmallScreen = false;
+  isExtraSmallScreen = false;
 
   routedStepStatus = RoutedStepStatus;
   currentStepStatus: 'wait' | 'process' | 'error' | 'finish' = 'process';
@@ -31,6 +32,10 @@ export class RecipesFinderComponent implements OnInit, OnDestroy {
     this.breakpointObserver.observe(BreakpointQuery.Sm)
       .pipe(takeUntil(this.onDestroy))
       .subscribe(state => this.isSmallScreen = state.matches);
+
+    this.breakpointObserver.observe(BreakpointQuery.Xs)
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(state => this.isExtraSmallScreen = state.matches);
 
     this.stepperService.currentStep$
       .pipe(takeUntil(this.onDestroy))

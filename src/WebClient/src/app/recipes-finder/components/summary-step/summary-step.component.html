@@ -14,7 +14,7 @@
 
   <nz-card [nzTitle]="t('selected-preferences-heading')" [nzExtra]="editPreferences">
     <ng-container *ngIf="!hasSelectedPreferences; else preferencesList">
-      {{ t('messages.empty-preferences') }}
+      <span class="message" nz-typography>{{ t('messages.empty-preferences') }}</span>
     </ng-container>
 
     <ng-template #preferencesList>

@@ -1,5 +1,16 @@
 @import "src/styles/variables";
 
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: $lg-vertical-padding;
+
+  span {
+    margin-top: $sm-vertical-padding;
+  }
+}
+
 .message-bar {
   display: flex;
   align-items: center;
@@ -15,6 +26,7 @@
   grid-template-columns: repeat(auto-fill, minmax(336px, max-content));
   column-gap: $md-vertical-padding;
   row-gap: $md-horizontal-padding;
+  min-height: 208px;
   margin-top: $md-vertical-padding;
 
   .recipe-card {
@@ -24,4 +36,8 @@
     height: 208px;
     min-height: 208px;
   }
+}
+
+nz-pagination {
+  margin-top: $md-vertical-padding;
 }

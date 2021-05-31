@@ -6,31 +6,25 @@
 
 .stepper {
   height: 100%;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 25% 1fr;
+  column-gap: $md-vertical-padding;
 
-  @media screen and (max-width: $max-sm-width) {
+  @media (max-width: $max-sm-width) {
+    display: flex;
     flex-direction: column;
   }
 
   .steps-container {
-    flex: 1;
-    margin: 0;
-
-    @media screen and (max-width: $max-sm-width) {
+    @media (max-width: $max-sm-width) {
       flex: unset;
       margin-bottom: $md-vertical-padding;
     }
   }
 
   .step-content-container {
-    flex: 3;
     display: flex;
     flex-direction: column;
-
-    @media screen and (max-width: $max-sm-width) {
-      flex: 1;
-    }
 
     .step-content {
       flex: 1;

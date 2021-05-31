@@ -70,6 +70,7 @@
   "suggestions": {
     "heading": "Suggestions",
     "messages": {
+      "searching-recipes": "Searching for suitable recipes...",
       "recipes-found": "We've found {{ itemCount }} recipes",
       "recipes-not-found": "Sorry, we did not find any recipes matching your preferences",
       "select-preferences-first": "You have to choose your preferences before we can find suggestions."

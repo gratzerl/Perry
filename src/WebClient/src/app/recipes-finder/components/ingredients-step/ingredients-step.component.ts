@@ -66,24 +66,37 @@ export class IngredientsStepComponent implements OnInit {
         const items = ingredients.map(i => ({ label: i, item: i, checked: true }));
         this.identifiedIngredients = [...items];
 
-        this.insertOrUpdateIngredients(items);
+        this.insertOrUpdateIngredients(this.identifiedIngredients, items);
       });
   }
 
-  insertOrUpdateIngredients(updatedIngredients: SelectionItem<string>[]): void {
-    updatedIngredients.forEach(updated => {
-      const existingItem = this.ingredients.find(ingredient => updated.item === ingredient.item);
-      if (existingItem !== undefined) {
-        existingItem.checked = updated.checked;
-      } else {
-        this.ingredients.push(updated);
+  insertOrUpdateIngredients(allIngredients: SelectionItem<string>[], selectedIngredients: SelectionItem<string>[]): void {
+    console.log('selected', selectedIngredients);
+
+    allIngredients.forEach(ingredient => {
+      const currSelected = selectedIngredients.find(i => ingredient.item === i.item);
+      const alreadySelected = this.ingredients.find(i => ingredient.item === i.item);
+
+      // ingredient was unselected by the user but it was already selected previously
+      if (currSelected === undefined && alreadySelected !== undefined) {
+        alreadySelected.checked = false;
+      }
+      // user reselected ingredient
+      else if (currSelected !== undefined && alreadySelected !== undefined) {
+        alreadySelected.checked = currSelected.checked;
+      }
+      // ingredient was selected by the user and it was not already selected
+      else if (currSelected !== undefined && alreadySelected === undefined) {
+        this.ingredients.push(currSelected);
       }
     });
 
-    this.ingredients = this.ingredients.filter(item => item.checked);
-
-    this.stepperService.currentStepStatus = this.ingredients.length > 0 ? RoutedStepStatus.Valid : RoutedStepStatus.Invalid;
+    // this.ingredients = this.ingredients.filter(item => item.checked);
+    const hasSelectedItems = this.ingredients.some(ingredient => ingredient.checked);
+    this.stepperService.currentStepStatus = hasSelectedItems ? RoutedStepStatus.Valid : RoutedStepStatus.Invalid;
     this.stepperService.data.ingredients = [...this.ingredients];
+
+    console.log('stepper', this.stepperService.data.ingredients);
   }
 
   updateSelection(category: IngredientCategory, option: SelectionItem<RecipeTag>): void {
@@ -94,8 +107,14 @@ export class IngredientsStepComponent implements OnInit {
 
     pref.checked = option.checked;
 
-    const { values } = option.item;
-    const updated = values.map(ingredient => ({ label: ingredient, item: ingredient, checked: option.checked }))
-    this.insertOrUpdateIngredients(updated);
+    const updated = option.item.values.map(i => ({ label: i, item: i, checked: option.checked }));
+
+    let allIngredients: SelectionItem<string>[] = [];
+    this.ingredientOptions[category].map(recipeTag => {
+      const values = recipeTag.item.values.map(i => ({ label: i, item: i, checked: false }));
+      allIngredients = allIngredients.concat(values);
+    });
+
+    this.insertOrUpdateIngredients(allIngredients, updated);
   }
 }
