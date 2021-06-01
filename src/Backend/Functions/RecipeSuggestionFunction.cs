@@ -34,22 +34,14 @@ namespace Perry.Functions
             // azure functions fails to deserialize request model from the querystring properly
             // other workaround: https://stackoverflow.com/questions/64388505/azure-function-c-sharp-pass-liststring-as-an-argument-over-http-trigger-get
 
-            var ingredients = req.Query
-                .Where(entry => entry.Key.ToLower().Contains("ingredient"))
-                .Select(entry => entry.Value.ToString())
-                .Where(entry => !string.IsNullOrWhiteSpace(entry))
-                .ToList();
+            var ingredients = req.ReadIngredientsFromQuery();
 
             if (!ingredients.Any())
             {
                 return new BadRequestObjectResult("Ingredients must not be empty");
             }
 
-            var tags = req.Query
-                .Where(entry => entry.Key.ToLower().Contains("tag"))
-                .Select(entry => entry.Value.ToString())
-                .Where(entry => !string.IsNullOrWhiteSpace(entry))
-                .ToList();
+            var tags = req.ReadTagsFromQuery();
 
             if (!int.TryParse(req.Query["pageNumber"], out int pageNumber))
             {
@@ -60,7 +52,7 @@ namespace Perry.Functions
             {
                 return new BadRequestObjectResult("The page number must be greater than 0");
             }
-            
+
             if (!int.TryParse(req.Query["pageSize"], out int pageSize))
             {
                 pageSize = SuggestionsPageSize;

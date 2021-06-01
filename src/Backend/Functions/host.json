@@ -1,11 +1,13 @@
 {
-    "version": "2.0",
-    "logging": {
-        "applicationInsights": {
-            "samplingExcludedTypes": "Request",
-            "samplingSettings": {
-                "isEnabled": true
-            }
-        }
+  "logging": {
+    "logLevel": {
+      "default": "Information",
+      "Microsoft.EntityFrameworkCore": "Debug",
+      "Microsoft.EntityFrameworkCore.Database.Command": "Information"
     }
+  },
+  "tracing": {
+    "consoleLevel": "verbose"
+  },
+  "version": "2.0"
 }

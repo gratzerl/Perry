@@ -21,7 +21,7 @@ namespace Perry.Core.RecipeSuggestions.Services
             this.recipesContext = recipesContext ?? throw new ArgumentException(nameof(recipesContext));
             this.recipeQueryBuilder = recipeQueryBuilder ?? throw new ArgumentException(nameof(recipeQueryBuilder));
         }
-        public async Task<PagedResponse<RecipeSuggestionModel>> FindSuggestionsAsync(IEnumerable<string> ingredients, IEnumerable<string> tags, int pageNumber, int pageSize)
+        public async Task<PagedResponse<RecipeSuggestionModel>> FindSuggestionsAsync(IEnumerable<string> ingredients, IDictionary<string, IEnumerable<string>> tags, int pageNumber, int pageSize)
         {
             if (ingredients == null || !ingredients.Any())
             {
@@ -32,9 +32,15 @@ namespace Perry.Core.RecipeSuggestions.Services
 
             if (tags?.Count() > 0)
             {
-                recipesQuery = recipesQuery
-                    .AsExpandable()
-                    .Where(r => r.RecipeTags.Select(rt => rt.Tag.Text).Where(t => tags.Contains(t)).Any());
+                recipesQuery = recipesQuery.AsExpandable();
+                foreach (var (category, values) in tags)
+                {
+                    recipesQuery = recipesQuery
+                        .Where(r => r.RecipeTags
+                            .Select(rt => rt.Tag.Text)
+                            .Any(t => values.Contains(t))
+                        );
+                }
             }
 
             var totalCount = await recipesQuery.CountAsync();
