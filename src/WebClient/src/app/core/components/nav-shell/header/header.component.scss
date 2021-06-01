@@ -14,11 +14,7 @@ nz-header {
 
   max-width: $max-lg-content-width;
   margin: auto;
-  padding: 0 $xl-horizontal-padding;
-
-  @media (max-width: $max-lg-width) {
-    padding: 0 $lg-horizontal-padding;
-  }
+  padding: 0 $lg-horizontal-padding;
 
   @media (max-width: $max-md-width) {
     max-width: $max-md-content-width;

@@ -1,0 +1,24 @@
+@import "src/styles/variables";
+
+:host {
+  display: block;
+  margin-top: $lg-vertical-padding;
+}
+
+.step-container {
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: $max-xs-width) {
+    flex-direction: column;
+  }
+
+  app-instruction-step:not(:last-of-type) {
+    margin-right: $md-horizontal-padding;
+
+    @media (max-width: $max-xs-width) {
+      margin-right: 0;
+      margin-bottom: $sm-vertical-padding;
+    }
+  }
+}

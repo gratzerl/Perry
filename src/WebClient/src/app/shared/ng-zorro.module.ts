@@ -13,6 +13,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzImageModule } from 'ng-zorro-antd/image';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
     NzLayoutModule,
     NzTypographyModule,
     NzEmptyModule,
-    NzGridModule
+    NzGridModule,
+    NzImageModule
   ]
 })
 export class NgZorroModule { }

@@ -1,13 +1,14 @@
-@import "src/styles/variables";
+@import "src/styles/_variables";
 
 :host {
   display: block;
 }
 
 .content-container {
+  height: auto;
   max-width: $max-lg-content-width;
   margin: auto;
-  padding: $md-vertical-padding $xl-horizontal-padding;
+  padding: $md-vertical-padding $lg-horizontal-padding;
 
   @media (max-width: $max-lg-width) {
     padding: $md-vertical-padding $lg-horizontal-padding;

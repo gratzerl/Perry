@@ -1,0 +1,15 @@
+<div *transloco="let t; read: 'core.landing-page.guide'">
+  <h3 nz-typography>{{ t("heading") }}</h3>
+  <div class="step-container">
+    <app-instruction-step [title]="t('step-1.heading')" [description]="t('step-1.description')"
+      imageSrc="assets/images/undraw_image.svg">
+    </app-instruction-step>
+    <app-instruction-step [title]="t('step-2.heading')" [description]="t('step-2.description')"
+      imageSrc="assets/images/undraw_select.svg">
+
+    </app-instruction-step>
+    <app-instruction-step [title]="t('step-3.heading')" [description]="t('step-3.description')"
+      imageSrc="assets/images/undraw_cook.svg">
+    </app-instruction-step>
+  </div>
+</div>

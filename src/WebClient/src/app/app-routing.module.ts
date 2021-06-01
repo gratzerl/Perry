@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NavShellComponent } from './core/components/nav-shell';
-import { LandingPageComponent } from './core/pages/landing-page';
+import { NavShellComponent } from './core/components';
+import { LandingPageComponent } from './core/pages';
 
 const routes: Routes = [
   {

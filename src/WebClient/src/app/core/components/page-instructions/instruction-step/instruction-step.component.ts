@@ -13,6 +13,9 @@ export class InstructionStepComponent {
   @Input()
   description!: string;
 
+  @Input()
+  imageSrc!: string;
+
   constructor() { }
 
 }
