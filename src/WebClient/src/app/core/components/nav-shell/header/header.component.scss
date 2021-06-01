@@ -4,22 +4,29 @@
   display: block;
 }
 
-.header {
+nz-header {
+  padding: 0;
+}
+
+.header-content {
   display: flex;
   align-items: center;
-  padding: 0px $xl-horizontal-padding;
-  color: white;
+
+  max-width: $max-lg-content-width;
+  margin: auto;
+  padding: 0 $xl-horizontal-padding;
 
   @media (max-width: $max-lg-width) {
-    padding: 0px $lg-horizontal-padding;
+    padding: 0 $lg-horizontal-padding;
   }
 
   @media (max-width: $max-md-width) {
-    padding: 0px $md-horizontal-padding;
+    max-width: $max-md-content-width;
+    padding: 0 $md-horizontal-padding;
   }
 
   @media (max-width: $max-xs-width) {
-    padding: 0px $xs-horizontal-padding;
+    padding: 0 $sm-horizontal-padding;
   }
 
   a:not(:last-of-type) {

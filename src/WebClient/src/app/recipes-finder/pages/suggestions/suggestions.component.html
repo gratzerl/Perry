@@ -20,11 +20,9 @@
 
   <ng-template #actionButtons>
     <div>
-      <button nz-button nzType="text" (click)="restartStepper(true)" [routerLink]="['/find']">
-        {{ t('new-search-button-label') }}
-      </button>
       <button nz-button nzType="primary" (click)="restartStepper()" [routerLink]="['/find']">
-        {{ t('manage-preferences-button-label') }}</button>
+        {{ t('manage-preferences-button-label') }}
+      </button>
     </div>
   </ng-template>
 </ng-container>

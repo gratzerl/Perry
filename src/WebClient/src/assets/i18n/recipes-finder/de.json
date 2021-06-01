@@ -4,6 +4,7 @@
     "step-title": "Zutaten",
     "step-description": "Bestimme deine Zutaten",
     "identification-upload-heading": "Zutatenerkennung",
+    "uploaded-images": "Hochgeladene Fotos",
     "other-ingredients-heading": "Weitere Zutaten auswählen",
     "categories": {
       "meat": {
@@ -33,6 +34,7 @@
       }
     },
     "messages": {
+      "no-images-uploaded": "Du hast noch keine Fotos hochgeladen",
       "no-ingredients-found": "Wir konnten leider keine Zutaten finden :(",
       "uncheck-unwanted-ingredients": "Diese Zutaten haben wir gefunden. Du kanst falsch identifizierte Zutaten auch wieder abwählen."
     }

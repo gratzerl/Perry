@@ -11,7 +11,13 @@ nz-card {
     margin-bottom: $sm-vertical-padding;
   }
 
-  .preference-summary:not(:last-of-type) {
-    margin-bottom: $sm-vertical-padding;
+  .preference-summary {
+    .category-title {
+      font-weight: 500;
+    }
+
+    &:not(:last-of-type) {
+      margin-bottom: $sm-vertical-padding;
+    }
   }
 }

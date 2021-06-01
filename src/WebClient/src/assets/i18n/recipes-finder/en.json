@@ -4,6 +4,7 @@
     "step-title": "Ingredients",
     "step-description": "Pick your ingredients",
     "identification-upload-heading": "Ingredients identification",
+    "uploaded-images": "Uploaded images",
     "other-ingredients-heading": "Select more ingredients",
     "categories": {
       "meat": {
@@ -33,8 +34,9 @@
       }
     },
     "messages": {
+      "no-images-uploaded": "You have not uploaded any images yet.",
       "no-ingredients-found": "Sadly, we could not identify any ingredients :(",
-      "uncheck-unwanted-ingredients": "We have found the following ingredients. You also unselected missidentified ingredients."
+      "uncheck-unwanted-ingredients": "We have found the following ingredients. You can unselected missidentified ingredients."
     }
   },
   "preferences": {

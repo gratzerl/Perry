@@ -1,5 +1,8 @@
 {
-  "title": "Perry",
+  "header": {
+    "title": "Perry",
+    "find-recipes-tab-text": "Find recipes"
+  },
   "component-labels": {
     "next": "Next",
     "back": "Back",

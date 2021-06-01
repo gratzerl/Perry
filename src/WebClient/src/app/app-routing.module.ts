@@ -6,7 +6,13 @@ import { LandingPageComponent } from './core/pages/landing-page';
 const routes: Routes = [
   {
     path: '',
-    component: LandingPageComponent
+    component: NavShellComponent,
+    children: [
+      {
+        path: '',
+        component: LandingPageComponent
+      }
+    ]
   },
   {
     path: 'find',

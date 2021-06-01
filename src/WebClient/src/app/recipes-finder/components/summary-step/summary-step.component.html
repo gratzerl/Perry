@@ -21,7 +21,9 @@
       <ng-container *transloco="let t;">
         <ng-container *ngFor="let prefCat of preferenceCategory | keyvalue">
           <div class="preference-summary" *ngIf="stepperService.data.preferences[prefCat.value].length > 0">
-            <h3> {{ t('rf.preferences.categories.'+ (prefCat.value | lowercase) +'.heading') }}</h3>
+            <span class="category-title" nz-typography>
+              {{ t('rf.preferences.categories.' + (prefCat.value | lowercase) + '.heading') }}:
+            </span>
             <ng-container
               *ngFor="let pref of (stepperService.data.preferences[prefCat.value] | selectedItems); let isLast = last">
               <span nz-typography *ngIf="pref.checked">{{ t(pref.item.labelKey) }}{{ isLast ? '' : ','}}</span>

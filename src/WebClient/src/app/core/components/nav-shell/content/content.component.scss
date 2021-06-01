@@ -5,7 +5,7 @@
 }
 
 .content-container {
-  max-width: 1168px;
+  max-width: $max-lg-content-width;
   margin: auto;
   padding: $md-vertical-padding $xl-horizontal-padding;
 
@@ -14,11 +14,11 @@
   }
 
   @media (max-width: $max-md-width) {
-    max-width: 896px;
+    max-width: $max-md-content-width;
     padding: $md-vertical-padding $md-horizontal-padding;
   }
 
   @media (max-width: $max-xs-width) {
-    padding: $xs-horizontal-padding $sm-horizontal-padding;
+    padding: $xs-vertical-padding $sm-horizontal-padding;
   }
 }

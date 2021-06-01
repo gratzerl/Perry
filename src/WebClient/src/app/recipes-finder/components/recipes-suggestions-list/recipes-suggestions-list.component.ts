@@ -54,9 +54,13 @@ export class RecipesSuggestionsListComponent implements OnInit, OnChanges {
 
     this.recipeFinderService.findSuggestions(ingredients, tags, pageNumber, this.pageSize)
       .pipe(finalize(() => this.isLoading = false))
-      .subscribe(result => {
-        this.suggestionResult = result;
-      });
+      .subscribe(
+        result => {
+          this.suggestionResult = result;
+        },
+        err => {
+          this.isLoading = false;
+        });
   }
 
 }

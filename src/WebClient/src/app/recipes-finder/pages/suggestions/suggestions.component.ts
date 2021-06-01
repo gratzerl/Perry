@@ -10,11 +10,7 @@ export class SuggestionsComponent {
 
   constructor(public stepperService: RecipeStepperService) { }
 
-  restartStepper(reset: boolean = false): void {
-    if (reset) {
-      this.stepperService.reset();
-    }
-
+  restartStepper(): void {
     this.stepperService.goToStepIndex(0);
   }
 
