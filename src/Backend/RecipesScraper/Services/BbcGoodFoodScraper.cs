@@ -65,5 +65,13 @@ namespace Perry.RecipesScraper.Services
                     .FirstOrDefault(n => n.HasClass("recipe__method-steps"))
                     .GetEscapedInnerTextInDescendentsForClass("list-item");
         }
+
+        protected override IEnumerable<string> GetRecipeTags(HtmlNode documentNode)
+        {
+            return documentNode
+                    .Descendants()
+                    .FirstOrDefault(n => n.HasClass("terms-icons-list"))
+                    .GetEscapedInnerTextInDescendentsForClass("terms-icons-list__text");
+        }
     }
 }

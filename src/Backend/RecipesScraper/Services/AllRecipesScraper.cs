@@ -74,5 +74,35 @@ namespace Perry.RecipesScraper.Services
                     .FirstOrDefault(n => n.HasClass("instructions-section"))
                     .GetEscapedInnerTextInDescendentsForClass("paragraph");
         }
+
+        protected override IEnumerable<string> GetRecipeTags(HtmlNode documentNode)
+        {
+            var karmaScriptTag = documentNode
+                .Descendants()
+                .FirstOrDefault(n => n.Id == "karma-loader");
+
+            if (karmaScriptTag == null)
+            {
+                return Enumerable.Empty<string>();
+            }
+
+            var scriptParts = karmaScriptTag.InnerHtml
+                .Split('\n')
+                .Select(str => str.Trim())
+                .Select(str => str.Replace("\"", ""))
+                .Select(str => str.Replace("\\", ""))
+                .Select(str => str.Replace(",", ""))
+                .ToList();
+
+            var tagsStartIdx = scriptParts.FindIndex(str => str.Contains("tags"));
+
+            if (tagsStartIdx == -1)
+            {
+                return Enumerable.Empty<string>();
+            }
+
+            var tagsEndIdx = scriptParts.FindIndex(tagsStartIdx, str => str == "]");
+            return scriptParts.GetRange(tagsStartIdx + 1, tagsEndIdx - tagsStartIdx);
+        }
     }
 }

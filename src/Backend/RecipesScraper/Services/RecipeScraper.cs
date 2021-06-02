@@ -49,6 +49,7 @@ namespace Perry.RecipesScraper.Services
                     var description = GetRecipeDescription(doc.DocumentNode);
                     var ingredients = GetRecipeIngredients(doc.DocumentNode);
                     var methodSteps = GetRecipeSteps(doc.DocumentNode);
+                    var tags = GetRecipeTags(doc.DocumentNode);
 
                     var recipe = new ScrapedRecipeModel
                     {
@@ -56,7 +57,8 @@ namespace Perry.RecipesScraper.Services
                         Name = WebUtility.HtmlDecode(name),
                         Description = WebUtility.HtmlDecode(description),
                         Ingredients = ingredients,
-                        Steps = methodSteps
+                        Steps = methodSteps,
+                        Tags = tags
                     };
 
                     recipes.Add(recipe);
@@ -89,5 +91,7 @@ namespace Perry.RecipesScraper.Services
         protected abstract IEnumerable<string> GetRecipeIngredients(HtmlNode documentNode);
 
         protected abstract IEnumerable<string> GetRecipeSteps(HtmlNode documentNode);
+
+        protected abstract IEnumerable<string> GetRecipeTags(HtmlNode documentNode);
     }
 }
