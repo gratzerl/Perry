@@ -28,8 +28,7 @@ namespace Perry.RecipesScraper.Services
                     .Where(node => node.Name == "loc" && 
                         !node.InnerText.Contains("collection") && 
                         !node.InnerText.Contains("category") &&
-                        node.InnerText.StartsWith(recipeBaseUrl)
-                    )
+                        node.InnerText.StartsWith(recipeBaseUrl))
                     .Select(node => HttpUtility.HtmlDecode(node.InnerText))
                     .ToHashSet();
         }
