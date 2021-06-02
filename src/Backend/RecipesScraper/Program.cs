@@ -30,8 +30,7 @@ namespace Perry.RecipesScraper
                     
                     services.AddLogging(_ => _
                         .AddConsole()
-                        .AddDebug()
-                    );
+                        .AddDebug());
 
                     services.Configure<ScrapingOptions>(configuration);
 
