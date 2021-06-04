@@ -6,7 +6,7 @@ import { RecipeStepperService } from '../../services';
 @Component({
   selector: 'app-preferences-step',
   templateUrl: './preferences-step.component.html',
-  styleUrls: ['./preferences-step.component.scss']
+  styleUrls: ['./preferences-step.component.less']
 })
 export class PreferencesStepComponent implements OnInit {
   preferenceCategories = PreferenceCategory;

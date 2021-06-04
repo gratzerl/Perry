@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-instruction-step',
   templateUrl: './instruction-step.component.html',
-  styleUrls: ['./instruction-step.component.scss'],
+  styleUrls: ['./instruction-step.component.less'],
 })
 export class InstructionStepComponent {
 

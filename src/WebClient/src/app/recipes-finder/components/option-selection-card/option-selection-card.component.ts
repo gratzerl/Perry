@@ -4,7 +4,7 @@ import { RecipeTag, SelectionItem } from '../../models';
 @Component({
   selector: 'app-option-selection-card',
   templateUrl: './option-selection-card.component.html',
-  styleUrls: ['./option-selection-card.component.scss']
+  styleUrls: ['./option-selection-card.component.less']
 })
 export class OptionSelectionCardComponent {
 

@@ -7,7 +7,7 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "less"
         },
         "@schematics/angular:application": {
           "strict": true
@@ -36,7 +36,6 @@
               }
             ],
             "styles": [
-              "src/styles.scss",
               "src/styles.less"
             ],
             "scripts": []
@@ -100,7 +99,6 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
               "src/styles.less"
             ],
             "scripts": []
@@ -131,6 +129,11 @@
     }
   },
   "defaultProject": "WebClient",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "less"
+    }
+  },
   "cli": {
     "defaultCollection": "@angular-eslint/schematics"
   }

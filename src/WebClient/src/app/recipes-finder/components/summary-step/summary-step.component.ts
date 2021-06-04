@@ -8,7 +8,7 @@ import { RecipeStepperService } from '../../services';
 @Component({
   selector: 'app-summary-step',
   templateUrl: './summary-step.component.html',
-  styleUrls: ['./summary-step.component.scss']
+  styleUrls: ['./summary-step.component.less']
 })
 export class SummaryStepComponent implements OnInit, OnDestroy {
   private onDestroy = new Subject<void>();

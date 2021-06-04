@@ -4,7 +4,7 @@ import { RecipeStepperService } from '../../services';
 @Component({
   selector: 'app-suggestions',
   templateUrl: './suggestions.component.html',
-  styleUrls: ['./suggestions.component.scss']
+  styleUrls: ['./suggestions.component.less']
 })
 export class SuggestionsComponent {
 

@@ -8,17 +8,17 @@
   height: 100%;
   display: grid;
   grid-template-columns: 25% 1fr;
-  column-gap: $md-vertical-padding;
+  column-gap: @md-vertical-padding;
 
-  @media (max-width: $max-sm-width) {
+  @media (max-width: @max-sm-width) {
     display: flex;
     flex-direction: column;
   }
 
   .steps-container {
-    @media (max-width: $max-sm-width) {
+    @media (max-width: @max-sm-width) {
       flex: unset;
-      margin-bottom: $md-vertical-padding;
+      margin-bottom: @md-vertical-padding;
     }
   }
 
@@ -31,7 +31,7 @@
     }
 
     .stepper-button-bar {
-      margin-bottom: $md-vertical-padding;
+      margin-bottom: @md-vertical-padding;
       display: flex;
       align-items: center;
       justify-content: flex-end;

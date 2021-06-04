@@ -6,7 +6,7 @@ import { RecipeFinderService } from '../../services';
 @Component({
   selector: 'app-recipes-suggestions-list',
   templateUrl: './recipes-suggestions-list.component.html',
-  styleUrls: ['./recipes-suggestions-list.component.scss']
+  styleUrls: ['./recipes-suggestions-list.component.less']
 })
 export class RecipesSuggestionsListComponent implements OnInit, OnChanges {
   @Input()

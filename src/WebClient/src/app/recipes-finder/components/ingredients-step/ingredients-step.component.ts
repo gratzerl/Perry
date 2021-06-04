@@ -8,7 +8,7 @@ import { IngredientsIdentificationService, RecipeStepperService } from '../../se
 @Component({
   selector: 'app-ingredients-step',
   templateUrl: './ingredients-step.component.html',
-  styleUrls: ['./ingredients-step.component.scss']
+  styleUrls: ['./ingredients-step.component.less']
 })
 export class IngredientsStepComponent implements OnInit {
 
