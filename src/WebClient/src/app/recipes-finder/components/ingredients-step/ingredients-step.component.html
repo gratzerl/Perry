@@ -41,9 +41,10 @@
   <div>
     <h2 nz-typography>{{ t('other-ingredients-heading') }}</h2>
     <ng-container *transloco="let t;">
-      <div class="category-container" *ngFor="let cat of ingredientCategories | keyvalue">
-        <app-option-selection-card [heading]="t('rf.ingredients.categories.' + (cat.value | lowercase) + '.heading')"
-          [options]="ingredientOptions[cat.value]" (optionChange)="updateSelection(cat.value, $event)">
+      <div class="category-container" *ngFor="let category of ingredientCategories | keyvalue">
+        <app-option-selection-card
+          [heading]="t('rf.ingredients.categories.' + (category.value | lowercase) + '.heading')"
+          [options]="ingredientOptions[category.value]" (optionChange)="updateSelection(category.value, $event)">
         </app-option-selection-card>
       </div>
     </ng-container>

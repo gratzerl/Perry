@@ -12,11 +12,11 @@
       },
       "step-2": {
         "heading": "Präferenzen wählen",
-        "description": "Wähle weitere Präferenzen, wie deine Ernährungsweise, aus."
+        "description": "Wähle weitere Präferenzen aus."
       },
       "step-3": {
         "heading": "Finde die passenden Rezepte",
-        "description": "Lass dir basierend auf deinen Eingaben die passenden Rezepte vorschlagen."
+        "description": "Lasse dir basierend auf deinen Eingaben die passenden Rezepte vorschlagen."
       }
     }
   }

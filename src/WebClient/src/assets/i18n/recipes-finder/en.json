@@ -36,7 +36,7 @@
     "messages": {
       "no-images-uploaded": "You have not uploaded any images yet.",
       "no-ingredients-found": "Sadly, we could not identify any ingredients :(",
-      "uncheck-unwanted-ingredients": "We have found the following ingredients. You can unselected missidentified ingredients."
+      "uncheck-unwanted-ingredients": "We have found the following ingredients. You can unselected misidentified ingredients."
     }
   },
   "preferences": {
@@ -66,7 +66,7 @@
     "selected-ingredients-heading": "Selected ingredients",
     "selected-preferences-heading": "Selected preferences",
     "messages": {
-      "empty-preferences": "You don't have selected any other preferences."
+      "empty-preferences": "You have not selected any other preferences."
     }
   },
   "suggestions": {
@@ -75,7 +75,7 @@
       "searching-recipes": "Searching for suitable recipes...",
       "recipes-found": "We've found {{ itemCount }} recipes",
       "recipes-not-found": "Sorry, we did not find any recipes matching your preferences",
-      "select-preferences-first": "You have to choose your preferences before we can find suggestions."
+      "select-preferences-first": "You have to choose your preferences before we can make suggestions."
     },
     "manage-preferences-button-label": "Configure data",
     "new-search-button-label": "Restart search"
