@@ -109,7 +109,6 @@ export class IngredientsStepComponent implements OnInit {
     const anyIngredientsSelected = data.areIngredientsSelected();
 
     this.stepperService.currentStepStatus = anyIngredientsSelected ? RoutedStepStatus.Valid : RoutedStepStatus.Invalid;
-    console.log('data', this.stepperService.data);
   }
 
   private insertOrUpdateIngredients(allAvailableIngredients: SelectionItem<string>[], selectedIngredients: SelectionItem<string>[], target: SelectionItem<string>[]): SelectionItem<string>[] {
