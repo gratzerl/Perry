@@ -1,7 +1,7 @@
 <div *transloco="let t; read: 'rf.summary'">
   <h2 nz-typography>{{ t('step-title') }}</h2>
   <nz-card [nzTitle]="t('selected-ingredients-heading')" [nzExtra]="editIngredients">
-    <span *ngFor="let i of (stepperService.data.ingredients | selectedItems); let isLast = last" nz-typography>
+    <span *ngFor="let i of (ingredients | selectedItems); let isLast = last" nz-typography>
       {{ i.item }}{{ isLast ? '' : ','}}
     </span>
 

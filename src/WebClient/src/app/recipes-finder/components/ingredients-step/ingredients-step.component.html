@@ -20,17 +20,16 @@
         </div>
       </nz-upload>
       <nz-empty *ngIf="imageFiles.length == 0" [nzNotFoundContent]="noImagesMessage"></nz-empty>
-      <div class="result-container" *ngIf="identifiedIngredients !== undefined">
+      <div class="result-container" *ngIf="stepperService.data.identifiedIngredients as identifiedIngredients">
         <span class="message" nz-typography *ngIf="identifiedIngredients.length === 0">
           {{ t('messages.no-ingredients-found')}}
         </span>
         <div *ngIf="identifiedIngredients.length > 0">
           <span class="message" nz-typography>{{ t('messages.uncheck-unwanted-ingredients') }}</span>
-          <nz-checkbox-wrapper class="ingredient-selection"
-            (nzOnChange)="insertOrUpdateIngredients(identifiedIngredients, $event)">
+          <nz-checkbox-wrapper class="ingredient-selection" (nzOnChange)="updateStepperStatus()">
             <div nz-row>
               <div *ngFor="let ingredient of identifiedIngredients" nz-col nzLg="6" nzSm="8" nzXs="10">
-                <label nz-checkbox [nzValue]="ingredient" [ngModel]="ingredient">{{ ingredient.item }}</label>
+                <label nz-checkbox [nzValue]="ingredient" [(ngModel)]="ingredient.checked">{{ ingredient.item }}</label>
               </div>
             </div>
           </nz-checkbox-wrapper>
@@ -44,7 +43,8 @@
       <div class="category-container" *ngFor="let category of ingredientCategories | keyvalue">
         <app-option-selection-card
           [heading]="t('rf.ingredients.categories.' + (category.value | lowercase) + '.heading')"
-          [options]="ingredientOptions[category.value]" (optionChange)="updateSelection(category.value, $event)">
+          [options]="ingredientOptions[category.value]"
+          (optionChange)="updateAdditionalIngredients(category.value, $event)">
         </app-option-selection-card>
       </div>
     </ng-container>

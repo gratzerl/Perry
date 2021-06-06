@@ -48,7 +48,7 @@ export class RecipesSuggestionsListComponent implements OnInit, OnChanges {
       .filter(item => item.checked)
       .map(item => item.item);
 
-    const ingredients = this.recipeData.ingredients
+    const ingredients = this.recipeData.additionalIngredients
       .filter(item => item.checked)
       .map(item => item.item);
 

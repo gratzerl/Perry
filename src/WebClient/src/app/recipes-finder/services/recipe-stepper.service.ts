@@ -112,6 +112,6 @@ export class RecipeStepperService {
       [PreferenceCategory.Diet]: []
     };
 
-    return new RecipeStepperData([], [], preferences);
+    return new RecipeStepperData([], [], preferences, undefined);
   }
 }

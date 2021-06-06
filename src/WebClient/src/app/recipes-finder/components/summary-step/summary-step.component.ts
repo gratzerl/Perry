@@ -1,8 +1,9 @@
 import { OnDestroy, OnInit } from '@angular/core';
-import { Component, OnChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { PreferenceCategory } from '../../constants';
+import { SelectionItem } from '../../models';
 import { RecipeStepperService } from '../../services';
 
 @Component({
@@ -16,13 +17,19 @@ export class SummaryStepComponent implements OnInit, OnDestroy {
   preferenceCategory = PreferenceCategory;
   hasSelectedPreferences = false;
 
+  ingredients: SelectionItem<string>[] = [];
+
   constructor(public stepperService: RecipeStepperService) { }
 
   ngOnInit(): void {
     this.stepperService.data$
       .pipe(takeUntil(this.onDestroy))
       .subscribe(data => {
-        this.hasSelectedPreferences = data.hasSelectedPreferences();
+        if (data.identifiedIngredients !== undefined) {
+          this.ingredients = data.identifiedIngredients.concat(data.additionalIngredients);
+        }
+
+        this.hasSelectedPreferences = data.arePreferencesSelected();
       });
   }
 
