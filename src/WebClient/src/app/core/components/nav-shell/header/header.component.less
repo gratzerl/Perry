@@ -1,0 +1,35 @@
+@import "src/styles/variables";
+
+:host {
+  display: block;
+}
+
+nz-header {
+  padding: 0;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+
+  max-width: @max-lg-content-width;
+  margin: auto;
+  padding: 0 @lg-horizontal-padding;
+
+  @media (max-width: @max-md-width) {
+    max-width: @max-md-content-width;
+    padding: 0 @md-horizontal-padding;
+  }
+
+  @media (max-width: @max-xs-width) {
+    padding: 0 @sm-horizontal-padding;
+  }
+
+  a:not(:last-of-type) {
+    margin-right: @sm-horizontal-padding;
+  }
+
+  .title {
+    margin-right: auto;
+  }
+}

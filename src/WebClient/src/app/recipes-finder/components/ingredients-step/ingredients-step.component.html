@@ -1,28 +1,56 @@
 <ng-container *transloco="let t; read: 'rf.ingredients'">
-  <div *ngIf="!isLoading">
-    <div *transloco="let t; read: 'component-labels'">
-      <nz-upload [(nzFileList)]="imageFiles" [nzBeforeUpload]="beforeUpload" nzAccept="image/*" nzListType="picture">
-        <button nz-button><i nz-icon nzType="upload"></i>{{ t('choose') }}</button>
+  <h2 nz-typography>{{ t('identification-upload-heading') }}</h2>
+  <div class="identification-section">
+    <nz-card>
+      <nz-upload class="ingredient-image-upload" nzAccept="image/*" nzListType="picture" [(nzFileList)]="imageFiles"
+        [nzBeforeUpload]="beforeUpload" [nzMultiple]="true" [nzSize]="maxImageSizeKb">
+        <div class="upload-area-header">
+          <span class="heading" nz-typography nzEllipsis>
+            {{ t('uploaded-images') }}
+          </span>
+          <ng-container *transloco="let t; read: 'component-labels'">
+            <button nz-button [nzLoading]="isLoading" (click)="$event.stopPropagation(); identifyIngredients()"
+              [disabled]="imageFiles.length == 0 || isLoading">
+              <i nz-icon nzType="upload"></i>
+            </button>
+            <button nz-button nzType="primary" [disabled]="isLoading">
+              <i nz-icon nzType="plus"></i>
+            </button>
+          </ng-container>
+        </div>
       </nz-upload>
-      <button nz-button nzType="primary" [nzLoading]="isLoading" (click)="identifyIngredients()"
-        [disabled]="imageFiles.length == 0">
-        {{ isLoading ? t('is-loading') : t('upload') }}
-      </button>
-    </div>
-    <ng-container>
-      <div *ngIf="ingredients !== undefined">
-        <div *ngIf="ingredients.length === 0">
+      <nz-empty *ngIf="imageFiles.length == 0" [nzNotFoundContent]="noImagesMessage"></nz-empty>
+      <div class="result-container" *ngIf="stepperService.data.identifiedIngredients as identifiedIngredients">
+        <span class="message" nz-typography *ngIf="identifiedIngredients.length === 0">
           {{ t('messages.no-ingredients-found')}}
+        </span>
+        <div *ngIf="identifiedIngredients.length > 0">
+          <span class="message" nz-typography>{{ t('messages.uncheck-unwanted-ingredients') }}</span>
+          <nz-checkbox-wrapper class="ingredient-selection" (nzOnChange)="updateStepperStatus()">
+            <div nz-row>
+              <div *ngFor="let ingredient of identifiedIngredients" nz-col nzLg="6" nzSm="8" nzXs="10">
+                <label nz-checkbox [nzValue]="ingredient" [(ngModel)]="ingredient.checked">{{ ingredient.item }}</label>
+              </div>
+            </div>
+          </nz-checkbox-wrapper>
         </div>
-        <div *ngIf="ingredients.length > 0">
-          <div>{{ t('messages.uncheck-unwanted-ingredients') }}</div>
-          <nz-checkbox-group [ngModel]="ingredients" (ngModelChange)="updateIngredients($event)">
-          </nz-checkbox-group>
-        </div>
+      </div>
+    </nz-card>
+  </div>
+  <div>
+    <h2 nz-typography>{{ t('other-ingredients-heading') }}</h2>
+    <ng-container *transloco="let t;">
+      <div class="category-container" *ngFor="let category of ingredientCategories | keyvalue">
+        <app-option-selection-card
+          [heading]="t('rf.ingredients.categories.' + (category.value | lowercase) + '.heading')"
+          [options]="ingredientOptions[category.value]"
+          (optionChange)="updateAdditionalIngredients(category.value, $event)">
+        </app-option-selection-card>
       </div>
     </ng-container>
   </div>
-  <div *ngIf="isLoading">
-    <app-loading-spinner></app-loading-spinner>
-  </div>
+
+  <ng-template #noImagesMessage>
+    <span>{{ t('messages.no-images-uploaded') }}</span>
+  </ng-template>
 </ng-container>

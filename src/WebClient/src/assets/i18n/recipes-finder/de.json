@@ -3,7 +3,38 @@
   "ingredients": {
     "step-title": "Zutaten",
     "step-description": "Bestimme deine Zutaten",
+    "identification-upload-heading": "Zutatenerkennung",
+    "uploaded-images": "Hochgeladene Fotos",
+    "other-ingredients-heading": "Weitere Zutaten auswählen",
+    "categories": {
+      "meat": {
+        "heading": "Fleisch",
+        "options": {
+          "beef": "Rind",
+          "pork": "Schwein",
+          "chicken": "Huhn",
+          "turkey": "Pute",
+          "lamb": "Lamm"
+        }
+      },
+      "grainspasta": {
+        "heading": "Bohnen, Pasta und Körner",
+        "options": {
+          "oats": "Haferflocken",
+          "farro": "Dinkel",
+          "bulgur": "Bulgur",
+          "rice": "Reis",
+          "quinoa": "Quinoa",
+          "couscous": "Couscous",
+          "lentils": "Linsen",
+          "beans": "Bohnen",
+          "pasta": "Pasta",
+          "gnocchi": "Gnocchi"
+        }
+      }
+    },
     "messages": {
+      "no-images-uploaded": "Du hast noch keine Fotos hochgeladen",
       "no-ingredients-found": "Wir konnten leider keine Zutaten finden :(",
       "uncheck-unwanted-ingredients": "Diese Zutaten haben wir gefunden. Du kanst falsch identifizierte Zutaten auch wieder abwählen."
     }
@@ -29,11 +60,24 @@
       }
     }
   },
-  "suggestions": {
-    "suggest-recipes-btn-label": "Suche!",
+  "summary": {
+    "step-title": "Zusammenfassung",
+    "step-description": "Überprüfe deine Eingaben",
+    "selected-ingredients-heading": "Ausgewählte Zutaten",
+    "selected-preferences-heading": "Präferenzen",
     "messages": {
-      "recipes-found": "Wir haben {{ itemCount }} Rezepte gefunden",
-      "recipes-not-found": "Wir haben leider keine passenden Rezepte gefunden"
+      "empty-preferences": "Du hast keine Präferenzen ausgewählt."
     }
+  },
+  "suggestions": {
+    "heading": "Vorschläge",
+    "messages": {
+      "searching-recipes": "Suche passende Rezepte...",
+      "recipes-found": "Wir haben {{ itemCount }} Rezepte gefunden",
+      "recipes-not-found": "Wir haben leider keine passenden Rezepte gefunden",
+      "select-preferences-first": "Du musst zuerst deine Zutaten angeben, bevor wir dir Vorschläge machen können."
+    },
+    "manage-preferences-button-label": "Suche anpassen",
+    "new-search-button-label": "Neue Suche"
   }
 }

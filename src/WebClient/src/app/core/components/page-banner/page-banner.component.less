@@ -1,0 +1,50 @@
+@import "src/styles/variables";
+@import "src/styles/colors";
+
+.banner {
+  height: 336px;
+  max-height: 336px;
+
+  display: grid;
+  grid-template-columns: 50% 50%;
+  column-gap: @md-horizontal-padding;
+
+  @media (max-width: @max-sm-width) {
+    max-height: unset;
+    height: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    grid-template-columns: none;
+    column-gap: unset;
+  }
+
+  .text-area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .title {
+    margin-bottom: @xs-vertical-padding;
+  }
+
+  .sub-title {
+    margin-top: 0;
+    color: @gray-8;
+  }
+
+  button {
+    margin-top: @sm-vertical-padding;
+  }
+
+  img {
+    max-height: 100%;
+    max-width: 100%;
+
+    @media (max-width: @max-md-width) {
+      height: 336px;
+      max-height: 336px;
+    }
+  }
+}

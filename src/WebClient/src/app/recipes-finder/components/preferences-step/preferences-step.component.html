@@ -1,11 +1,8 @@
-<div *transloco="let t;">
-  <ng-container *ngFor="let cat of categories | keyvalue">
-    <h3> {{ t('rf.preferences.categories.'+ (cat.value | lowercase) +'.heading') }}</h3>
-    <div>
-      <label nz-checkbox *ngFor="let data of preferences[cat.value]" [ngModel]="data.checked"
-        (ngModelChange)="updateSelection(cat.value, data, $event)">
-        {{ t(data.value.labelKey) }}
-      </label>
-    </div>
-  </ng-container>
-</div>
+<ng-container *transloco="let t;">
+  <h2 nz-typography>{{ t('rf.preferences.step-title') }}</h2>
+  <div class="category-container" *ngFor="let category of preferenceCategories | keyvalue">
+    <app-option-selection-card [heading]="t('rf.preferences.categories.' + (category.value | lowercase) + '.heading')"
+      [options]="preferences[category.value]" (optionChange)="updateSelection(category.value, $event)">
+    </app-option-selection-card>
+  </div>
+</ng-container>

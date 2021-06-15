@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { IngredientsStepComponent, PreferencesStepComponent } from './components';
-import { RecipesFinderComponent } from './pages';
+import { IngredientsStepComponent, PreferencesStepComponent, SummaryStepComponent } from './components';
+import { RecipesFinderComponent, SuggestionsComponent } from './pages';
 
 const routes: Routes = [
   {
@@ -9,14 +9,26 @@ const routes: Routes = [
     component: RecipesFinderComponent,
     children: [
       {
-        path: 'identification',
+        path: '',
+        redirectTo: 'ingredients'
+      },
+      {
+        path: 'ingredients',
         component: IngredientsStepComponent
       },
       {
         path: 'preferences',
         component: PreferencesStepComponent
+      },
+      {
+        path: 'summary',
+        component: SummaryStepComponent
       }
-    ]
+    ],
+  },
+  {
+    path: 'suggestions',
+    component: SuggestionsComponent
   }
 ];
 

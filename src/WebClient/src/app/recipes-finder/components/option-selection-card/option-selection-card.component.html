@@ -1,0 +1,9 @@
+<nz-card *transloco="let t;" class="category-container" [nzTitle]="heading">
+  <div nz-row>
+    <div *ngFor="let data of options" nz-col nzLg="6" nzSm="8" nzXs="10">
+      <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="optionChange.emit(data)">
+        {{ t(data.item.labelKey) }}
+      </label>
+    </div>
+  </div>
+</nz-card>

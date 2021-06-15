@@ -1,5 +1,35 @@
-<ng-container *transloco="let t; read: 'rf'">
-  <h1>{{ t('heading') }}</h1>
-  <app-recipe-suggestion-stepper *ngIf="!stepperCompleted"></app-recipe-suggestion-stepper>
-  <app-recipes-suggestions-list *ngIf="stepperCompleted" [recipeData]="recipeData"></app-recipes-suggestions-list>
+<ng-container *transloco="let t;">
+  <h1 nz-typography>{{ t('rf.heading') }}</h1>
+  <div class="stepper">
+    <div class="steps-container">
+      <nz-steps [nzDirection]="isSmallScreen ? 'horizontal' : 'vertical'" [nzCurrent]="currentStepIndex"
+        (nzIndexChange)="changeStep($event)" [nzStatus]="currentStepStatus"
+        [nzSize]="isSmallScreen || isExtraSmallScreen ? 'small' : 'default'">
+        <nz-step *ngFor="let step of stepperService.steps" [nzTitle]="t(step.titleKey)"
+          [nzDescription]="isExtraSmallScreen ? '' : t(step.descriptionKey)">
+        </nz-step>
+      </nz-steps>
+    </div>
+    <div class="step-content-container">
+      <div class="stepper-button-bar" *ngIf="(stepperService.currentStep$ | async) as currentStep">
+        <button nz-button *ngIf="!stepperService.isFirstStep" (click)="previous()"
+          [disabled]="currentStep.status === routedStepStatus.Loading">
+          <i nz-icon nzType="left"></i>
+          {{ t('component-labels.back') }}
+        </button>
+        <button nz-button nzType="primary" *ngIf="!stepperService.isLastStep" (click)="next()" [disabled]="currentStep.status === routedStepStatus.Loading ||
+          (stepperService.currentStep.isRequired && currentStep.status !== routedStepStatus.Valid)">
+          {{ t('component-labels.next') }}
+          <i nz-icon nzType="right"></i>
+        </button>
+        <button nz-button nzType="primary" *ngIf="stepperService.isLastStep" [routerLink]="['/find/suggestions']">
+          {{ t('component-labels.search')}}
+          <i nz-icon nzType="search"></i>
+        </button>
+      </div>
+      <div class="step-content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
 </ng-container>

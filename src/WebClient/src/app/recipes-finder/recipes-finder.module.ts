@@ -4,15 +4,18 @@ import { TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
 import { SharedModule } from '../shared/shared.module';
 import { RecipesFinderRoutingModule } from './recipes-finder-routing.module';
-import { RecipesFinderComponent } from './pages';
 import { RecipeStepperService, ROUTED_STEPS } from './services';
 import { recipeFinderSteps } from './constants';
+import { RecipesFinderComponent, SuggestionsComponent } from './pages';
+
 import {
   IngredientsStepComponent,
   PreferencesStepComponent,
-  RecipeSuggestionStepperComponent,
-  RecipesSuggestionsListComponent
+  RecipesSuggestionsListComponent,
+  SummaryStepComponent,
+  OptionSelectionCardComponent
 } from './components';
+import { SelectedItemsPipe } from './pipes/selected-items.pipe';
 
 
 @NgModule({
@@ -20,8 +23,11 @@ import {
     RecipesFinderComponent,
     IngredientsStepComponent,
     PreferencesStepComponent,
-    RecipeSuggestionStepperComponent,
-    RecipesSuggestionsListComponent
+    RecipesSuggestionsListComponent,
+    SummaryStepComponent,
+    SuggestionsComponent,
+    OptionSelectionCardComponent,
+    SelectedItemsPipe
   ],
   imports: [
     CommonModule,

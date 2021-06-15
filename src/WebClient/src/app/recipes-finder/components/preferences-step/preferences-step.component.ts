@@ -6,10 +6,10 @@ import { RecipeStepperService } from '../../services';
 @Component({
   selector: 'app-preferences-step',
   templateUrl: './preferences-step.component.html',
-  styleUrls: ['./preferences-step.component.scss']
+  styleUrls: ['./preferences-step.component.less']
 })
 export class PreferencesStepComponent implements OnInit {
-  categories = PreferenceCategory;
+  preferenceCategories = PreferenceCategory;
 
   preferences: { [key in PreferenceCategory]: SelectionItem<RecipeTag>[] } = {
     [PreferenceCategory.Difficulty]: [],
@@ -20,23 +20,24 @@ export class PreferencesStepComponent implements OnInit {
 
   ngOnInit(): void {
     const { preferences } = this.stepperService.data;
+
     Object.entries(recipePreferences)
       .map(([keyStr, tags]) => {
         const key = keyStr as keyof typeof PreferenceCategory;
         this.preferences[key] = tags.map<SelectionItem<RecipeTag>>(tag => {
-          const p = preferences[key].find(selItem => selItem.value.labelKey === tag.labelKey);
-          return ({ value: tag, checked: p !== undefined ? p.checked : false });
+          const p = preferences[key].find(selItem => selItem.item.labelKey === tag.labelKey);
+          return ({ item: tag, checked: p !== undefined ? p.checked : false });
         });
       });
   }
 
-  updateSelection(category: PreferenceCategory, preference: SelectionItem<RecipeTag>, isSelected: boolean): void {
+  updateSelection(category: PreferenceCategory, preference: SelectionItem<RecipeTag>): void {
     const pref = this.preferences[category].find(p => p === preference);
     if (!pref) {
       return;
     }
 
-    pref.checked = isSelected;
+    pref.checked = preference.checked;
     this.stepperService.data.preferences[category] = [...this.preferences[category]];
   }
 }

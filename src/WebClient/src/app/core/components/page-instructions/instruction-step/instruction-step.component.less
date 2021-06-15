@@ -1,0 +1,49 @@
+@import "src/styles/variables";
+
+.instruction-step {
+  width: 296px;
+  max-width: 296px;
+  height: 272px;
+  max-height: 272px;
+  padding: @sm-vertical-padding @sm-horizontal-padding;
+
+  @media (max-width: @max-lg-width) {
+    width: 272px;
+    max-width: 272px;
+    height: 232px;
+    max-height: 232px;
+  }
+
+  @media (max-width: @max-sm-width) {
+    width: 180px;
+    max-width: 180px;
+    padding: @xs-vertical-padding 0;
+  }
+
+  @media (max-width: @max-xs-width) {
+    width: 100%;
+    max-width: unset;
+    height: auto;
+    padding: @md-vertical-padding 0;
+  }
+
+  img {
+    height: 128px;
+    max-height: 128px;
+
+    @media (max-width: @max-lg-width) {
+      height: 108px;
+      max-height: 108px;
+    }
+
+    @media (max-width: @max-sm-width) {
+      height: 80px;
+      max-height: 80px;
+    }
+
+    @media (max-width: @max-xs-width) {
+      height: 108px;
+      max-height: 108px;
+    }
+  }
+}

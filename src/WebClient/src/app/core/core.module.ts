@@ -7,9 +7,17 @@ import { TRANSLOCO_SCOPE } from '@ngneat/transloco';
 import { SharedModule } from '../shared/shared.module';
 
 import { ConfigService, GlobalErrorHandler, LanguageService } from './services';
-import { NavShellComponent, HeaderComponent, ContentComponent, LanguageSwitcherComponent } from './components/nav-shell';
-import { LandingPageComponent, InstructionStepComponent, PageBannerComponent, PageInstructionsComponent } from './pages/landing-page';
 import { AppConfig } from './models';
+import { LandingPageComponent } from './pages';
+import {
+  NavShellComponent,
+  HeaderComponent,
+  ContentComponent,
+  LanguageSwitcherComponent,
+  PageBannerComponent,
+  PageInstructionsComponent,
+  InstructionStepComponent
+} from './components';
 
 export const APP_CONFIG = new InjectionToken<AppConfig>('AppConfig');
 

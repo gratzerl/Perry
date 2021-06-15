@@ -11,6 +11,9 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzImageModule } from 'ng-zorro-antd/image';
 
 
 @NgModule({
@@ -27,6 +30,9 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
     NzIconModule,
     NzLayoutModule,
     NzTypographyModule,
+    NzEmptyModule,
+    NzGridModule,
+    NzImageModule
   ]
 })
 export class NgZorroModule { }

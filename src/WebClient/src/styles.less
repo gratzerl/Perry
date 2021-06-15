@@ -1,1 +1,36 @@
 @import "~ng-zorro-antd/ng-zorro-antd.less";
+@import "./styles/reset.less";
+@import "./styles/variables.less";
+@import "./styles/colors.less";
+
+.ant-btn + .ant-btn {
+  margin-left: @xs-horizontal-padding;
+}
+
+.ingredient-image-upload .ant-upload.ant-upload-select {
+  display: block;
+}
+
+.ingredient-image-upload .ant-upload-list-item {
+  width: 200px;
+  float: left;
+  margin-right: @xs-horizontal-padding;
+}
+
+.ingredient-selection .ant-checkbox-wrapper {
+  text-transform: capitalize;
+}
+
+.info-message {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.no-select {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer, Edge */
+  user-select: none; /* Chrome, Opera */
+}

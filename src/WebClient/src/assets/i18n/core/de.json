@@ -7,16 +7,16 @@
     "guide": {
       "heading": "Wie funktioniert's?",
       "step-1": {
-        "heading": "Schritt 1",
-        "description": "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet."
+        "heading": "Zutaten erkennen",
+        "description": "Erkenne die richtigen Zutaten automatisch in deinen Fotos."
       },
       "step-2": {
-        "heading": "Schritt 2",
-        "description": "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet."
+        "heading": "Präferenzen wählen",
+        "description": "Wähle weitere Präferenzen aus."
       },
       "step-3": {
-        "heading": "Schritt 3",
-        "description": "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet."
+        "heading": "Finde die passenden Rezepte",
+        "description": "Lasse dir basierend auf deinen Eingaben die passenden Rezepte vorschlagen."
       }
     }
   }

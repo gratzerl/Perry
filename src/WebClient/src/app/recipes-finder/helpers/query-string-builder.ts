@@ -12,5 +12,5 @@ export const queryStringBuilder = (obj: { [s: string]: unknown; } | ArrayLike<un
 }
 
 export function arrayToQueryString(paramName: string, items: string[]): string[] {
-  return items.map((item, idx) => `${paramName}[${idx}]=${encodeURIComponent(item)}`);
+  return items.map((item, idx) => `${paramName}:${idx}=${encodeURIComponent(item)}`);
 }

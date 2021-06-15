@@ -1,0 +1,42 @@
+<div *transloco="let t; read: 'rf.summary'">
+  <h2 nz-typography>{{ t('step-title') }}</h2>
+  <nz-card [nzTitle]="t('selected-ingredients-heading')" [nzExtra]="editIngredients">
+    <span *ngFor="let i of (ingredients | selectedItems); let isLast = last" nz-typography>
+      {{ i.item }}{{ isLast ? '' : ','}}
+    </span>
+
+    <ng-template #editIngredients>
+      <button nz-button nzType="text" (click)="stepperService.goToStepRoute('ingredients')">
+        <i nz-icon nzType="edit"></i>
+      </button>
+    </ng-template>
+  </nz-card>
+
+  <nz-card [nzTitle]="t('selected-preferences-heading')" [nzExtra]="editPreferences">
+    <ng-container *ngIf="!hasSelectedPreferences; else preferencesList">
+      <span class="message" nz-typography>{{ t('messages.empty-preferences') }}</span>
+    </ng-container>
+
+    <ng-template #preferencesList>
+      <ng-container *transloco="let t;">
+        <ng-container *ngFor="let prefCat of preferenceCategory | keyvalue">
+          <div class="preference-summary" *ngIf="stepperService.data.preferences[prefCat.value].length > 0">
+            <span class="category-title" nz-typography>
+              {{ t('rf.preferences.categories.' + (prefCat.value | lowercase) + '.heading') }}:
+            </span>
+            <ng-container
+              *ngFor="let pref of (stepperService.data.preferences[prefCat.value] | selectedItems); let isLast = last">
+              <span nz-typography *ngIf="pref.checked">{{ t(pref.item.labelKey) }}{{ isLast ? '' : ','}}</span>
+            </ng-container>
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-template>
+
+    <ng-template #editPreferences>
+      <button nz-button nzType="text" (click)="stepperService.goToStepRoute('preferences')">
+        <i nz-icon nzType="edit"></i>
+      </button>
+    </ng-template>
+  </nz-card>
+</div>

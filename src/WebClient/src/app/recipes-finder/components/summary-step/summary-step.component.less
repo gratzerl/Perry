@@ -1,0 +1,23 @@
+@import "src/styles/variables";
+
+nz-card {
+  text-transform: capitalize;
+
+  .message {
+    text-transform: none;
+  }
+
+  &:not(:last-of-type) {
+    margin-bottom: @sm-vertical-padding;
+  }
+
+  .preference-summary {
+    .category-title {
+      font-weight: 500;
+    }
+
+    &:not(:last-of-type) {
+      margin-bottom: @sm-vertical-padding;
+    }
+  }
+}

@@ -1,0 +1,40 @@
+@import "src/styles/variables";
+
+:host {
+  display: block;
+}
+
+.stepper {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 25% 1fr;
+  column-gap: @md-vertical-padding;
+
+  @media (max-width: @max-sm-width) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .steps-container {
+    @media (max-width: @max-sm-width) {
+      flex: unset;
+      margin-bottom: @md-vertical-padding;
+    }
+  }
+
+  .step-content-container {
+    display: flex;
+    flex-direction: column;
+
+    .step-content {
+      flex: 1;
+    }
+
+    .stepper-button-bar {
+      margin-bottom: @md-vertical-padding;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+  }
+}

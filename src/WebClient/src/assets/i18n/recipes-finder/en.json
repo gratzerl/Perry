@@ -3,9 +3,40 @@
   "ingredients": {
     "step-title": "Ingredients",
     "step-description": "Pick your ingredients",
+    "identification-upload-heading": "Ingredients identification",
+    "uploaded-images": "Uploaded images",
+    "other-ingredients-heading": "Select more ingredients",
+    "categories": {
+      "meat": {
+        "heading": "Meat",
+        "options": {
+          "beef": "Beef",
+          "pork": "Pork",
+          "chicken": "Chicken",
+          "turkey": "Turkey",
+          "lamb": "Lamb"
+        }
+      },
+      "grainspasta": {
+        "heading": "Beans, Pasta and Grains",
+        "options": {
+          "oats": "Oats",
+          "farro": "Farro",
+          "bulgur": "Bulgur",
+          "rice": "Rice",
+          "quinoa": "Quinoa",
+          "couscous": "Couscous",
+          "lentils": "Lentils",
+          "beans": "Beans",
+          "pasta": "Pasta",
+          "gnocchi": "Gnocchi"
+        }
+      }
+    },
     "messages": {
+      "no-images-uploaded": "You have not uploaded any images yet.",
       "no-ingredients-found": "Sadly, we could not identify any ingredients :(",
-      "uncheck-unwanted-ingredients": "We have found the following ingredients. You can also unselected missidentified ingredients."
+      "uncheck-unwanted-ingredients": "We have found the following ingredients. You can unselected misidentified ingredients."
     }
   },
   "preferences": {
@@ -29,11 +60,24 @@
       }
     }
   },
-  "suggestions": {
-    "suggest-recipes-btn-label": "Search!",
+  "summary": {
+    "step-title": "Summary",
+    "step-description": "Review your input",
+    "selected-ingredients-heading": "Selected ingredients",
+    "selected-preferences-heading": "Selected preferences",
     "messages": {
-      "recipes-found": "We've found {{ itemCount }} recipes",
-      "recipes-not-found": "Sorry, we did not find any recipes matching your preferences"
+      "empty-preferences": "You have not selected any other preferences."
     }
+  },
+  "suggestions": {
+    "heading": "Suggestions",
+    "messages": {
+      "searching-recipes": "Searching for suitable recipes...",
+      "recipes-found": "We've found {{ itemCount }} recipes",
+      "recipes-not-found": "Sorry, we did not find any recipes matching your preferences",
+      "select-preferences-first": "You have to choose your preferences before we can make suggestions."
+    },
+    "manage-preferences-button-label": "Configure data",
+    "new-search-button-label": "Restart search"
   }
 }

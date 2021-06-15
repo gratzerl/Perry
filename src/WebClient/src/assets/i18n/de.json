@@ -1,11 +1,15 @@
 {
-  "title": "Perry",
+  "header": {
+    "title": "Perry",
+    "find-recipes-tab-text": "Rezepte finden"
+  },
   "component-labels": {
     "next": "Weiter",
     "back": "Zurück",
     "choose": "Hinzufügen",
     "upload": "Hochladen",
     "complete": "Abschließen",
+    "seach": "Suchen",
     "is-loading": "Lädt"
   }
 }

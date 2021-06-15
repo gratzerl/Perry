@@ -22,6 +22,7 @@ namespace Perry.Database.Entities
             if (!options.IsConfigured)
             {
                 options.UseSqlServer("Server=(local);Database=Perry;Trusted_Connection=True;");
+                options.EnableSensitiveDataLogging();
             }
         }
 
