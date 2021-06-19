@@ -59,46 +59,54 @@ namespace Perry.RecipesScraper.Services
                 .SelectMany(tags => tags)
                 .ToHashSet();
 
-            var tags = await UpdateTagsAsync(scrapedTags);
+            try
+            {
+                var tags = await UpdateTagsAsync(scrapedTags);
 
-            var entities = taskResult
-                .SelectMany(r => r)
-                .Select(r =>
-                {
-                    var id = Guid.NewGuid();
-                    var recipeTags = r.Tags
-                        .Select(tag => new RecipeTag
-                        {
-                            RecipeId = id,
-                            TagId = tags.First(t => t.Text == tag).Id
-                        })
-                        .ToList();
-
-                    var recipe = new Recipe
+                var entities = taskResult
+                    .SelectMany(r => r)
+                    .Select(r =>
                     {
-                        Id = id,
-                        Name = r.Name,
-                        Description = r.Description,
-                        Ingredients = string.Join('\n', r.Ingredients),
-                        Method = string.Join('\n', r.Steps),
-                        Url = r.Url
-                    };
+                        var id = Guid.NewGuid();
 
-                    return (recipe, recipeTags);
-                })
-                .ToList();
+                        var recipeTags = r.Tags?
+                            .Select(tag => new RecipeTag
+                            {
+                                RecipeId = id,
+                                TagId = tags.First(t => t.Text == tag).Id
+                            })
+                            .ToList() ?? new List<RecipeTag>();
 
-            var recipes = entities.Select(tuple => tuple.recipe).ToList();
-            var recipeTags = entities.Select(tuple => tuple.recipeTags).SelectMany(rt => rt).ToList();
+                        var recipe = new Recipe
+                        {
+                            Id = id,
+                            Name = r.Name,
+                            Description = r.Description,
+                            Ingredients = string.Join('\n', r.Ingredients),
+                            Method = string.Join('\n', r.Steps),
+                            Url = r.Url
+                        };
 
-            int duplicateCount = recipes.RemoveAll(r => savedRecipes.Contains(r.Url));
-            logger.LogInformation($"{duplicateCount} recipes are already saved in the db. Skipping these...");
+                        return (recipe, recipeTags);
+                    })
+                    .ToList();
 
-            await recipeContext.Recipes.AddRangeAsync(recipes);
-            await recipeContext.RecipeTags.AddRangeAsync(recipeTags);
-            await recipeContext.SaveChangesAsync();
+                var recipes = entities.Select(tuple => tuple.recipe).ToList();
+                var recipeTags = entities.Select(tuple => tuple.recipeTags).SelectMany(rt => rt).ToList();
 
-            logger.LogInformation($"{entities.Count} recipes saved.");
+                int duplicateCount = recipes.RemoveAll(r => savedRecipes.Contains(r.Url));
+                logger.LogInformation($"{duplicateCount} recipes are already saved in the db. Skipping these...");
+
+                await recipeContext.Recipes.AddRangeAsync(recipes);
+                await recipeContext.RecipeTags.AddRangeAsync(recipeTags);
+                await recipeContext.SaveChangesAsync();
+
+                logger.LogInformation($"{entities.Count} recipes saved.");
+            }
+            catch(Exception e)
+            {
+                logger.LogInformation($"Saving recipes failed. Error: {e.Message}");
+            }
 
             hostApplicationLifetime.StopApplication();
             Dispose();
