@@ -109,7 +109,8 @@ export class RecipeStepperService {
   private createEmptyStepperData(): RecipeStepperData {
     const preferences = {
       [PreferenceCategory.Difficulty]: [],
-      [PreferenceCategory.Diet]: []
+      [PreferenceCategory.Diet]: [],
+      [PreferenceCategory.Category]: []
     };
 
     return new RecipeStepperData([], [], preferences, undefined);
