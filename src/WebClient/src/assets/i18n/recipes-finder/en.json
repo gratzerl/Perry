@@ -29,7 +29,88 @@
           "lentils": "Lentils",
           "beans": "Beans",
           "pasta": "Pasta",
-          "gnocchi": "Gnocchi"
+          "barley": "Barley",
+          "amaranth": "Amaranth",
+          "teff": "Teff",
+          "freekeh": "Freekeh",
+          "millet": "Millet",
+          "bread": "Bread",
+          "flour": "Flour"
+        }
+      },    
+      "dairy": {
+        "heading": "Dairy and egg",
+        "options": {
+          "cheese": "Cheese",
+          "milk": "Milk",
+          "yoghurt": "Yoghurt",
+          "sourcream": "Sourcream",
+          "butter": "Butter",
+          "egg": "Egg"
+        }
+      },      
+      "spice": {
+        "heading": "Spices",
+        "options": {
+          "salt": "Salt",
+          "pepper": "Pepper",
+          "chiliflakes": "Chiliflakes",
+          "ceyennePepper": "Ceyenne pepper",
+          "nutmeg": "Nutmeg",
+          "ginger": "Ginger",
+          "cloves": "Cloves",
+          "cinnamon": "Cinnamon",
+          "cumin": "Cumin",
+          "paprika": "Paprika",
+          "coriander": "Coriander",
+          "thyme": "Thyme",
+          "rosemary": "Rosemary",
+          "garlic": "Garlic",
+          "oregano": "Oregano",
+          "curry": "Curry"
+        }
+      },      
+      "fruit": {
+        "heading": "Fruits and berries",
+        "options": {
+          "apple": "Apple",
+          "banana": "Banana",
+          "lemon": "Lemon",
+          "strawberry": "Strawberry",
+          "blueberry": "Blueberry",
+          "grape": "Grapes",
+          "orange": "Orange",
+          "pear": "Pear",
+          "tomato": "Tomato",
+          "pineapple": "Pineapple",
+          "kiwi": "Kiwi",
+          "mango": "Mango",
+          "pomegranate": "Pomegranate",
+          "grapefruit": "Grapefruit"
+        }
+      },      
+      "vegetable": {
+        "heading": "Vegetables",
+        "options": {
+          "carrot": "Carrot",
+          "potato": "Potato",
+          "onion": "Onion",
+          "beans": "Beans",
+          "garlic": "Garlic",
+          "pepper": "Pepper",
+          "aubergine": "Aubergine",
+          "avocado": "Avocado",
+          "ginger": "Ginger",
+          "mushroom": "Mushroom",
+          "salad": "Salad",
+          "broccoli": "Broccoli",
+          "cabbage": "Cabbage",
+          "cauliflower": "Cauliflower",
+          "chickpeas": "Chickpeas",
+          "corn": "Corn",
+          "cucumber": "Cucumber",
+          "leek": "Leek",
+          "zucchini": "Zucchini"
         }
       }
     },
@@ -47,7 +128,17 @@
         "heading": "Diet",
         "options": {
           "vegetarian": "Vegetarian",
-          "vegan": "Vegan"
+          "vegan": "Vegan",
+          "lowcholesterol": "Low cholesterol",
+          "lowfat": "Low fat",
+          "dairyfree": "Dairy free",
+          "glutenfree": "Gluten free",
+          "lowcarb": "Low carb",
+          "healthy": "Healthy",
+          "diabetic": "Diabetic friendly",
+          "organic": "Organic",
+          "sugarfree": "Sugar free",
+          "kosher": "Kosher"
         }
       },
       "difficulty": {
@@ -56,6 +147,25 @@
           "easy": "Easy",
           "medium": "Medium",
           "hard": "Difficult"
+        }
+      },
+      "category": {
+        "heading": "Categories",
+        "options": {
+          "spicy": "Spicy",
+          "salads": "Salads",
+          "pasta": "Pasta and Lasagna",
+          "spreadsSauces": "Spreads and Sauces",
+          "desserts": "Desserts",
+          "seafood": "Seafood",
+          "european": "European",
+          "american": "American",
+          "indian": "Indian",
+          "african": "African",
+          "asian": "Asian",
+          "italian": "Italian",
+          "orient": "Oriental",
+          "mexican": "Mexican"
         }
       }
     }

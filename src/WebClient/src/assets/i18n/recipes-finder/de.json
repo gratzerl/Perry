@@ -29,7 +29,88 @@
           "lentils": "Linsen",
           "beans": "Bohnen",
           "pasta": "Pasta",
-          "gnocchi": "Gnocchi"
+          "barley": "Linsen",
+          "amaranth": "Amaranth",
+          "teff": "Teff",
+          "freekeh": "Freekeh",
+          "millet": "Hirse",
+          "bread": "Brot",
+          "flour": "Mehl"
+        }
+      },      
+      "dairy": {
+        "heading": "Milchprodukte und Ei",
+        "options": {
+          "cheese": "Käse",
+          "milk": "Milch",
+          "yoghurt": "Joghurt",
+          "sourcream": "Sauerrahm",
+          "butter": "Butter",
+          "egg": "Ei"
+        }
+      },      
+      "spice": {
+        "heading": "Gewürze",
+        "options": {
+          "salt": "Salz",
+          "pepper": "Pfeffer",
+          "chiliflakes": "Chiliflocken",
+          "ceyennePepper": "Ceyenne Pfeffer",
+          "nutmeg": "Muskatnuss",
+          "ginger": "Ingwer",
+          "cloves": "Nelken",
+          "cinnamon": "Zimt",
+          "cumin": "Cumin",
+          "paprika": "Paprika",
+          "coriander": "Koriander",
+          "thyme": "Thymian",
+          "rosemary": "Rosmarien",
+          "garlic": "Knoblauch",
+          "oregano": "Oregano",
+          "curry": "Curry"
+        }
+      },      
+      "fruit": {
+        "heading": "Früchte und Beeren",
+        "options": {
+          "apple": "Apfel",
+          "banana": "Banane",
+          "lemon": "Zitrone",
+          "strawberry": "Erdbeere",
+          "blueberry": "Blaubeere",
+          "grape": "Weintrauben",
+          "orange": "Orange",
+          "pear": "Birne",
+          "tomato": "Tomate",
+          "pineapple": "Ananas",
+          "kiwi": "Kiwi",
+          "mango": "Mango",
+          "pomegranate": "Granatapfel",
+          "grapefruit": "Grapefruit"
+        }
+      },      
+      "vegetable": {
+        "heading": "Gemüse",
+        "options": {
+          "carrot": "Karotte",
+          "potato": "Kartoffel",
+          "onion": "Zwiebel",
+          "beans": "Bohnen",
+          "garlic": "Knoblauch",
+          "pepper": "Paprika",
+          "aubergine": "Aubergine",
+          "avocado": "Avocado",
+          "ginger": "Ingwer",
+          "mushroom": "Pilze",
+          "salad": "Salat",
+          "broccoli": "Brokkoli",
+          "cabbage": "Kohl",
+          "cauliflower": "Karfiol",
+          "chickpeas": "Kichererbsen",
+          "corn": "Mais",
+          "cucumber": "Gurke",
+          "leek": "Lauch",
+          "zucchini": "Zucchini"
         }
       }
     },
@@ -47,7 +128,17 @@
         "heading": "Ernährung",
         "options": {
           "vegetarian": "Vegetarisch",
-          "vegan": "Vegan"
+          "vegan": "Vegan",
+          "lowcholesterol": "Cholesterinarm",
+          "lowfat": "Fettarm",
+          "dairyfree": "Laktosefrei",
+          "glutenfree": "Glutenfrei",
+          "lowcarb": "Kalorienarm",
+          "healthy": "Gesund",
+          "diabetic": "Diabetiker-geeignet",
+          "organic": "Organisch",
+          "sugarfree": "Zuckerfrei",
+          "kosher": "Koscher"
         }
       },
       "difficulty": {
@@ -56,6 +147,25 @@
           "easy": "Einfach",
           "medium": "Mittel",
           "hard": "Schwer"
+        }
+      },
+      "category": {
+        "heading": "Kategorien",
+        "options": {
+          "spicy": "Scharf",
+          "salads": "Salate",
+          "pasta": "Pasta und Lasagne",
+          "spreadsSauces": "Aufstriche und Saucen",
+          "desserts": "Nachspeisen",
+          "seafood": "Fisch und Meeresfrüchte",
+          "european": "Europäisch",
+          "american": "Amerikanisch",
+          "indian": "Indisch",
+          "african": "Afrikanisch",
+          "asian": "Asiatisch",
+          "italian": "Italienisch",
+          "orient": "Orientalisch",
+          "mexican": "Mexikanisch"
         }
       }
     }

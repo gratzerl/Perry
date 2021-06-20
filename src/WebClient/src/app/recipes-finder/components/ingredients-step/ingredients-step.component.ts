@@ -24,7 +24,7 @@ export class IngredientsStepComponent implements OnInit {
   ingredientOptions: { [key in IngredientCategory]: SelectionItem<RecipeTag>[] } = {
     [IngredientCategory.Meat]: [],
     [IngredientCategory.GrainsPasta]: [],
-    [IngredientCategory.DairyEgg]: [],
+    [IngredientCategory.Dairy]: [],
     [IngredientCategory.Spice]: [],
     [IngredientCategory.Vegetable]: [],
     [IngredientCategory.Fruit]: [],
@@ -65,6 +65,8 @@ export class IngredientsStepComponent implements OnInit {
       }))
       .subscribe(
         ingredients => {
+          console.log("we did it");
+          console.log(ingredients);
           let items = ingredients.map<SelectionItem<string>>(i => ({ label: i, item: i, checked: true }));
           this.updateIdentifiedIngredients(items);
         },

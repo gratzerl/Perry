@@ -3,7 +3,7 @@ import { RecipeTag } from '../models';
 export enum IngredientCategory {
   Meat = 'Meat',
   GrainsPasta = 'GrainsPasta',
-  DairyEgg = 'DairyEgg',
+  Dairy = 'Dairy',
   Spice = 'Spice',
   Vegetable = 'Vegetable',
   Fruit = 'Fruit',
@@ -98,7 +98,7 @@ const GrainsPastaOptions: RecipeTag[] = [
   },
 ];
 
-const DairyEggOptions: RecipeTag[] = [
+const DairyOptions: RecipeTag[] = [
   {
     labelKey: labelBasePath + '.dairy.options.cheese',
     values: ['cheese', 'parmesan', 'gouda', 'edamer', 'cheddar']
@@ -278,7 +278,7 @@ const VegetableOptions: RecipeTag[] = [
   },
   {
     labelKey: labelBasePath + '.vegetable.options.aubergine',
-    values: ['aubergine']
+    values: ['aubergine', 'eggplant']
   },
   {
     labelKey: labelBasePath + '.vegetable.options.avocado',
@@ -321,14 +321,6 @@ const VegetableOptions: RecipeTag[] = [
     values: ['cucumber']
   },
   {
-    labelKey: labelBasePath + '.vegetable.options.eggplant',
-    values: ['eggplant']
-  },
-  {
-    labelKey: labelBasePath + '.vegetable.options.ginger',
-    values: ['ginger']
-  },
-  {
     labelKey: labelBasePath + '.vegetable.options.leek',
     values: ['leek']
   },
@@ -342,7 +334,7 @@ const VegetableOptions: RecipeTag[] = [
 export const ingredientCategoryOptions: { [key in IngredientCategory]: RecipeTag[] } = {
   [IngredientCategory.Meat]: MeatOptions,
   [IngredientCategory.GrainsPasta]: GrainsPastaOptions,
-  [IngredientCategory.DairyEgg]: DairyEggOptions,
+  [IngredientCategory.Dairy]: DairyOptions,
   [IngredientCategory.Spice]: SpiceOptions,
   [IngredientCategory.Vegetable]: VegetableOptions,
   [IngredientCategory.Fruit]: FruitOptions

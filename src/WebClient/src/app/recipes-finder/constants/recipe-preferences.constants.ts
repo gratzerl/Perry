@@ -17,7 +17,7 @@ const DietPreferences: RecipeTag[] = [
     values: ['vegan', 'plant-based', 'Vegan']
   },
   {
-    labelKey: labelBasePath + '.diet.options.lowcolesterin',
+    labelKey: labelBasePath + '.diet.options.lowcholesterol',
     values: ['lowcholesterol']
   },  
   {
