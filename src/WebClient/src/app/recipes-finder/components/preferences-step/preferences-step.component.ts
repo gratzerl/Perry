@@ -13,7 +13,8 @@ export class PreferencesStepComponent implements OnInit {
 
   preferences: { [key in PreferenceCategory]: SelectionItem<RecipeTag>[] } = {
     [PreferenceCategory.Difficulty]: [],
-    [PreferenceCategory.Diet]: []
+    [PreferenceCategory.Diet]: [],
+    [PreferenceCategory.Category]: []
   }
 
   constructor(public stepperService: RecipeStepperService) { }
