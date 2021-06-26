@@ -17,7 +17,7 @@ namespace Perry.RecipesScraper.Services
         private readonly string recipeBaseUrl = $"{bbcBaseUrl}/recipes";
 
         public BbcGoodFoodScraper(ILogger<BbcGoodFoodScraper> logger, HtmlWeb web) 
-            : base(logger, web, siteMapUrls)
+            : base(logger, web, siteMapUrls, "BBC")
         {
         }
 
@@ -25,12 +25,12 @@ namespace Perry.RecipesScraper.Services
         {
             return documentNode
                     .Descendants()
-                    .Where(node => node.Name == "loc" && 
-                        !node.InnerText.Contains("collection") && 
-                        !node.InnerText.Contains("category") &&
-                        node.InnerText.StartsWith(recipeBaseUrl)
+                    .Where(node => node?.Name == "loc" && 
+                        !(node?.InnerText.Contains("collection")).Value && 
+                        !(node?.InnerText.Contains("category")).Value &&
+                        (node?.InnerText.StartsWith(recipeBaseUrl)).Value
                     )
-                    .Select(node => HttpUtility.HtmlDecode(node.InnerText))
+                    .Select(node => HttpUtility.HtmlDecode(node?.InnerText))
                     .ToHashSet();
         }
 
@@ -46,32 +46,32 @@ namespace Perry.RecipesScraper.Services
         {
             return documentNode
                     .Descendants()
-                    .FirstOrDefault(n => n.HasClass("editor-content"))
-                    .FirstChild?.InnerHtml ?? string.Empty;
+                    .FirstOrDefault(n => (n?.HasClass("editor-content")).Value)
+                    ?.FirstChild?.InnerHtml ?? string.Empty;
         }
 
         protected override IEnumerable<string> GetRecipeIngredients(HtmlNode documentNode)
         {
             return documentNode
                     .Descendants()
-                    .FirstOrDefault(n => n.HasClass("recipe__ingredients"))
-                    .GetEscapedInnerTextInDescendentsForClass("list-item");
+                    .FirstOrDefault(n => (n?.HasClass("recipe__ingredients")).Value)
+                    ?.GetEscapedInnerTextInDescendentsForClass("list-item") ?? Enumerable.Empty<string>();
         }
 
         protected override IEnumerable<string> GetRecipeSteps(HtmlNode documentNode)
         {
             return documentNode
                     .Descendants()
-                    .FirstOrDefault(n => n.HasClass("recipe__method-steps"))
-                    .GetEscapedInnerTextInDescendentsForClass("list-item");
+                    .FirstOrDefault(n => (n?.HasClass("recipe__method-steps")).Value)
+                    ?.GetEscapedInnerTextInDescendentsForClass("list-item") ?? Enumerable.Empty<string>();
         }
 
         protected override IEnumerable<string> GetRecipeTags(HtmlNode documentNode)
         {
             return documentNode
                     .Descendants()
-                    .FirstOrDefault(n => n.HasClass("terms-icons-list"))
-                    .GetEscapedInnerTextInDescendentsForClass("terms-icons-list__text");
+                    .FirstOrDefault(n => (n?.HasClass("terms-icons-list")).Value)
+                    ?.GetEscapedInnerTextInDescendentsForClass("terms-icons-list__text") ?? Enumerable.Empty<string>();
         }
     }
 }
