@@ -1,7 +1,8 @@
 {
   "header": {
     "title": "Perry",
-    "find-recipes-tab-text": "Rezepte finden"
+    "find-recipes-tab-text": "Rezepte finden",
+    "howto-bot": "How-To Chatbot"
   },
   "component-labels": {
     "next": "Weiter",
