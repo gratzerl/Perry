@@ -37,7 +37,7 @@
           "bread": "Brot",
           "flour": "Mehl"
         }
-      },      
+      },
       "dairy": {
         "heading": "Milchprodukte und Ei",
         "options": {
@@ -48,7 +48,7 @@
           "butter": "Butter",
           "egg": "Ei"
         }
-      },      
+      },
       "spice": {
         "heading": "Gewürze",
         "options": {
@@ -69,7 +69,7 @@
           "oregano": "Oregano",
           "curry": "Curry"
         }
-      },      
+      },
       "fruit": {
         "heading": "Früchte und Beeren",
         "options": {
@@ -88,7 +88,7 @@
           "pomegranate": "Granatapfel",
           "grapefruit": "Grapefruit"
         }
-      },      
+      },
       "vegetable": {
         "heading": "Gemüse",
         "options": {
@@ -182,6 +182,7 @@
   "suggestions": {
     "heading": "Vorschläge",
     "messages": {
+      "error": "Leider ist etwas schiefgelaufen. Versuche es erneut.",
       "searching-recipes": "Suche passende Rezepte...",
       "recipes-found": "Wir haben {{ itemCount }} Rezepte gefunden",
       "recipes-not-found": "Wir haben leider keine passenden Rezepte gefunden",
