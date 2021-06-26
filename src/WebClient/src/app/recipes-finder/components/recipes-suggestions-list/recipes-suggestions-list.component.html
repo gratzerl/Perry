@@ -1,8 +1,8 @@
 <ng-container *transloco="let t; read: 'rf.suggestions'">
-  <div *ngIf="!suggestionResult">
+  <div *ngIf="!suggestionResult && isLoading">
     <ng-container *ngTemplateOutlet="loading"></ng-container>
   </div>
-  <ng-container *ngIf="suggestionResult">
+  <ng-container *ngIf="suggestionResult && !isLoading">
     <div class="message-bar" *ngIf="suggestionResult.totalCount === 0">
       <span class="message">
         {{ t('messages.recipes-not-found') }}
@@ -35,8 +35,14 @@
       </div>
     </div>
   </ng-container>
+  <div class="centered-container" *ngIf="!suggestionResult && !isLoading">
+    <span class="info-message"> {{ t('messages.error') }}</span>
+    <button nz-button nzType="primary" [routerLink]="['/find']">
+      {{ t('manage-preferences-button-label') }}
+    </button>
+  </div>
   <ng-template #loading>
-    <div class="loading-container">
+    <div class="centered-container">
       <app-loading-spinner size="large"></app-loading-spinner>
       <span nz-typography>{{ t('messages.searching-recipes') }}</span>
     </div>

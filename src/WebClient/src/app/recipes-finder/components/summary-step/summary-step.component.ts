@@ -25,8 +25,10 @@ export class SummaryStepComponent implements OnInit, OnDestroy {
     this.stepperService.data$
       .pipe(takeUntil(this.onDestroy))
       .subscribe(data => {
+        this.ingredients = [...data.additionalIngredients];
+
         if (data.identifiedIngredients !== undefined) {
-          this.ingredients = data.identifiedIngredients.concat(data.additionalIngredients);
+          this.ingredients = this.ingredients.concat(data.additionalIngredients);
         }
 
         this.hasSelectedPreferences = data.arePreferencesSelected();

@@ -58,9 +58,6 @@ export class RecipesSuggestionsListComponent implements OnInit, OnChanges {
         result => {
           this.suggestionResult = result;
         },
-        err => {
-          this.isLoading = false;
-        });
+        () => this.isLoading = false);
   }
-
 }
