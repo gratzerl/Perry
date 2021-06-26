@@ -1,5 +1,5 @@
-<nz-drawer [nzClosable]="true" [nzVisible]="isOpen" nzPlacement="right" nzTitle="How-To Chatbot" (nzOnClose)="close()">
+<nz-drawer [nzClosable]="true" [nzVisible]="isOpen" nzPlacement="right" nzTitle="How-To Chatbot" (nzOnClose)="close()" [nzWidth]="isXsScreen ? 280 : 400">
     <ng-container *nzDrawerContent>
-      <p>Add chat here</p>
+      <app-chat-list-item></app-chat-list-item>
     </ng-container>
   </nz-drawer>

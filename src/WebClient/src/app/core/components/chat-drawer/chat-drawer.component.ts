@@ -1,5 +1,8 @@
-import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
-import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { BreakpointQuery } from '../../constants/general.constants';
 
 @Component({
   selector: 'app-chat-drawer',
@@ -8,11 +11,21 @@ import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 })
 export class ChatDrawerComponent implements OnInit {
   public isOpen: boolean = false;
+  private onDestroy = new Subject<void>();
+
+  isXsScreen = false;
   
-  constructor() {
+  constructor(private breakpointObserver: BreakpointObserver) { }
+
+  ngOnInit(): void {
+    this.breakpointObserver.observe(BreakpointQuery.Xs)
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(state => this.isXsScreen = state.matches);
   }
 
-  ngOnInit() {
+  ngOnDestroy(): void {
+    this.onDestroy.next();
+    this.onDestroy.complete();
   }
 
   close() {
@@ -21,6 +34,5 @@ export class ChatDrawerComponent implements OnInit {
 
   public toggleDrawer() {
     this.isOpen = !this.isOpen;
-  }
-  
+  }  
 }

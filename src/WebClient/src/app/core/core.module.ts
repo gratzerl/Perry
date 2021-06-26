@@ -20,6 +20,7 @@ import {
 } from './components';
 import { ChatDrawerComponent } from './components/chat-drawer/chat-drawer.component';
 
+import { ChatListItemComponent } from './components/chat-list-item/chat-list-item.component';
 import { NgZorroModule } from '../shared/ng-zorro.module';
 
 export const APP_CONFIG = new InjectionToken<AppConfig>('AppConfig');
@@ -47,7 +48,8 @@ const appInitializer = (
     LanguageSwitcherComponent,
     PageBannerComponent,
     PageInstructionsComponent,
-    ChatDrawerComponent
+    ChatDrawerComponent,
+    ChatListItemComponent
   ],
   imports: [
     CommonModule,

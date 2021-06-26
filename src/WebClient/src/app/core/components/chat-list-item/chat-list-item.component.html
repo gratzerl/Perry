@@ -1,0 +1,4 @@
+<nz-card [ngStyle]="{'width': isXsScreen ? '100%' : '90%' }" [nzBordered]="false" [nzTitle]="getSender()" 
+        [ngClass]="{'input': isInputMessage, 'output': !isInputMessage}">
+    <p>{{ message }}</p>
+</nz-card>
