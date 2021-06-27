@@ -3,8 +3,6 @@ using Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker.Models;
 using Perry.Core.QnAMaker.Models;
 using Perry.Core.QnAMaker.Services.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Perry.Core.QnAMaker.Services
@@ -22,9 +20,13 @@ namespace Perry.Core.QnAMaker.Services
 
         public async Task<QnASearchResult> GetAnswerAsync(string question)
         {
+#if DEBUG
+            return new QnASearchResult(answer: "This is debug, this is your answer", score: 90);
+#else
             var response = await runtimeClient.Runtime.GenerateAnswerAsync(configuration.KnowledgeDatabase, new QueryDTO { Question = question });
             var answers = response.Answers.OrderByDescending(a => a.Score);
             return answers.FirstOrDefault();
+#endif
         }
     }
 }
