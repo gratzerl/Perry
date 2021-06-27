@@ -15,7 +15,8 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
-
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzListModule } from 'ng-zorro-antd/list';
 
 @NgModule({
   exports: [
@@ -34,7 +35,9 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
     NzEmptyModule,
     NzGridModule,
     NzImageModule,
-    NzDrawerModule
+    NzDrawerModule,
+    NzInputModule,
+    NzListModule
   ]
 })
 export class NgZorroModule { }

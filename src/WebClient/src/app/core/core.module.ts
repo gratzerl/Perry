@@ -16,12 +16,16 @@ import {
   LanguageSwitcherComponent,
   PageBannerComponent,
   PageInstructionsComponent,
-  InstructionStepComponent,
+  InstructionStepComponent
 } from './components';
-import { ChatDrawerComponent } from './components/chat-drawer/chat-drawer.component';
 
+import {
+  ChatDrawerComponent
+} from './components/chat-drawer/chat-drawer.component';
+
+import { ChatListComponent } from './components/chat-list/chat-list.component';
 import { ChatListItemComponent } from './components/chat-list-item/chat-list-item.component';
-import { NgZorroModule } from '../shared/ng-zorro.module';
+
 
 export const APP_CONFIG = new InjectionToken<AppConfig>('AppConfig');
 
@@ -49,13 +53,13 @@ const appInitializer = (
     PageBannerComponent,
     PageInstructionsComponent,
     ChatDrawerComponent,
-    ChatListItemComponent
+    ChatListItemComponent,
+    ChatListComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule,
-    NgZorroModule
+    RouterModule
   ],
   providers: [
     {
