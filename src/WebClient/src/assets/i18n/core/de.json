@@ -18,6 +18,10 @@
         "heading": "Finde die passenden Rezepte",
         "description": "Lasse dir basierend auf deinen Eingaben die passenden Rezepte vorschlagen."
       }
+    },
+    "how-to-chat": {
+      "input-placeholder": "How do I ...?",
+      "bot-name": "Botty McBotface"
     }
   }
 }

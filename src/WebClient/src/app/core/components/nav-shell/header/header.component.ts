@@ -1,5 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { ChatDrawerComponent } from '../../chat-drawer/chat-drawer.component';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,13 +6,11 @@ import { ChatDrawerComponent } from '../../chat-drawer/chat-drawer.component';
   styleUrls: ['./header.component.less']
 })
 export class HeaderComponent {
-  @ViewChild(ChatDrawerComponent) child : ChatDrawerComponent | undefined;
+  isOpen: boolean = false;
 
   constructor() { }
 
-  toggleChatDrawer() {
-    if (this.child != undefined) {
-      this.child.toggleDrawer();
-    }
+  toggleChatDrawer(isOpen: boolean) {
+    this.isOpen = isOpen;
   }
 }

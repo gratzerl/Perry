@@ -1,8 +1,11 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { BreakpointQuery } from '../../constants/general.constants';
+import { ChatMessage } from '../../models/chat-message.model';
+import { ChatMessageService } from '../../services/chat-message.service';
+import { QnAMakerService } from '../../services/qna-maker.service';
 
 @Component({
   selector: 'app-chat-drawer',
@@ -10,12 +13,19 @@ import { BreakpointQuery } from '../../constants/general.constants';
   styleUrls: ['./chat-drawer.component.less']
 })
 export class ChatDrawerComponent implements OnInit {
-  public isOpen: boolean = false;
-  private onDestroy = new Subject<void>();
+  @ViewChild('messageInput') messageInput !: ElementRef; 
 
-  isXsScreen = false;
+  @Output() isClosed = new EventEmitter<boolean>();
+  @Input() isOpen: boolean = false;
   
-  constructor(private breakpointObserver: BreakpointObserver) { }
+  isXsScreen = false;
+
+  private onDestroy = new Subject<void>();
+  
+  constructor(
+    private breakpointObserver: BreakpointObserver, 
+    private chatService: ChatMessageService,
+    private qnaService: QnAMakerService) { }
 
   ngOnInit(): void {
     this.breakpointObserver.observe(BreakpointQuery.Xs)
@@ -30,9 +40,19 @@ export class ChatDrawerComponent implements OnInit {
 
   close() {
     this.isOpen = false;
+    this.isClosed.emit(true);
   }
 
-  public toggleDrawer() {
-    this.isOpen = !this.isOpen;
-  }  
+  open() {
+    this.isOpen = true;
+    this.isClosed.emit(false);
+  }
+
+  sendQuestion(message: string) {
+    const chatMessage: ChatMessage = new ChatMessage(message, true);
+    this.chatService.addMessage(chatMessage);
+    this.messageInput.nativeElement.value = ' ';
+
+    this.qnaService.loadAnswer(chatMessage);
+  }
 }

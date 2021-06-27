@@ -1,4 +1,5 @@
-<nz-card [ngStyle]="{'width': isXsScreen ? '100%' : '90%' }" [nzBordered]="false" [nzTitle]="getSender()" 
-        [ngClass]="{'input': isInputMessage, 'output': !isInputMessage}">
-    <p>{{ message }}</p>
+<nz-card [ngStyle]="{'width': isXsScreen ? '100%' : '90%' }" nzBordered="false" 
+        [ngClass]="{'input': message.isInput, 'output': !message.isInput }">
+    <p>{{ message.message }}</p>
+    <nz-card-meta [nzDescription]="message.dateTime"></nz-card-meta>
 </nz-card>

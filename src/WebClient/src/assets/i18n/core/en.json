@@ -18,6 +18,10 @@
         "heading": "Search for recipes",
         "description": "Find new recipes tailored to your input."
       }
+    },
+    "how-to-chat": {
+      "input-placeholder": "How do I ...?",
+      "bot-name": "Botty McBotface"
     }
   }
 }

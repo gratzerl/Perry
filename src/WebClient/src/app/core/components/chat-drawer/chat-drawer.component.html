@@ -1,5 +1,17 @@
-<nz-drawer [nzClosable]="true" [nzVisible]="isOpen" nzPlacement="right" nzTitle="How-To Chatbot" (nzOnClose)="close()" [nzWidth]="isXsScreen ? 280 : 400">
+<nz-drawer [nzClosable]="true" [nzVisible]="isOpen" nzPlacement="right" 
+  nzTitle="Botty McBotface" [nzFooter]="footerTemplate"
+  (nzOnClose)="close()" [nzWidth]="isXsScreen ? 280 : 400">
     <ng-container *nzDrawerContent>
-      <app-chat-list-item></app-chat-list-item>
+      <app-chat-list></app-chat-list>      
     </ng-container>
-  </nz-drawer>
+</nz-drawer>
+
+<ng-template #footerTemplate>
+  <nz-input-group [nzAddOnAfter]="suffixIconButton" nzSearch>
+    <input type="text" nz-input placeholder="How do I ...?" #messageInput (keyup.enter)="sendQuestion(messageInput.value)"/>
+  </nz-input-group>
+  <ng-template #suffixIconButton> 
+    <button nz-button nzType="primary"><i nz-icon nzType="send" nzSearch (click)=sendQuestion(messageInput.value)></i></button>
+  </ng-template>       
+</ng-template>
+ 

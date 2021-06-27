@@ -1,12 +1,17 @@
 @import './../../../../styles/colors.less';
 
+.message {
+    margin: 5px 0;
+}
+
 .input {
-    background-color: @gray-1;
+    &:extend(.message);
+    background-color: @blue-1;
     margin-left: auto;
     margin-right: 0;
 }
 
 .output {
-    background-color: @gray-10;
-    color: white;
+    &:extend(.message);
+    background-color: @gray-base;
 }
