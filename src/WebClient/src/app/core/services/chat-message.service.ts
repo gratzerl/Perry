@@ -25,11 +25,9 @@ export class ChatMessageService {
 
   public getMessages() : ChatMessage[] {
     const messagesJson = sessionStorage.getItem(this.messagesKey);
-    console.log(messagesJson);
-    let messages: ChatMessage[] = [];
+
     if (messagesJson == undefined || messagesJson.length == 0) {
-      messages.push(new ChatMessage(this.transloco.translate('how-to.information'), false));
-      return messages;
+      return new Array<ChatMessage>();
     } 
     
     return JSON.parse(messagesJson);
@@ -37,10 +35,7 @@ export class ChatMessageService {
 
   public clearMessages() {
     sessionStorage.removeItem(this.messagesKey);
-    
-    let initArray = new Array<ChatMessage>();
-    initArray.push(new ChatMessage(this.transloco.translate('how-to.information'), false));
-    this.messages$.next(initArray);
+    this.addMessage(new ChatMessage(this.transloco.translate('how-to.information'), false));
   }
 
   public getMessagesObservable() : Observable<ChatMessage[]> {

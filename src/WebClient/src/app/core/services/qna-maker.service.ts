@@ -1,7 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
 import { APP_CONFIG } from 'src/app/shared/shared.module';
 import { AppConfig } from 'src/app/core/models';
 import { ChatMessage } from '../models/chat-message.model';
@@ -31,14 +30,12 @@ export class QnAMakerService {
 
   public loadAnswer(question: ChatMessage): void {
     this.queryAnswer(question.message)
-    // .pipe(finalize(() => this.isLoading = false)) //load and stuff - call in drawer :D
       .subscribe(
         result => {
           const message = new ChatMessage(result, false);
           this.chatService.addMessage(message);
         },
         error => {
-          // this.isLoading = false;
           const message = new ChatMessage("Something went wrong. Please try again later.", false);
           this.chatService.addMessage(message);
         });
