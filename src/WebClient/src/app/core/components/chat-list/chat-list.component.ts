@@ -17,7 +17,7 @@ export class ChatListComponent implements OnInit, OnDestroy {
   constructor(private chatService: ChatMessageService) { 
     this.chatService.getMessagesObservable()
       .pipe(takeUntil(this.onDestroy))
-      .subscribe(m => {this.messages = m; console.log(m);});
+      .subscribe(m => { this.messages = m; });
   }
 
   ngOnInit(): void {
@@ -31,6 +31,5 @@ export class ChatListComponent implements OnInit, OnDestroy {
   
   getMessages() {
     const m = this.chatService.getMessages();
-    console.log(m);
   }
 }
