@@ -48,11 +48,19 @@ export class ChatDrawerComponent implements OnInit {
     this.isClosed.emit(false);
   }
 
-  sendQuestion(message: string) {
+  sendQuestion(message: string): void {
+    if (message.length == 0) {
+      return;
+    }
+
     const chatMessage: ChatMessage = new ChatMessage(message, true);
     this.chatService.addMessage(chatMessage);
     this.messageInput.nativeElement.value = ' ';
 
     this.qnaService.loadAnswer(chatMessage);
+  }
+
+  ClearMessages(): void {
+    this.chatService.clearMessages();
   }
 }

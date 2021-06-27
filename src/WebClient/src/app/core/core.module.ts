@@ -39,8 +39,7 @@ import {
     SharedModule,
     RouterModule
   ],
-  providers: [
-    
+  providers: [    
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
     { provide: TRANSLOCO_SCOPE, useValue: { scope: 'core', alias: 'core' } }
   ],
