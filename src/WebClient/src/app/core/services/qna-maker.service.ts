@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import { APP_CONFIG } from 'src/app/core/core.module';
+import { APP_CONFIG } from 'src/app/shared/shared.module';
 import { AppConfig } from 'src/app/core/models';
 import { ChatMessage } from '../models/chat-message.model';
 import { ChatMessageService } from './chat-message.service';
