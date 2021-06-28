@@ -11,8 +11,28 @@ export class RecipeStepperData {
     public identifiedIngredients: SelectionItem<string>[] | undefined
   ) { }
 
+  get checkedIngredients(): SelectionItem<string>[] {
+    const { additionalIngredients, identifiedIngredients } = this;
+
+    let ingredients: SelectionItem<string>[] = [];
+
+    if (additionalIngredients) {
+      ingredients = additionalIngredients
+        .filter(item => item.checked);
+    }
+
+    if (identifiedIngredients) {
+      const selected = identifiedIngredients
+        .filter(item => item.checked);
+
+      ingredients = ingredients.concat(selected);
+    }
+
+    return ingredients;
+  }
+
   hasData(): boolean {
-    return this.hasAdditionalIngredients() || this.arePreferencesSelected();
+    return this.hasIdentifiedIngredients() || this.hasAdditionalIngredients();
   }
 
   hasIdentifiedIngredients(): boolean {
