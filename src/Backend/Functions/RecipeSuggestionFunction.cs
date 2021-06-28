@@ -31,7 +31,7 @@ namespace Perry.Functions
         {
             log.LogTrace("Processing suggestion request...");
 
-            // azure functions fails to deserialize request model from the querystring properly
+            // azure function fails to deserialize request model from the querystring properly
             // other workaround: https://stackoverflow.com/questions/64388505/azure-function-c-sharp-pass-liststring-as-an-argument-over-http-trigger-get
 
             var ingredients = req.ReadIngredientsFromQuery();
