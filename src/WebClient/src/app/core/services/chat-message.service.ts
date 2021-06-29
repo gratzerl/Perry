@@ -12,7 +12,11 @@ export class ChatMessageService {
   private messages$: BehaviorSubject<ChatMessage[]> = new BehaviorSubject<ChatMessage[]>(new Array<ChatMessage>());
 
   constructor(private transloco: TranslocoService) {
-    transloco.selectTranslation()
+    transloco.selectTranslation();
+
+    if (sessionStorage.getItem(this.messagesKey) == undefined) {
+      this.addMessage(new ChatMessage(this.transloco.translate('how-to.information'), false));
+    }
   }
 
   public addMessage(message: ChatMessage): void {

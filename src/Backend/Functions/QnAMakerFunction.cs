@@ -25,7 +25,7 @@ namespace Perry.Functions
             ILogger log)
         {
             var question = req.Query["question"];
-            log.LogInformation($"Searching for answer to question {question}");
+            log.LogInformation($"Searching for answer to question '{question}'");
 
             var searchResult = await qnaService.GetAnswerAsync(question);
             var isResultValid = searchResult != null && searchResult.Score >= MinRequiredProbability;
