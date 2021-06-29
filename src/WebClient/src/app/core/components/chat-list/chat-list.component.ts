@@ -15,7 +15,7 @@ export class ChatListComponent implements OnInit, OnDestroy {
   private onDestroy = new Subject<void>();
 
   constructor(private chatService: ChatMessageService) { 
-    this.chatService.getMessagesObservable()
+    this.chatService.getMessages$()
       .pipe(takeUntil(this.onDestroy))
       .subscribe(m => { this.messages = m; });
   }

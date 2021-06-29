@@ -38,7 +38,7 @@ export class ChatMessageService {
     this.addMessage(new ChatMessage(this.transloco.translate('how-to.information'), false));
   }
 
-  public getMessagesObservable() : Observable<ChatMessage[]> {
+  public getMessages$() : Observable<ChatMessage[]> {
     return this.messages$.asObservable();
   }
 }
