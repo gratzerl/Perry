@@ -12,7 +12,7 @@ namespace Perry.Core.RecipeSuggestions.Services
         public IQueryable<Recipe> BuildRecipeQueryForIngredients(DbSet<Recipe> recipes, IEnumerable<string> ingredients)
         {
             ingredients = ingredients
-                .Select(i => $"FORMSOF(INFLECTIONAL, {i})")
+                .Select(i => $"FORMSOF(INFLECTIONAL, \"{i}\")")
                 .ToList();
 
             var ingredientsQueryStr = string.Join(" AND ", ingredients);

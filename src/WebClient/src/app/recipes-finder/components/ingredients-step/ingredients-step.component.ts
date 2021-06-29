@@ -23,7 +23,11 @@ export class IngredientsStepComponent implements OnInit {
   ingredientCategories = IngredientCategory;
   ingredientOptions: { [key in IngredientCategory]: SelectionItem<RecipeTag>[] } = {
     [IngredientCategory.Meat]: [],
-    [IngredientCategory.GrainsPasta]: []
+    [IngredientCategory.GrainsPasta]: [],
+    [IngredientCategory.Dairy]: [],
+    [IngredientCategory.Spice]: [],
+    [IngredientCategory.Vegetable]: [],
+    [IngredientCategory.Fruit]: [],
   }
 
   constructor(private ingredientIdentificationService: IngredientsIdentificationService, public stepperService: RecipeStepperService) {
