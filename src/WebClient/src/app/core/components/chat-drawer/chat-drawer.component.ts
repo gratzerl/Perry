@@ -13,10 +13,15 @@ import { QnAMakerService } from '../../services/qna-maker.service';
   styleUrls: ['./chat-drawer.component.less']
 })
 export class ChatDrawerComponent implements OnInit {
-  @ViewChild('messageInput') messageInput !: ElementRef; 
+  
+  @ViewChild('messageInput') 
+  messageInput !: ElementRef; 
 
-  @Output() isClosed = new EventEmitter<boolean>();
-  @Input() isOpen: boolean = false;
+  @Output() 
+  isClosed = new EventEmitter<boolean>();
+
+  @Input() 
+  isOpen: boolean = false;
   
   isXsScreen = false;
 
@@ -49,7 +54,7 @@ export class ChatDrawerComponent implements OnInit {
   }
 
   sendQuestion(message: string): void {
-    if (message.length == 0) {
+    if (message.trim().length == 0) {
       return;
     }
 
@@ -60,7 +65,7 @@ export class ChatDrawerComponent implements OnInit {
     this.qnaService.loadAnswer(chatMessage);
   }
 
-  ClearMessages(): void {
+  clearMessages(): void {
     this.chatService.clearMessages();
   }
 }

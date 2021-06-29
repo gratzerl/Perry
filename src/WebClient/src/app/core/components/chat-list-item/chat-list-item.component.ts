@@ -6,13 +6,10 @@ import { ChatMessage } from '../../models/chat-message.model';
   templateUrl: './chat-list-item.component.html',
   styleUrls: ['./chat-list-item.component.less']
 })
-export class ChatListItemComponent implements OnInit {
-  @Input() message!: ChatMessage;
-  tester:string = "well";
-  isXsScreen = false;
-    
-  constructor() { }
+export class ChatListItemComponent {
 
-  ngOnInit(): void {
-  }
+  @Input() 
+  message!: ChatMessage;
+  
+  isXsScreen = false;
 }
