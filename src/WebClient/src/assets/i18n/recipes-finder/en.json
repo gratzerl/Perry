@@ -39,7 +39,7 @@
         }
       },
       "dairy": {
-        "heading": "Dairy and egg",
+        "heading": "Dairy and Egg",
         "options": {
           "cheese": "Cheese",
           "milk": "Milk",
@@ -71,7 +71,7 @@
         }
       },
       "fruit": {
-        "heading": "Fruits and berries",
+        "heading": "Fruits and Berries",
         "options": {
           "apple": "Apple",
           "banana": "Banana",
