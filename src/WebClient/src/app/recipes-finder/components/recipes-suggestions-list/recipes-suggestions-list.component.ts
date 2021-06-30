@@ -17,7 +17,8 @@ export class RecipesSuggestionsListComponent implements OnInit, OnChanges {
 
   suggestionResult?: PagedResponse<RecipeSuggestion>;
   isLoading = false;
-  pageSize = 2;
+  pageSize = 14;
+  pageNumber = 1;
 
   constructor(private recipeFinderService: RecipeFinderService) { }
 
@@ -35,7 +36,7 @@ export class RecipesSuggestionsListComponent implements OnInit, OnChanges {
     window.open(url, "_blank");
   }
 
-  findRecipes(pageNumber: number = 1): void {
+  findRecipes(): void {
     if (this.recipeData === undefined || this.isLoading) {
       return;
     }
@@ -48,15 +49,14 @@ export class RecipesSuggestionsListComponent implements OnInit, OnChanges {
       .filter(item => item.checked)
       .map(item => item.item);
 
-    const ingredients = this.recipeData.additionalIngredients
-      .filter(item => item.checked)
-      .map(item => item.item);
+    const ingredients = this.recipeData.checkedIngredients.map(i => i.item);
 
-    this.recipeFinderService.findSuggestions(ingredients, tags, pageNumber, this.pageSize)
+    this.recipeFinderService.findSuggestions(ingredients, tags, this.pageNumber, this.pageSize)
       .pipe(finalize(() => this.isLoading = false))
       .subscribe(
         result => {
-          this.suggestionResult = result;
+          this.suggestionResult = { ...result };
+          console.log(this.suggestionResult);
         },
         () => this.isLoading = false);
   }

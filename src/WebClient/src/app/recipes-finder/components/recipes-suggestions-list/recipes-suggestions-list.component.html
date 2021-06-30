@@ -17,7 +17,8 @@
         <ng-container [ngTemplateOutlet]="actionButtons"></ng-container>
       </div>
       <nz-pagination *ngIf="suggestionResult.totalCount > suggestionResult.items.length" [nzPageSize]="pageSize"
-        [nzDisabled]="isLoading" [nzTotal]="suggestionResult.totalCount" (nzPageIndexChange)="findRecipes($event)">
+        [nzDisabled]="isLoading" [nzTotal]="suggestionResult.totalCount" [(nzPageIndex)]="pageNumber"
+        (nzPageIndexChange)="findRecipes()">
       </nz-pagination>
       <div *ngIf="isLoading">
         <ng-container *ngTemplateOutlet="loading"></ng-container>

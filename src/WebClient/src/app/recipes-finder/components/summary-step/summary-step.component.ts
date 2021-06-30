@@ -28,7 +28,7 @@ export class SummaryStepComponent implements OnInit, OnDestroy {
         this.ingredients = [...data.additionalIngredients];
 
         if (data.identifiedIngredients !== undefined) {
-          this.ingredients = this.ingredients.concat(data.additionalIngredients);
+          this.ingredients = this.ingredients.concat(data.identifiedIngredients);
         }
 
         this.hasSelectedPreferences = data.arePreferencesSelected();
