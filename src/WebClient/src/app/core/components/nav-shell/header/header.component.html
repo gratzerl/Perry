@@ -2,11 +2,17 @@
   <div class="header-content">
     <a class="title" [routerLink]="['/']">
       <img src="assets/images/logo.png"/>
+    </a>
+    <div class="header-link">
+      <a [routerLink]="['/find']">
+        <i nz-icon nzType="search" ></i>
+        {{ t('header.find-recipes-tab-text') }}
       </a>
-    <div>
-      <a [routerLink]="['/find']">{{ t('header.find-recipes-tab-text') }}</a>
+      <a (click)="toggleChatDrawer(true)">
+        <i nz-icon nzType="wechat" ></i>
+        {{ t('how-to.title') }}
+      </a>
     </div>
-    <button nz-button nzType="primary" (click)="toggleChatDrawer(true)">{{ t('how-to.title') }}</button>
   </div>
   <app-chat-drawer #chatDrawer (isClosed)="toggleChatDrawer(false)" [isOpen]="isOpen"></app-chat-drawer>
 </nz-header>
