@@ -1,6 +1,8 @@
 <nz-header *transloco="let t">
   <div class="header-content">
-    <a class="title" [routerLink]="['/']">{{ t('header.title') }}</a>
+    <a class="title" [routerLink]="['/']">
+      <img src="assets/images/logo.png"/>
+      </a>
     <div>
       <a [routerLink]="['/find']">{{ t('header.find-recipes-tab-text') }}</a>
     </div>

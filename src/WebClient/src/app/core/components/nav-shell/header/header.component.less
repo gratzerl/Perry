@@ -12,6 +12,7 @@ nz-header {
   display: flex;
   align-items: center;
 
+  height: 100%;
   max-width: @max-lg-content-width;
   margin: auto;
   padding: 0 @lg-horizontal-padding;
@@ -23,6 +24,14 @@ nz-header {
 
   @media (max-width: @max-xs-width) {
     padding: 0 @sm-horizontal-padding;
+  }
+
+  a {
+    height: 100%;
+
+    img {
+      height: 100%;
+    }
   }
 
   a:not(:last-of-type) {
