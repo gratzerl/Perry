@@ -1,7 +1,8 @@
 {
   "header": {
     "title": "Perry",
-    "find-recipes-tab-text": "Rezepte finden"
+    "find-recipes-tab-text": "Rezepte finden",
+    "howto-bot": "How-To Chatbot"
   },
   "component-labels": {
     "next": "Weiter",
@@ -11,5 +12,9 @@
     "complete": "Abschließen",
     "seach": "Suchen",
     "is-loading": "Lädt"
+  },
+  "how-to": {
+    "title": "How-To Chatbot",
+    "information": "Willkommen im How-To Chat! Ich spreche leider nur Englisch. Du kannst mich alles bzgl. Zutaten und ihrer Zubereitung fragen. Du kannst mit z.B. 'How to cut onions? ' oder 'What are tomatos?' starten."
   }
 }

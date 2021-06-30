@@ -4,6 +4,7 @@
     <div>
       <a [routerLink]="['/find']">{{ t('header.find-recipes-tab-text') }}</a>
     </div>
-    <!-- <app-language-switcher></app-language-switcher> -->
+    <button nz-button nzType="primary" (click)="toggleChatDrawer(true)">{{ t('how-to.title') }}</button>
   </div>
+  <app-chat-drawer #chatDrawer (isClosed)="toggleChatDrawer(false)" [isOpen]="isOpen"></app-chat-drawer>
 </nz-header>

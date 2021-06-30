@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
 import { AppConfig } from 'src/app/core/models';
-import { APP_CONFIG } from 'src/app/core/core.module';
+import { APP_CONFIG } from 'src/app/shared/shared.module';
 import { PagedResponse, RecipeSuggestion, RecipeTag } from '../models';
 import { queryStringBuilder } from '../helpers/query-string-builder';
 

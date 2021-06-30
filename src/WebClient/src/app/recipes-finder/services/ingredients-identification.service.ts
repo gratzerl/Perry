@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { Observable } from 'rxjs';
-import { APP_CONFIG } from 'src/app/core/core.module';
+import { APP_CONFIG } from 'src/app/shared/shared.module';
 import { AppConfig } from 'src/app/core/models';
 
 @Injectable({

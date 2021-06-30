@@ -11,5 +11,9 @@
     "complete": "Complete",
     "search": "Search",
     "is-loading": "Is loading"
+  },
+  "how-to": {
+    "title": "How-To Chatbot",
+    "information": "Welcome to the how-to chat! You can ask my any questions concerning ingredients and their preparation! Start writing e.g. 'How to cut onions? ' or 'What are tomatoes?'."
   }
 }
