@@ -28,8 +28,4 @@ export class ChatListComponent implements OnInit, OnDestroy {
     this.onDestroy.next();
     this.onDestroy.complete();
   }
-  
-  getMessages() {
-    const m = this.chatService.getMessages();
-  }
 }
