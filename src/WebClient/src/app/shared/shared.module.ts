@@ -6,10 +6,11 @@ import { TranslocoRootModule } from './transloco-root.module';
 import { NgZorroModule } from './ng-zorro.module';
 
 import { LoadingSpinnerComponent } from './components';
-import { ConfigService, LanguageService } from '../core/services';
 import { Observable } from 'rxjs';
 import { AppConfig } from '../core/models';
 import { APP_INITIALIZER } from '@angular/core';
+import { ConfigService } from '../core/services/config.service';
+import { LanguageService } from '../core/services/language.service';
 
 export const APP_CONFIG = new InjectionToken<AppConfig>('AppConfig');
 
@@ -43,7 +44,7 @@ const appInitializer = (
     NgZorroModule
   ],
   providers: [
-    
+
     {
       provide: APP_INITIALIZER,
       useFactory: appInitializer,

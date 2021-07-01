@@ -41,12 +41,11 @@
     <h2 nz-typography>{{ t('other-ingredients-heading') }}</h2>
     <ng-container *transloco="let t;">
       <nz-collapse>
-        <nz-collapse-panel *ngFor="let category of ingredientCategories | keyvalue" 
-        [nzHeader]="t('rf.ingredients.categories.' + (category.value | lowercase) + '.heading')">
-          <app-option-selection-card
-          [options]="ingredientOptions[category.value]"
-          (optionChange)="updateAdditionalIngredients(category.value, $event)">
-        </app-option-selection-card>
+        <nz-collapse-panel *ngFor="let category of ingredientCategories | keyvalue"
+          [nzHeader]="t('rf.ingredients.categories.' + (category.value | lowercase) + '.heading')">
+          <app-option-selection-card [options]="ingredientOptions[category.value]"
+            (optionChange)="updateAdditionalIngredients(category.value, $event)">
+          </app-option-selection-card>
         </nz-collapse-panel>
       </nz-collapse>
     </ng-container>

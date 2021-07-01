@@ -2,8 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { APP_CONFIG } from 'src/app/shared/shared.module';
-import { AppConfig } from 'src/app/core/models';
-import { ChatMessage } from '../models/chat-message.model';
+import { AppConfig, ChatMessage } from 'src/app/core/models';
 import { ChatMessageService } from './chat-message.service';
 
 @Injectable({
@@ -12,19 +11,19 @@ import { ChatMessageService } from './chat-message.service';
 export class QnAMakerService {
   private readonly route: string = `${this.config.apiBaseUrl}/query-answer`;
 
-  constructor(@Inject(APP_CONFIG) private config: AppConfig, 
-  private http: HttpClient,
-  private chatService: ChatMessageService) { }
+  constructor(@Inject(APP_CONFIG) private config: AppConfig,
+    private http: HttpClient,
+    private chatService: ChatMessageService) { }
 
-  returnObservable():Observable<string>{
-    return this.http.get(this.route , {responseType: 'text'});
-}
+  returnObservable(): Observable<string> {
+    return this.http.get(this.route, { responseType: 'text' });
+  }
 
-  private queryAnswer(question: string) : Observable<string> {
+  private queryAnswer(question: string): Observable<string> {
     let params = new HttpParams();
     params = params.append('question', question);
 
-    let result = this.http.get(this.route, {params: params, responseType: 'text' } );
+    let result = this.http.get(this.route, { params: params, responseType: 'text' });
     return result;
   }
 

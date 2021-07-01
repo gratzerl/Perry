@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ChatMessage } from '../../models/chat-message.model';
+import { Component, Input } from '@angular/core';
+import { ChatMessage } from '../../models/ChatMessage.model';
 
 @Component({
   selector: 'app-chat-list-item',
@@ -8,8 +8,8 @@ import { ChatMessage } from '../../models/chat-message.model';
 })
 export class ChatListItemComponent {
 
-  @Input() 
+  @Input()
   message!: ChatMessage;
-  
+
   isXsScreen = false;
 }
