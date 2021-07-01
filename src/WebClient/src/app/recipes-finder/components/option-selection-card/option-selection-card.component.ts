@@ -17,4 +17,7 @@ export class OptionSelectionCardComponent {
   @Output()
   optionChange: EventEmitter<SelectionItem<RecipeTag>> = new EventEmitter();
 
+  ngOnInit() {
+    this.options.sort((a, b) => { return a.item.labelKey > b.item.labelKey ? 1 : -1; });
+  }
 }

@@ -1,17 +1,21 @@
-@import './../../../../styles/colors.less';
+@import "./../../../../styles/colors.less";
 
 .message {
-    margin: 4px 0;
+  margin: 4px 0;
 }
 
 .input {
-    &:extend(.message);
-    background-color: @blue-1;
-    margin-left: auto;
-    margin-right: 0;
+  &:extend(.message);
+  background-color: @lilac-4;
+  margin-left: auto;
+  margin-right: 0;
 }
 
 .output {
-    &:extend(.message);
-    background-color: @gray-base;
+  &:extend(.message);
+  background-color: @lilac-1;
+}
+
+.ant-card-meta {
+  margin-top: 4px;
 }

@@ -1,28 +1,29 @@
-<nz-drawer *transloco="let t; read:'core.how-to-chat'" [nzClosable]="true" [nzVisible]="isOpen" nzPlacement="right" 
-  [nzTitle]="headerTemplate" [nzFooter]="footerTemplate"
-  (nzOnClose)="close()" [nzWidth]="isXsScreen ? 280 : 400" >
-    <ng-container *nzDrawerContent>
-      <app-chat-list></app-chat-list>      
-    </ng-container>
+<nz-drawer class="chat-drawer" *transloco="let t; read:'core.how-to-chat'" [nzClosable]="true" [nzVisible]="isOpen"
+  nzPlacement="right" [nzTitle]="headerTemplate" [nzFooter]="footerTemplate" (nzOnClose)="close()"
+  [nzWidth]="getWidth()">
+  <ng-container *nzDrawerContent>
+    <app-chat-list></app-chat-list>
+  </ng-container>
 
-    <ng-template #footerTemplate>
-      <nz-input-group [nzAddOnAfter]="suffixIconButton" nzSearch>
-        <input type="text" nz-input placeholder="{{ t('input-placeholder') }}" #messageInput (keyup.enter)="sendQuestion(messageInput.value)"/>
-      </nz-input-group>
-      <ng-template #suffixIconButton> 
-        <button nz-button nzType="primary" (click)="sendQuestion(messageInput.value)">
-          <i nz-icon nzType="send" nzSearch></i>
-        </button>
-      </ng-template>       
+  <ng-template #footerTemplate>
+    <nz-input-group [nzAddOnAfter]="suffixIconButton" nzSearch>
+      <input type="text" nz-input placeholder="{{ t('input-placeholder') }}" #messageInput
+        (keyup.enter)="sendQuestion(messageInput.value)" />
+    </nz-input-group>
+    <ng-template #suffixIconButton>
+      <button nz-button nzType="primary" (click)="sendQuestion(messageInput.value)">
+        <i nz-icon nzType="send" nzSearch></i>
+      </button>
     </ng-template>
-    
-    <ng-template #headerTemplate>
-      <div class="drawer-header">
-        <h3>{{ t('bot-name') }}</h3>
-        <button nz-button nzType="text" (click)="clearMessages()">{{ t('clear-chat') }}</button>
-      </div>
-    </ng-template>
+  </ng-template>
+
+  <ng-template #headerTemplate>
+    <div class="drawer-header">
+      <h3>{{ t('bot-name') }}</h3>
+      <button nz-button nzSize="small" nzType="text" (click)="clearMessages()">
+        <i nz-icon nzType="delete"></i>
+        {{ isXsScreen ? '' : t('clear-chat') }}
+      </button>
+    </div>
+  </ng-template>
 </nz-drawer>
-
-
- 

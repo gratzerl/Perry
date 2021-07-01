@@ -1,34 +1,33 @@
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { BreakpointQuery } from '../../constants/general.constants';
-import { ChatMessage } from '../../models/chat-message.model';
-import { ChatMessageService } from '../../services/chat-message.service';
-import { QnAMakerService } from '../../services/qna-maker.service';
+import { ChatMessageService, QnAMakerService } from '../../services';
+import { ChatMessage } from '../../models';
 
 @Component({
   selector: 'app-chat-drawer',
   templateUrl: './chat-drawer.component.html',
   styleUrls: ['./chat-drawer.component.less']
 })
-export class ChatDrawerComponent implements OnInit {
-  
-  @ViewChild('messageInput') 
-  messageInput !: ElementRef; 
+export class ChatDrawerComponent implements OnInit, OnDestroy {
 
-  @Output() 
+  @ViewChild('messageInput')
+  messageInput !: ElementRef;
+
+  @Output()
   isClosed = new EventEmitter<boolean>();
 
-  @Input() 
-  isOpen: boolean = false;
-  
+  @Input()
+  isOpen = false;
+
   isXsScreen = false;
 
   private onDestroy = new Subject<void>();
-  
+
   constructor(
-    private breakpointObserver: BreakpointObserver, 
+    private breakpointObserver: BreakpointObserver,
     private chatService: ChatMessageService,
     private qnaService: QnAMakerService) { }
 
@@ -67,5 +66,10 @@ export class ChatDrawerComponent implements OnInit {
 
   clearMessages(): void {
     this.chatService.clearMessages();
+  }
+
+  getWidth(): number {
+    console.log('getwidth');
+    return this.isXsScreen ? window.innerWidth : 400;
   }
 }

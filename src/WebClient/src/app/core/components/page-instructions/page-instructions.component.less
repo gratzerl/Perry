@@ -6,18 +6,26 @@
 }
 
 .step-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 296px);
+  column-gap: 16px;
   justify-content: center;
 
-  @media (max-width: @max-xs-width) {
-    flex-direction: column;
+  @media (max-width: @max-lg-width) {
+    grid-template-columns: repeat(auto-fit, 272px);
+    column-gap: 8px;
+  }
+
+  @media (max-width: @max-sm-width) {
+    grid-template-columns: 1fr;
+    align-content: center;
+    row-gap: 16px;
   }
 
   app-instruction-step:not(:last-of-type) {
-    margin-right: @md-horizontal-padding;
-
-    @media (max-width: @max-md-width) {
-      margin-right: @sm-horizontal-padding;
+    @media (max-width: @max-sm-width) {
+      display: flex;
+      justify-content: center;
     }
 
     @media (max-width: @max-xs-width) {

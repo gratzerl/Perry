@@ -60,15 +60,15 @@ const DietPreferences: RecipeTag[] = [
 
 const DifficultyPreferences: RecipeTag[] = [
   {
-    labelKey: labelBasePath + '.difficulty.options.easy',
+    labelKey: labelBasePath + '.difficulty.options.1-easy',
     values: ['easy', 'beginner', 'quickandeasy', 'quickandeasycategory', 'recipes30minsless', 'kidchefs']
   },
   {
-    labelKey: labelBasePath + '.difficulty.options.medium',
+    labelKey: labelBasePath + '.difficulty.options.2-medium',
     values: ['medium']
   },
   {
-    labelKey: labelBasePath + '.difficulty.options.hard',
+    labelKey: labelBasePath + '.difficulty.options.3-hard',
     values: ['hard', 'difficult', 'advanced', 'experienced']
   }
 ];

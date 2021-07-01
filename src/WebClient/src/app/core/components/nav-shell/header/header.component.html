@@ -1,10 +1,18 @@
-<nz-header *transloco="let t">
+<nz-header class="header" *transloco="let t">
   <div class="header-content">
-    <a class="title" [routerLink]="['/']">{{ t('header.title') }}</a>
-    <div>
-      <a [routerLink]="['/find']">{{ t('header.find-recipes-tab-text') }}</a>
+    <div class="title" [routerLink]="['/']">
+      <img src="assets/images/logo.png" />
     </div>
-    <button nz-button nzType="primary" (click)="toggleChatDrawer(true)">{{ t('how-to.title') }}</button>
+    <div class="header-link">
+      <a [routerLink]="['/find']">
+        <i nz-icon nzType="search"></i>
+        <span *ngIf="!isXsScreen">{{ t('header.find-recipes-tab-text') }}</span>
+      </a>
+      <a (click)="toggleChatDrawer(true)">
+        <i nz-icon nzType="wechat"></i>
+        <span *ngIf="!isXsScreen">{{ t('how-to.title') }}</span>
+      </a>
+    </div>
   </div>
   <app-chat-drawer #chatDrawer (isClosed)="toggleChatDrawer(false)" [isOpen]="isOpen"></app-chat-drawer>
 </nz-header>

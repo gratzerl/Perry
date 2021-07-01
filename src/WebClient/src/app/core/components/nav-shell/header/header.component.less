@@ -1,35 +1,67 @@
 @import "src/styles/variables";
+@import "src/styles";
 
 :host {
   display: block;
 }
 
-nz-header {
+.header {
   padding: 0;
-}
+  background-color: @lilac-8;
 
-.header-content {
-  display: flex;
-  align-items: center;
+  .header-content {
+    display: flex;
+    align-items: center;
 
-  max-width: @max-lg-content-width;
-  margin: auto;
-  padding: 0 @lg-horizontal-padding;
+    height: 100%;
+    max-width: @max-lg-content-width;
+    margin: auto;
+    padding: 0 @lg-horizontal-padding;
 
-  @media (max-width: @max-md-width) {
-    max-width: @max-md-content-width;
-    padding: 0 @md-horizontal-padding;
-  }
+    @media (max-width: @max-md-width) {
+      max-width: @max-md-content-width;
+      padding: 0 @md-horizontal-padding;
+    }
 
-  @media (max-width: @max-xs-width) {
-    padding: 0 @sm-horizontal-padding;
-  }
+    @media (max-width: @max-xs-width) {
+      padding: 0 @sm-horizontal-padding;
+    }
 
-  a:not(:last-of-type) {
-    margin-right: @sm-horizontal-padding;
-  }
+    .title {
+      cursor: pointer;
+      height: 48px;
+      display: flex;
 
-  .title {
-    margin-right: auto;
+      img {
+        height: 100%;
+      }
+    }
+
+    a:not(:last-of-type) {
+      margin-right: @sm-horizontal-padding;
+    }
+
+    .title {
+      margin-right: auto;
+    }
+
+    .header-link {
+      margin: 0 16px;
+      display: flex;
+
+      a {
+        margin: 0 16px;
+        padding: 0 8px;
+        color: white;
+
+        span {
+          margin: 0 4px;
+        }
+      }
+
+      a:hover {
+        background-color: @lilac-7;
+      }
+    }
   }
 }
