@@ -69,7 +69,6 @@ export class ChatDrawerComponent implements OnInit, OnDestroy {
   }
 
   getWidth(): number {
-    console.log('getwidth');
     return this.isXsScreen ? window.innerWidth : 400;
   }
 }
