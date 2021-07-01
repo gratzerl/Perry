@@ -1,4 +1,6 @@
-﻿using Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
@@ -13,8 +15,7 @@ using Perry.Core.QnAMaker.Services.Interfaces;
 using Perry.Core.RecipeSuggestions.Services;
 using Perry.Core.RecipeSuggestions.Services.Interfaces;
 using Perry.Database.Entities;
-using System;
-using System.Threading.Tasks;
+using ApiKeyServiceClientCredentials = Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.ApiKeyServiceClientCredentials;
 
 [assembly: FunctionsStartup(typeof(Perry.Functions.Startup))]
 namespace Perry.Functions
@@ -40,7 +41,9 @@ namespace Perry.Functions
             };
 
 
-            var qnaMakerConfig = new QnAMakerConfig() { KnowledgeDatabase = Environment.GetEnvironmentVariable("QnA_KnowledgeDB") };
+            var qnaMakerConfig = new QnAMakerConfig() {
+                KnowledgeDatabase = Environment.GetEnvironmentVariable("QnA_KnowledgeDB")
+            };
 
             builder.Services
                 .AddDbContext<RecipesContext>(options => options.UseSqlServer(dbConnectionString))
@@ -56,7 +59,7 @@ namespace Perry.Functions
 
         private CustomVisionPredictionClient CreatePredictionClient(string predictionKey, string predictionEndpoint)
         {
-            return new CustomVisionPredictionClient(new Microsoft.Azure.CognitiveServices.Vision.ComputerVision.ApiKeyServiceClientCredentials(predictionKey))
+            return new CustomVisionPredictionClient(new ApiKeyServiceClientCredentials(predictionKey))
             {
                 Endpoint = predictionEndpoint
             };
@@ -70,8 +73,11 @@ namespace Perry.Functions
             var queryingURL = configuration["QnA_QueryUrl"];
 
             var client = CreateQnAMakerClient(predictionKey, predictionEndpoint);
-            var primaryQueryEndpointKey = GetQueryEndpointKey(client).Result;            
-            return new QnAMakerRuntimeClient(new EndpointKeyServiceClientCredentials(primaryQueryEndpointKey)) { RuntimeEndpoint = queryingURL };
+            var primaryQueryEndpointKey = GetQueryEndpointKeyAsync(client).Result;            
+            return new QnAMakerRuntimeClient(new EndpointKeyServiceClientCredentials(primaryQueryEndpointKey))
+            {
+                RuntimeEndpoint = queryingURL
+            };
         }
 
         private QnAMakerClient CreateQnAMakerClient(string predictionKey, string predictionEndpoint)
@@ -82,7 +88,7 @@ namespace Perry.Functions
             };
         }
 
-        private async Task<string> GetQueryEndpointKey(IQnAMakerClient client)
+        private async Task<string> GetQueryEndpointKeyAsync(IQnAMakerClient client)
         {
             var endpointKeysObject = await client.EndpointKeys.GetKeysAsync();
             return endpointKeysObject.PrimaryEndpointKey;
