@@ -144,9 +144,9 @@
       "difficulty": {
         "heading": "Difficulty",
         "options": {
-          "easy": "Easy",
-          "medium": "Medium",
-          "hard": "Difficult"
+          "1-easy": "Easy",
+          "2-medium": "Medium",
+          "3-hard": "Difficult"
         }
       },
       "category": {
