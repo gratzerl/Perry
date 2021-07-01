@@ -68,4 +68,8 @@ export class ChatDrawerComponent implements OnInit {
   clearMessages(): void {
     this.chatService.clearMessages();
   }
+
+  getWidth(): number {
+    return this.isXsScreen ? window.innerWidth : 400;
+  }
 }

@@ -1,6 +1,6 @@
 <nz-drawer *transloco="let t; read:'core.how-to-chat'" [nzClosable]="true" [nzVisible]="isOpen" nzPlacement="right" 
   [nzTitle]="headerTemplate" [nzFooter]="footerTemplate"
-  (nzOnClose)="close()" [nzWidth]="isXsScreen ? 280 : 400" >
+  (nzOnClose)="close()" [nzWidth]="getWidth()" >
     <ng-container *nzDrawerContent>
       <app-chat-list></app-chat-list>      
     </ng-container>
