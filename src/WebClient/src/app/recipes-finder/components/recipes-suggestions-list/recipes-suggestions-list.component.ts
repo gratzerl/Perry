@@ -56,7 +56,6 @@ export class RecipesSuggestionsListComponent implements OnInit, OnChanges {
       .subscribe(
         result => {
           this.suggestionResult = { ...result };
-          console.log(this.suggestionResult);
         },
         () => this.isLoading = false);
   }
