@@ -117,8 +117,8 @@ export class IngredientsStepComponent implements OnInit {
   }
 
   private insertOrUpdateIngredients(allAvailableIngredients: SelectionItem<string>[], selectedIngredient: SelectionItem<string>, target: SelectionItem<string>[]): SelectionItem<string>[] {
-    const currSelected = allAvailableIngredients.find(i => selectedIngredient.item === i.item);
-    const alreadySelected = target.find(i => selectedIngredient.item === i.item);
+    const currSelected = allAvailableIngredients.find(i => selectedIngredient.label === i.label);
+    const alreadySelected = target.find(i => selectedIngredient.label === i.label);
 
     if (currSelected !== undefined) {
       if (alreadySelected !== undefined) {

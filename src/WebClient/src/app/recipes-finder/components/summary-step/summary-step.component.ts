@@ -29,7 +29,7 @@ export class SummaryStepComponent implements OnInit, OnDestroy {
       .subscribe(data => {
         this.ingredients = [...data.additionalIngredients]
         .map(i => { 
-          i.item = this.translocoService.translate(i.item);
+          i.item = this.translocoService.translate(i.label ?? i.item);
           return i
         });
 
