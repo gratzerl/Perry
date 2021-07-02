@@ -43,7 +43,7 @@ export class IngredientsStepComponent implements OnInit {
         const key = keyStr as keyof typeof IngredientCategory;
 
         this.ingredientOptions[key] = tags.map<SelectionItem<RecipeTag>>(tag => {
-          const p = additionalIngredients.find(ingredient => tag.values.includes(ingredient.item));
+          const p = additionalIngredients.find(ingredient => tag.labelKey == ingredient.label);
           return ({ item: tag, checked: p !== undefined ? p.checked : false });
         });
       });
@@ -93,17 +93,18 @@ export class IngredientsStepComponent implements OnInit {
   }
 
   updateAdditionalIngredients(category: IngredientCategory, option: SelectionItem<RecipeTag>): void {
-    let updated = option.item.values.map<SelectionItem<string>>(i => ({ label: i, item: i, checked: option.checked }));
+    const updated: SelectionItem<string> = { label: option.item.labelKey, item: option.item.labelKey, checked: option.checked };
 
     let allIngredients: SelectionItem<string>[] = [];
     this.ingredientOptions[category].map(recipeTag => {
-      const values = recipeTag.item.values.map(i => ({ label: i, item: i, checked: false }));
+      const values: SelectionItem<string> = { label: recipeTag.item.labelKey, item: recipeTag.item.labelKey, checked: false };
       allIngredients = allIngredients.concat(values);
     });
 
     const { additionalIngredients } = this.stepperService.data;
-    updated = this.insertOrUpdateIngredients(allIngredients, updated, additionalIngredients);
-    this.stepperService.data.additionalIngredients = [...updated];
+
+    const updatedAdditionalIngredients = this.insertOrUpdateIngredients(allIngredients, updated, additionalIngredients);
+    this.stepperService.data.additionalIngredients = [...updatedAdditionalIngredients];
 
     this.updateStepperStatus();
   }
@@ -115,19 +116,17 @@ export class IngredientsStepComponent implements OnInit {
     this.stepperService.currentStepStatus = anyIngredientsSelected ? RoutedStepStatus.Valid : RoutedStepStatus.Invalid;
   }
 
-  private insertOrUpdateIngredients(allAvailableIngredients: SelectionItem<string>[], selectedIngredients: SelectionItem<string>[], target: SelectionItem<string>[]): SelectionItem<string>[] {
-    allAvailableIngredients.forEach(ingredient => {
-      const currSelected = selectedIngredients.find(i => ingredient.item === i.item);
-      const alreadySelected = target.find(i => ingredient.item === i.item);
+  private insertOrUpdateIngredients(allAvailableIngredients: SelectionItem<string>[], selectedIngredient: SelectionItem<string>, target: SelectionItem<string>[]): SelectionItem<string>[] {
+    const currSelected = allAvailableIngredients.find(i => selectedIngredient.label === i.label);
+    const alreadySelected = target.find(i => selectedIngredient.label === i.label);
 
-      if (currSelected !== undefined) {
-        if (alreadySelected !== undefined) {
-          alreadySelected.checked = currSelected.checked;
-        } else {
-          target.push(currSelected);
-        }
+    if (currSelected !== undefined) {
+      if (alreadySelected !== undefined) {
+        alreadySelected.checked = selectedIngredient.checked;
+      } else {
+        target.push(selectedIngredient);
       }
-    });
+    }
 
     return target;
   }

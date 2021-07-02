@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
 import { finalize } from 'rxjs/operators';
+import { ingredientCategoryOptions } from '../../constants';
 import { PagedResponse, RecipeStepperData, RecipeSuggestion } from '../../models';
 import { RecipeFinderService } from '../../services';
 
@@ -17,7 +18,7 @@ export class RecipesSuggestionsListComponent implements OnInit, OnChanges {
 
   suggestionResult?: PagedResponse<RecipeSuggestion>;
   isLoading = false;
-  pageSize = 14;
+  pageSize = 12;
   pageNumber = 1;
 
   constructor(private recipeFinderService: RecipeFinderService) { }
@@ -49,15 +50,31 @@ export class RecipesSuggestionsListComponent implements OnInit, OnChanges {
       .filter(item => item.checked)
       .map(item => item.item);
 
-    const ingredients = this.recipeData.checkedIngredients.map(i => i.item);
+    const ingredients: string[] = [];
+
+    const identifiedIngredients: Array<string> = this.recipeData.checkedIdentifiedIngredients.map(i => i.item);
+    ingredients.push(identifiedIngredients.join(','));
+    const additionalIngredients = this.recipeData.checkedAdditionalIngredients.map(i => i.label ?? '');
+
+    for (let i = 0; i < additionalIngredients.length; i++) {
+      Object.entries(ingredientCategoryOptions)
+        .filter(([_, options]) => options.find(o => additionalIngredients[i] == o.labelKey))
+        .map(([_, values]) => {
+          const option = values.filter(v => v.labelKey == additionalIngredients[i]);
+          if (option.length == 0) {
+            return '';
+          }
+
+          const optionValues: Array<string> = option[0].values;
+          ingredients.push(optionValues.join(','));
+          return optionValues;
+        });
+    }
 
     this.recipeFinderService.findSuggestions(ingredients, tags, this.pageNumber, this.pageSize)
       .pipe(finalize(() => this.isLoading = false))
       .subscribe(
-        result => {
-          this.suggestionResult = { ...result };
-          console.log(this.suggestionResult);
-        },
+        result => this.suggestionResult = { ...result },
         () => this.isLoading = false);
   }
 }

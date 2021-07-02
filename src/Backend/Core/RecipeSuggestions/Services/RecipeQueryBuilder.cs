@@ -11,11 +11,14 @@ namespace Perry.Core.RecipeSuggestions.Services
     {
         public IQueryable<Recipe> BuildRecipeQueryForIngredients(DbSet<Recipe> recipes, IEnumerable<string> ingredients)
         {
-            ingredients = ingredients
-                .Select(i => $"FORMSOF(INFLECTIONAL, \"{i}\")")
-                .ToList();
+            var groupedIngredients = new List<string>();
+            foreach(var ingredient in ingredients)
+            {
+                var cleanedIngredients = ingredient.Split(',').Select(i => $"FORMSOF(INFLECTIONAL, \"{i}\")");
+                groupedIngredients.Add($"({string.Join(" OR ", cleanedIngredients)})");
+            }
 
-            var ingredientsQueryStr = string.Join(" AND ", ingredients);
+            var ingredientsQueryStr = string.Join(" AND ", groupedIngredients);
 
             return recipes
                 .FromSqlInterpolated($@"SELECT Id, Name, Description, Url, Ingredients, Method

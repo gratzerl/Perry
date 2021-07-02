@@ -1,5 +1,6 @@
 import { OnDestroy, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
+import { TranslocoService } from '@ngneat/transloco';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { PreferenceCategory } from '../../constants';
@@ -19,13 +20,17 @@ export class SummaryStepComponent implements OnInit, OnDestroy {
 
   ingredients: SelectionItem<string>[] = [];
 
-  constructor(public stepperService: RecipeStepperService) { }
+  constructor(public stepperService: RecipeStepperService, private translocoService: TranslocoService) { }
 
   ngOnInit(): void {
     this.stepperService.data$
       .pipe(takeUntil(this.onDestroy))
       .subscribe(data => {
-        this.ingredients = [...data.additionalIngredients];
+        this.ingredients = [...data.additionalIngredients]
+          .map(i => {
+            i.item = this.translocoService.translate(i.label ?? i.item);
+            return i;
+          });
 
         if (data.identifiedIngredients !== undefined) {
           this.ingredients = this.ingredients.concat(data.identifiedIngredients);
