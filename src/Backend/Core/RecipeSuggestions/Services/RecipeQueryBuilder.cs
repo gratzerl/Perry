@@ -15,7 +15,7 @@ namespace Perry.Core.RecipeSuggestions.Services
             foreach(var ingredient in ingredients)
             {
                 var cleanedIngredients = ingredient.Split(',').Select(i => $"FORMSOF(INFLECTIONAL, \"{i}\")");
-                groupedIngredients.Add(string.Join(" OR ", cleanedIngredients));
+                groupedIngredients.Add($"({string.Join(" OR ", cleanedIngredients)})");
             }
 
             var ingredientsQueryStr = string.Join(" AND ", groupedIngredients);
