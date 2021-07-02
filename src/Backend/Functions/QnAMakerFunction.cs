@@ -12,7 +12,7 @@ namespace Perry.Functions
     public class QnAMakerFunction
     {
         private readonly IQnAMakerService qnaService;
-        private const double MinRequiredProbability = 0.83;
+        private const double MinRequiredProbability = 83.0;
 
         public QnAMakerFunction(IQnAMakerService qnaService)
         {
@@ -29,7 +29,7 @@ namespace Perry.Functions
 
             var searchResult = await qnaService.GetAnswerAsync(question);
             var isResultValid = searchResult != null && searchResult.Score >= MinRequiredProbability;
-            var answer = isResultValid ? searchResult.Answer : "No appropriate answer was found.";
+            var answer = isResultValid ? searchResult.Answer : "This question is beyond my pay grade. Please ask a search engine.";
 
             return new OkObjectResult(answer);
         }
