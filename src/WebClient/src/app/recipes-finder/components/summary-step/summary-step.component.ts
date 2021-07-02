@@ -20,18 +20,17 @@ export class SummaryStepComponent implements OnInit, OnDestroy {
 
   ingredients: SelectionItem<string>[] = [];
 
-  constructor(public stepperService: RecipeStepperService,
-    private translocoService: TranslocoService) { }
+  constructor(public stepperService: RecipeStepperService, private translocoService: TranslocoService) { }
 
   ngOnInit(): void {
     this.stepperService.data$
       .pipe(takeUntil(this.onDestroy))
       .subscribe(data => {
         this.ingredients = [...data.additionalIngredients]
-        .map(i => { 
-          i.item = this.translocoService.translate(i.label ?? i.item);
-          return i
-        });
+          .map(i => {
+            i.item = this.translocoService.translate(i.label ?? i.item);
+            return i;
+          });
 
         if (data.identifiedIngredients !== undefined) {
           this.ingredients = this.ingredients.concat(data.identifiedIngredients);

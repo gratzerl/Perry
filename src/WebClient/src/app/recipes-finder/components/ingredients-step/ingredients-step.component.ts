@@ -93,7 +93,7 @@ export class IngredientsStepComponent implements OnInit {
   }
 
   updateAdditionalIngredients(category: IngredientCategory, option: SelectionItem<RecipeTag>): void {
-    let updated: SelectionItem<string> = {label: option.item.labelKey, item: option.item.labelKey, checked: option.checked };
+    const updated: SelectionItem<string> = { label: option.item.labelKey, item: option.item.labelKey, checked: option.checked };
 
     let allIngredients: SelectionItem<string>[] = [];
     this.ingredientOptions[category].map(recipeTag => {
@@ -102,8 +102,8 @@ export class IngredientsStepComponent implements OnInit {
     });
 
     const { additionalIngredients } = this.stepperService.data;
-    
-    let updatedAdditionalIngredients = this.insertOrUpdateIngredients(allIngredients, updated, additionalIngredients);
+
+    const updatedAdditionalIngredients = this.insertOrUpdateIngredients(allIngredients, updated, additionalIngredients);
     this.stepperService.data.additionalIngredients = [...updatedAdditionalIngredients];
 
     this.updateStepperStatus();
