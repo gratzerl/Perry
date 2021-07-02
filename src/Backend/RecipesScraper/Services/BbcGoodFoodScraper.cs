@@ -17,7 +17,7 @@ namespace Perry.RecipesScraper.Services
         private readonly string recipeBaseUrl = $"{bbcBaseUrl}/recipes";
 
         public BbcGoodFoodScraper(ILogger<BbcGoodFoodScraper> logger, HtmlWeb web) 
-            : base(logger, web, siteMapUrls, "BBC")
+            : base(logger, web, siteMapUrls)
         {
         }
 
