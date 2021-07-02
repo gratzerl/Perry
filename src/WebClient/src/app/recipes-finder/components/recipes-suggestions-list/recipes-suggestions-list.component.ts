@@ -50,7 +50,10 @@ export class RecipesSuggestionsListComponent implements OnInit, OnChanges {
       .filter(item => item.checked)
       .map(item => item.item);
 
-    let ingredients = this.recipeData.checkedIdentifiedIngredients.map(i => i.item);
+    let ingredients: string[] = [];
+
+    let identifiedIngredients: Array<string> = this.recipeData.checkedIdentifiedIngredients.map(i => i.item);
+    ingredients.push(identifiedIngredients.join(','));
     const additionalIngredients = this.recipeData.checkedAdditionalIngredients.map(i => i.label ?? '');
 
     for(let i = 0; i < additionalIngredients.length; i++) {
@@ -62,11 +65,8 @@ export class RecipesSuggestionsListComponent implements OnInit, OnChanges {
           return '';
         }
 
-        let optionValues = '';
-        for(let j = 0; j < option[0].values.length; j++) {
-          optionValues += option[0].values[j] + ',';
-        }
-        ingredients.push(optionValues);
+        const optionValues: Array<string> = option[0].values;
+        ingredients.push(optionValues.join(','));
         return optionValues;
       });
     }
