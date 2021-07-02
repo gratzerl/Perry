@@ -12,23 +12,22 @@ export class RecipeStepperData {
   ) { }
 
   get checkedIngredients(): SelectionItem<string>[] {
-    const { additionalIngredients, identifiedIngredients } = this;
-
     let ingredients: SelectionItem<string>[] = [];
 
-    if (additionalIngredients) {
-      ingredients = additionalIngredients
-        .filter(item => item.checked);
-    }
-
-    if (identifiedIngredients) {
-      const selected = identifiedIngredients
-        .filter(item => item.checked);
-
-      ingredients = ingredients.concat(selected);
-    }
+    ingredients = this.checkedAdditionalIngredients;
+    ingredients = ingredients.concat(this.checkedIdentifiedIngredients);
 
     return ingredients;
+  }
+
+  get checkedIdentifiedIngredients(): SelectionItem<string>[] {
+    const { identifiedIngredients } = this;
+    return identifiedIngredients ? identifiedIngredients.filter(item => item.checked) : [];
+  }
+
+  get checkedAdditionalIngredients(): SelectionItem<string>[] {
+    const { additionalIngredients } = this;
+    return additionalIngredients ? additionalIngredients.filter(item => item.checked) : [];
   }
 
   hasData(): boolean {
