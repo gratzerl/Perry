@@ -19,7 +19,7 @@ namespace Perry.RecipesScraper.Services
         };
 
         public AllRecipesScraper(ILogger<AllRecipesScraper> logger, HtmlWeb web) 
-            : base(logger, web, siteMapUrls, "AllRecipes")
+            : base(logger, web, siteMapUrls)
         {
         }
 
